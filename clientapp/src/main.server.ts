@@ -5,5 +5,3 @@ import { AppComponent } from './app/app.component';
 const bootstrap = () => bootstrapApplication(AppComponent, config);
 
 export default bootstrap;
-
-//
