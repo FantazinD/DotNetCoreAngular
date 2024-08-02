@@ -5,3 +5,11 @@
 .no-active {
   background-color: red;
 }
+
+.active-border {
+  border: 5px solid yellow;
+}
+
+.no-active-border {
+  border: 5px solid blue;
+}

@@ -5,6 +5,11 @@
 <img [src]="imgUrl" alt="angular image" />
 
 <!-- class Binding -->
-<button [class.active]="isActive" [class.no-active]="!isActive">
+<button
+  [class.active]="isActive"
+  [class.active-border]="isActive"
+  [class.no-active]="!isActive"
+  [class.no-active-border]="!isActive"
+>
   Click Me
 </button>
