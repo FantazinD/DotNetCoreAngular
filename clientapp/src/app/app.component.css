@@ -1,3 +1,7 @@
 .active {
   background-color: green;
 }
+
+.no-active {
+  background-color: red;
+}
