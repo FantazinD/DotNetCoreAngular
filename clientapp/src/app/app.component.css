@@ -13,3 +13,8 @@
 .no-active-border {
   border: 5px solid blue;
 }
+
+.apple {
+  background-color: red;
+  border: 1px solid green;
+}
