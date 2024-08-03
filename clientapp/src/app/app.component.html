@@ -16,4 +16,9 @@
 
 <!-- style binding -->
 <button [class.apple]="fruitName == 'Apple'">Fruit Ninja</button>
-<button [style.background]="isActive ? 'red' : 'green'">Fruit Ninja</button>
+<button
+  [style.background]="isActive ? 'red' : 'green'"
+  [style.border]="isActive ? '3px green solid' : ''"
+>
+  Fruit Ninja
+</button>
