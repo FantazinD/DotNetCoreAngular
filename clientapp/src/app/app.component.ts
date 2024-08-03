@@ -16,4 +16,7 @@ export class AppComponent {
   isDisabled: boolean = true;
   isActive: boolean = true;
   fruitName: string = 'Apple';
+  buttonClick = () => {
+    console.log('hehe');
+  };
 }
