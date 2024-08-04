@@ -19,4 +19,9 @@ export class AppComponent {
   buttonClick = () => {
     console.log('hehe');
   };
+  keyEnter = (event: any) => {
+    if (event.keyCode == 13) {
+      console.log('Enter Key Pressed.');
+    }
+  };
 }
