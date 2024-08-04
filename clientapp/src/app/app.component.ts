@@ -24,7 +24,7 @@ export class AppComponent {
       console.log('Enter Key Pressed.');
     }
   };
-  keyupFiltering = () => {
-    console.log('keyupFiltering.');
+  keyupFiltering = (user: HTMLInputElement) => {
+    console.log(user);
   };
 }
