@@ -16,6 +16,7 @@ export class AppComponent {
   isDisabled: boolean = true;
   isActive: boolean = true;
   fruitName: string = 'Apple';
+  userName: string = 'John Doe';
   buttonClick = () => {
     console.log('hehe');
   };
@@ -26,5 +27,9 @@ export class AppComponent {
   };
   keyupFiltering = (user: HTMLInputElement) => {
     console.log(user.id);
+  };
+  updateUsername = (username: HTMLInputElement) => {
+    this.userName = username.value;
+    console.log(this.userName);
   };
 }

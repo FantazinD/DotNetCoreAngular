@@ -29,4 +29,12 @@
 <input type="text" (keyup)="keyEnter($event)" />
 <div><p>Filtering</p></div>
 <input type="text" (keyup.enter)="keyupFiltering(user)" #user id="userInput" />
-<div></div>
+
+<!-- Two way Data Binding -->
+<div>Two Way Data Binding</div>
+<input
+  type="text"
+  [value]="userName"
+  #username
+  (keyup.enter)="updateUsername(username)"
+/>
