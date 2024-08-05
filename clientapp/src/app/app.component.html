@@ -31,10 +31,12 @@
 <input type="text" (keyup.enter)="keyupFiltering(user)" #user id="userInput" />
 
 <!-- Two way Data Binding -->
-<div>Two Way Data Binding</div>
+<div>Manual Two Way Data Binding</div>
 <input
   type="text"
   [value]="userName"
   #username
   (keyup.enter)="updateUsername(username)"
 />
+<div>Angular Two Way Data Binding</div>
+<input type="text" [(ngModel)]="userName" />
