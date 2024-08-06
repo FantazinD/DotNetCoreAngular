@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent, FormsModule],
+  imports: [RouterOutlet, HomeComponent, FormsModule, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -17,6 +18,7 @@ export class AppComponent {
   isDisabled: boolean = true;
   isActive: boolean = true;
   fruitName: string = 'Apple';
+  isLoggedIn: boolean = false;
   userName: string = 'John Doe';
   buttonClick = () => {
     console.log('hehe');
