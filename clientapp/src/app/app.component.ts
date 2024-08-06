@@ -18,7 +18,7 @@ export class AppComponent {
   isDisabled: boolean = true;
   isActive: boolean = true;
   fruitName: string = 'Apple';
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   userName: string = 'John Doe';
   buttonClick = () => {
     console.log('hehe');
