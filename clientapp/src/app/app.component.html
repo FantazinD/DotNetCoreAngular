@@ -56,5 +56,12 @@
 
 <!-- If Directive with number values -->
 <div><p>-- Line Separator --</p></div>
+
+<!-- <button (click)="countLoginAttempts()" *ngIf="loginAttempts <= 3">LogIn</button>
+<h4 *ngIf="loginAttempts > 3">Exceeded 3 login attempts. Try Again Later.</h4> -->
+
+@if(loginAttempts <= 3) {
 <button (click)="countLoginAttempts()">LogIn</button>
-<h4 *ngIf="loginAttempts > 3">Exceeded 3 login attempts. Try Again Later.</h4>
+}@else{
+<h4>Exceeded 3 login attempts. Try Again Later.</h4>
+}
