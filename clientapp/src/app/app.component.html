@@ -42,8 +42,11 @@
 <input type="text" [(ngModel)]="userName" />
 
 <!-- angular directives -->
-<div><p>Angular Two Way Data Binding</p></div>
-<h2 *ngIf="isLoggedIn">{{ userName }}</h2>
+<div><p>Angular Directives</p></div>
+<h4 *ngIf="isLoggedIn; else message">User is LoggedIn</h4>
+<ng-template #message>
+  <h2>User is not logged in (ng-template)</h2>
+</ng-template>
 
 @if(isLoggedIn) {
 <h3>{{ userName }}</h3>
