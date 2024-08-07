@@ -35,4 +35,8 @@ export class AppComponent {
     this.userName = username.value;
     console.log(this.userName);
   };
+  loginAttempts: number = 0;
+  countLoginAttempts = () => {
+    this.loginAttempts++;
+  };
 }

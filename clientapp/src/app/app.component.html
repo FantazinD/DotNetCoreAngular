@@ -53,3 +53,8 @@
 }@else{
 <h3>Hehe</h3>
 }
+
+<!-- If Directive with number values -->
+<div><p>-- Line Separator --</p></div>
+<button (click)="countLoginAttempts()">LogIn</button>
+<h4 *ngIf="loginAttempts > 3">Exceeded 3 login attempts. Try Again Later.</h4>
