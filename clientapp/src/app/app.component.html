@@ -68,4 +68,8 @@
 
 <!-- if directive with string values -->
 <div><p>-- Line Separator - Directives with string values. --</p></div>
-<h4 *ngIf="userRole == 'Admin'">Welcome, Admin!</h4>
+<h4 *ngIf="userRole == 'Admin'; else memberMessage">Welcome, Admin!</h4>
+
+<ng-template #memberMessage>
+  <h4>Welcome, Member!</h4>
+</ng-template>
