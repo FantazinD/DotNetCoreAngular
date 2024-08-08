@@ -39,4 +39,5 @@ export class AppComponent {
   countLoginAttempts = () => {
     this.loginAttempts++;
   };
+  userRole: string = 'Admin';
 }

@@ -65,3 +65,7 @@
 }@else{
 <h4>Exceeded 3 login attempts. Try Again Later.</h4>
 }
+
+<!-- if directive with string values -->
+<div><p>-- Line Separator - Directives with string values. --</p></div>
+<h4 *ngIf="userRole == 'Admin'">Welcome, Admin!</h4>
