@@ -77,6 +77,20 @@
 
 <!-- ng-template -->
 <div><p>-- Line Separator --</p></div>
-<ng-template>
+<ng-template #dynamicTempalate>
   <p>This Content is inside ng-template</p>
 </ng-template>
+
+<ng-template #callToAction>
+  <button>Join Now</button>
+</ng-template>
+
+<div [ngTemplateOutlet]="callToAction">
+  <h5>Sidebar</h5>
+</div>
+<div>
+  <h5>Hero</h5>
+</div>
+<div>
+  <h5>Footer</h5>
+</div>
