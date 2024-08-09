@@ -82,6 +82,7 @@
 </ng-template>
 
 <ng-template #callToAction>
+  <p>Call To Action</p>
   <button>Join Now</button>
 </ng-template>
 
@@ -94,3 +95,7 @@
 <div>
   <h5>Footer</h5>
 </div>
+
+<!-- ng for directive -->
+<div><p>-- Line Separator --</p></div>
+<h3 *ngFor="let user of users">{{ user }}</h3>

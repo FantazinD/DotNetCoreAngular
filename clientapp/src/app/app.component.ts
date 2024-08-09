@@ -2,12 +2,19 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent, FormsModule, NgIf, NgTemplateOutlet],
+  imports: [
+    RouterOutlet,
+    HomeComponent,
+    FormsModule,
+    NgIf,
+    NgTemplateOutlet,
+    NgFor,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -40,4 +47,5 @@ export class AppComponent {
     this.loginAttempts++;
   };
   userRole: string = 'Admin';
+  users: Array<string> = ['John', 'Sam', 'Smith', 'Heel'];
 }
