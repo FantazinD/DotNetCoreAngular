@@ -99,3 +99,8 @@
 <!-- ng for directive -->
 <div><p>-- Line Separator --</p></div>
 <h3 *ngFor="let user of users">{{ user }}</h3>
+
+<p>new For syntax Approach.</p>
+@for (user of users; track user) {
+<h3>{{ user }}</h3>
+}
