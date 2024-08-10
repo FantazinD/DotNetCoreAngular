@@ -48,4 +48,10 @@ export class AppComponent {
   };
   userRole: string = 'Admin';
   users: Array<string> = ['John', 'Sam', 'Smith', 'Heel'];
+  usersObj: Array<any> = [
+    { Name: 'John', Id: 1 },
+    { Name: 'Sam', Id: 2 },
+    { Name: 'Smith', Id: 3 },
+    { Name: 'Heel', Id: 4 },
+  ];
 }
