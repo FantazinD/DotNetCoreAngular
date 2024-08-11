@@ -56,8 +56,13 @@ export class AppComponent {
   ];
   addToUserObjArray = (users: any[]) => {
     let user: any = { Name: `Hwapo ${users.length}`, Id: users.length + 1 };
-    users.push(user);
+    this.usersObj.push(user);
+  };
+  deleteUserFromObjArray = (userId: number) => {
+    let newUsers: Array<any> = this.usersObj.filter(
+      (userObj) => userObj.Id !== userId
+    );
 
-    this.usersObj = users;
+    this.usersObj = newUsers;
   };
 }

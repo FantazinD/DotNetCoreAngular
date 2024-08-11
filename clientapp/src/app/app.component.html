@@ -112,12 +112,16 @@
   }
 </ul>
 
+<p>Add User to ObjArray</p>
+<button (click)="addToUserObjArray(usersObj)">Add User</button>
+
 <p>unordered list with object array.</p>
 <ul>
   @for (user of usersObj; track user) {
-  <li>{{ user.Name }}</li>
+  <li>
+    {{ user.Name }}
+    <button (click)="deleteUserFromObjArray(user.Id)">Delete</button>
+  </li>
+
   }
 </ul>
-
-<p>Add User</p>
-<button (click)="addToUserObjArray(usersObj)">Add User</button>
