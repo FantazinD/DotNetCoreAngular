@@ -112,9 +112,12 @@
   }
 </ul>
 
-<p>Add User to ObjArray</p>
+<p>Add User to ObjArrays</p>
 <button (click)="addToUserObjArray(usersObj)">Add User</button>
 
+@if(usersObj.length == 0){
+<p>No User to Display!</p>
+}@else {
 <p>unordered list with object array.</p>
 <ul>
   @for (user of usersObj; track user) {
@@ -122,6 +125,6 @@
     {{ user.Name }}
     <button (click)="deleteUserFromObjArray(user.Id)">Delete</button>
   </li>
-
   }
 </ul>
+}
