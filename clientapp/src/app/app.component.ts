@@ -54,4 +54,10 @@ export class AppComponent {
     { Name: 'Smith', Id: 3 },
     { Name: 'Heel', Id: 4 },
   ];
+  addToUserObjArray = (users: any[]) => {
+    let user: any = { Name: `Hwapo ${users.length}`, Id: users.length + 1 };
+    users.push(user);
+
+    this.usersObj = users;
+  };
 }
