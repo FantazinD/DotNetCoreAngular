@@ -5,6 +5,7 @@
 <img [src]="imgUrl" alt="angular image" />
 
 <!-- class Binding -->
+<p>Class Binding</p>
 <button
   [class.active]="isActive"
   [class.active-border]="isActive"
@@ -15,6 +16,7 @@
 </button>
 
 <!-- style binding -->
+<p>Style Binding</p>
 <button [class.apple]="fruitName == 'Apple'">Fruit Ninja</button>
 <button
   [style.background]="isActive ? 'red' : 'green'"
@@ -24,6 +26,7 @@
 </button>
 
 <!-- Event Binding -->
+<p>Event Binding</p>
 <button (click)="buttonClick()">Click Me!</button>
 <div><p>Key Enter</p></div>
 <input type="text" (keyup)="keyEnter($event)" />
@@ -31,6 +34,7 @@
 <input type="text" (keyup.enter)="keyupFiltering(user)" #user id="userInput" />
 
 <!-- Two way Data Binding -->
+<p>Two Way Data Binding</p>
 <div>Manual Two Way Data Binding</div>
 <input
   type="text"
