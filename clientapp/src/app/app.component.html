@@ -7,7 +7,7 @@
 <div [ngSwitch]="userRole">
   <p *ngSwitchCase="'Admin'">Welcome, Admin</p>
   <p *ngSwitchCase="'Member'">Welcome, Member</p>
-  <p *ngSwitchDefault>Please Login</p>
+  <p *ngSwitchDefault>Welcome, {{ userRole }}</p>
 </div>
 
 <img [src]="imgUrl" alt="angular image" />

@@ -56,7 +56,7 @@ export class AppComponent {
   countLoginAttempts = () => {
     this.loginAttempts++;
   };
-  userRole: string = 'Member';
+  userRole: string = 'MadafKa';
   users: Array<string> = ['John', 'Sam', 'Smith', 'Heel'];
   usersObj: Array<any> = [
     { Name: 'John', Id: 1 },
