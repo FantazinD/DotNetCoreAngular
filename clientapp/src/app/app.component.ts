@@ -7,6 +7,7 @@ import {
   NgIf,
   NgSwitch,
   NgSwitchCase,
+  NgSwitchDefault,
   NgTemplateOutlet,
 } from '@angular/common';
 
@@ -22,6 +23,7 @@ import {
     NgFor,
     NgSwitch,
     NgSwitchCase,
+    NgSwitchDefault,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
