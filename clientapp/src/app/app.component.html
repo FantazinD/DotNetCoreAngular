@@ -15,6 +15,8 @@
 <p>Welcome, Admin</p>
 } @case('Member'){
 <p>Welcome, Member</p>
+}@default{
+<p>Welcome, {{ userRole }}</p>
 }}
 
 <img [src]="imgUrl" alt="angular image" />
