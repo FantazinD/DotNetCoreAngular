@@ -2,6 +2,13 @@
 <h2>{{ title }}</h2>
 <app-home></app-home>
 
+<!-- switch case -->
+<p>Angular Switch</p>
+<div [ngSwitch]="userRole">
+  <p *ngSwitchCase="'Admin'">Welcome, Admin</p>
+  <p *ngSwitchCase="'Member'">Welcome, Member</p>
+</div>
+
 <img [src]="imgUrl" alt="angular image" />
 
 <!-- class Binding -->

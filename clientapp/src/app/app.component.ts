@@ -2,7 +2,13 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import {
+  NgFor,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+  NgTemplateOutlet,
+} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +20,8 @@ import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
     NgIf,
     NgTemplateOutlet,
     NgFor,
+    NgSwitch,
+    NgSwitchCase,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -46,7 +54,7 @@ export class AppComponent {
   countLoginAttempts = () => {
     this.loginAttempts++;
   };
-  userRole: string = 'Admin';
+  userRole: string = 'Member';
   users: Array<string> = ['John', 'Sam', 'Smith', 'Heel'];
   usersObj: Array<any> = [
     { Name: 'John', Id: 1 },
