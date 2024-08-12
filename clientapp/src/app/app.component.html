@@ -10,6 +10,13 @@
   <p *ngSwitchDefault>Welcome, {{ userRole }}</p>
 </div>
 
+<p>Angular Switch New Syntax</p>
+@switch(userRole){ @case('Admin'){
+<p>Welcome, Admin</p>
+} @case('Member'){
+<p>Welcome, Member</p>
+}}
+
 <img [src]="imgUrl" alt="angular image" />
 
 <!-- class Binding -->
