@@ -5,4 +5,5 @@ import { NavmenuComponent } from './components/navmenu/navmenu.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: NavmenuComponent },
+  { path: 'contact', component: HomeComponent },
 ];
