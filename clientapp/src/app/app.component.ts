@@ -10,6 +10,7 @@ import {
   NgSwitchDefault,
   NgTemplateOutlet,
 } from '@angular/common';
+import { NavmenuComponent } from './components/navmenu/navmenu.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import {
   imports: [
     RouterOutlet,
     HomeComponent,
+    NavmenuComponent,
     FormsModule,
     NgIf,
     NgTemplateOutlet,
