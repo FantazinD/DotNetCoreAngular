@@ -15,18 +15,7 @@ import { NavmenuComponent } from './components/navmenu/navmenu.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    HomeComponent,
-    NavmenuComponent,
-    FormsModule,
-    NgIf,
-    NgTemplateOutlet,
-    NgFor,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
-  ],
+  imports: [RouterOutlet, HomeComponent, NavmenuComponent, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
