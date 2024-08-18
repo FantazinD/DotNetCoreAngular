@@ -9,7 +9,10 @@ import { NavmenuComponent } from './components/navmenu/navmenu.component';
   standalone: true,
   imports: [RouterOutlet, HomeComponent, NavmenuComponent, FormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: [
+    './app.component.css',
+    '../../node_modules/bootstrap/dist/css/bootstrap.min.css',
+  ],
 })
 export class AppComponent {
   title: string = 'Vega';
