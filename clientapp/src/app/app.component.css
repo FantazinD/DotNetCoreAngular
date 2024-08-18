@@ -1,20 +1,6 @@
-.active {
-  background-color: green;
-}
-
-.no-active {
-  background-color: red;
-}
-
-.active-border {
-  border: 5px solid yellow;
-}
-
-.no-active-border {
-  border: 5px solid blue;
-}
-
-.apple {
-  background-color: red;
-  border: 1px solid green;
+@media (max-width: 767px) {
+  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+  .body-content {
+    padding-top: 50px;
+  }
 }
