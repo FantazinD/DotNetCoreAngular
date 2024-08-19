@@ -17,6 +17,7 @@ li.link-active a:focus {
   left: 0;
   right: 0;
   z-index: 1;
+  background-color: pink;
 }
 
 @media (min-width: 768px) {
