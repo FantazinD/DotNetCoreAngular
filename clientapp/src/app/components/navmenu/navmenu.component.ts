@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-navmenu',
   standalone: true,
-  imports: [NgbCollapse],
+  imports: [NgbCollapseModule],
   templateUrl: './navmenu.component.html',
   styleUrl: './navmenu.component.css',
 })
-export class NavmenuComponent {}
+export class NavmenuComponent {
+  isCollapsed = false;
+}
