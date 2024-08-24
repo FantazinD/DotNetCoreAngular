@@ -10,19 +10,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './vehicle-form.component.css',
 })
 export class VehicleFormComponent implements OnInit {
-  makes: any;
-  vehicle = {
+  makes: any[] = [];
+  models: any[] = [];
+  vehicle: any = {
     make: '',
   };
   constructor(private makeService: MakeService) {}
 
   ngOnInit(): void {
-    this.makeService.getMakes().subscribe((makes: any) => {
-      this.makes = makes;
-    });
+    this.makeService.getMakes().subscribe((makes: any) => (this.makes = makes));
   }
 
   onMakeChange = (): void => {
-    console.log('VEHICLE', this.vehicle);
+    let selectedMake = this.makes.find((make) => make.id == this.vehicle.make);
+    this.models = selectedMake.models;
   };
 }
