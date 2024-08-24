@@ -2,7 +2,13 @@
 <form>
   <div class="form-group">
     <label for="make">Make</label
-    ><select id="make" class="form-control">
+    ><select
+      id="make"
+      class="form-control"
+      (change)="onMakeChange()"
+      [(ngModel)]="vehicle.make"
+      name="make"
+    >
       <option value=""></option>
       @for(make of makes; track make){
       <option value="{{ make.id }}">{{ make.name }}</option>
