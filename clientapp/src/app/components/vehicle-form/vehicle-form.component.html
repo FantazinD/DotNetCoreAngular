@@ -24,4 +24,13 @@
       }
     </select>
   </div>
+  <h2>Features</h2>
+  @for(feature of features; track feature){
+  <div class="checkbox">
+    <label for="feature{{ feature.id }}"
+      ><input type="checkbox" id="feature{{ feature.id }}" />
+      {{ feature.name }}</label
+    >
+  </div>
+  }
 </form>
