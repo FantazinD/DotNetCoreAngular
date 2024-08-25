@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { NavmenuComponent } from './components/navmenu/navmenu.component';
 import { MakeService } from '../../services/make.service';
+import { FeatureService } from '../../services/feature.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { MakeService } from '../../services/make.service';
   imports: [RouterOutlet, HomeComponent, NavmenuComponent, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [MakeService],
+  providers: [MakeService, FeatureService],
 })
 export class AppComponent {
   title: string = 'Vega';
