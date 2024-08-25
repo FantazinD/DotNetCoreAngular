@@ -18,7 +18,8 @@ export class VehicleFormComponent implements OnInit {
   constructor(private makeService: MakeService) {}
 
   ngOnInit(): void {
-    this.makeService.getMakes().subscribe((makes: any) => (this.makes = makes));
+    //this.makeService.getMakes().subscribe((makes: any) => (this.makes = makes));
+    this.makes = this.makeService.getMakes();
   }
 
   onMakeChange = (): void => {
