@@ -20,7 +20,7 @@ namespace api.Controllers
         [HttpGet("/api/makes")]
         public async Task<IActionResult> GetMakes()
         {
-            var makes = await _context.Makes.Include(m => m.Models).ToListAsync();
+            var makes = await _context.Makes.Include(make => make.Models).ToListAsync();
 
             return Ok(makes.Select(make => make.ToMakeDTO()).ToList());
         }

@@ -8,5 +8,9 @@ import { map, Observable } from 'rxjs';
 export class FeatureService {
   constructor(private http: HttpClient) {}
 
-  getFeatures() {}
+  getFeatures() {
+    // return this.http
+    //   .get('http://localhost:5166/api/features')
+    //   .pipe(map((res) => res));
+  }
 }
