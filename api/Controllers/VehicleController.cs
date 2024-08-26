@@ -1,0 +1,28 @@
+using api.Data;
+using api.DTOs.Vehicle;
+using api.Mappers;
+using api.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace api.Controllers
+{
+    //delet dis - rename to VehicleController
+    [Route("api/vehicle")]
+    [ApiController]
+    public class VehicleController(ApplicationDBContext context): ControllerBase
+    {
+        private readonly ApplicationDBContext _context = context;
+
+        [HttpPost("/api/vehicles")]
+        public async Task<IActionResult> CreateVehicle([FromBody] VehicleDTO vehicleDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var vehicle = vehicleDTO.ToVehicle();
+
+            return Ok(vehicle);
+        }
+    }
+}
