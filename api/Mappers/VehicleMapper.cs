@@ -16,7 +16,6 @@ namespace api.Mappers
                 ContactName = vehicleDTO.Contact.Name,
                 ContactEmail = vehicleDTO.Contact.Email,
                 ContactPhone = vehicleDTO.Contact.Phone,
-                LastUpdate = DateTime.Now,
                 Features = vehicleDTO.Features.Select(featureId => new VehicleFeature {
                     FeatureId = featureId
                 }).ToList()

@@ -21,6 +21,10 @@ namespace api.Controllers
                 return BadRequest(ModelState);
 
             var vehicle = vehicleDTO.ToVehicle();
+            vehicle.LastUpdate = DateTime.UtcNow;
+
+            _context.Vehicles.Add(vehicle);
+            await _context.SaveChangesAsync();
 
             return Ok(vehicle);
         }
