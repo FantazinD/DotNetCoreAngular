@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
+    //delet dis - rename to VehicleController
     [Route("api/vehicle")]
     [ApiController]
     public class Vehicle(ApplicationDBContext context): ControllerBase
