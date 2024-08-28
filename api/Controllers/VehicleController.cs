@@ -28,5 +28,10 @@ namespace api.Controllers
 
             return Ok(vehicle);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateVehicle(int id, [FromBody] VehicleDTO vehicleDTO){
+            return Ok();
+        }
     }
 }
