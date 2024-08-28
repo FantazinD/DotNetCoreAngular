@@ -23,7 +23,7 @@ namespace api.Controllers
             var vehicle = vehicleDTO.ToVehicle();
             vehicle.LastUpdate = DateTime.UtcNow;
 
-            _context.Vehicles.Add(vehicle);
+            _context.Vehicles.Add(vehicle); 
             await _context.SaveChangesAsync();
 
             return Ok(vehicle);
