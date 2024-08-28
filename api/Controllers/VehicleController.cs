@@ -30,7 +30,15 @@ namespace api.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateVehicle(int id, [FromBody] VehicleDTO vehicleDTO){
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDTO vehicleDTO){
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var vehicle = await context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+            vehicle.LastUpdate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
             return Ok();
         }
     }
