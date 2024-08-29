@@ -35,6 +35,10 @@ namespace api.Controllers
                 return BadRequest(ModelState);
 
             var vehicle = await context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+
+            if (vehicle == null)
+                return BadRequest("Vehicle not found.");
+
             var updatedVehicle = vehicle.UpdateVehicle(vehicleDTO);
             vehicle.LastUpdate = DateTime.Now;
 
