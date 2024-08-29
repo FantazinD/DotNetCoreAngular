@@ -20,6 +20,19 @@ namespace api.Mappers
                     FeatureId = featureId
                 }).ToList()
             };
-        } 
+        }
+
+        public static Vehicle UpdateVehicle (this Vehicle vehicle, VehicleDTO vehicleDTO){
+            var updatedVehicle = vehicle;
+            updatedVehicle.IsRegistered = vehicleDTO.IsRegistered == null ? updatedVehicle.IsRegistered : vehicleDTO.IsRegistered;
+            updatedVehicle.ContactName = vehicleDTO.Contact.Name ?? updatedVehicle.ContactName;
+            updatedVehicle.ContactEmail = vehicleDTO.Contact.Email ?? updatedVehicle.ContactEmail;
+            updatedVehicle.ContactPhone = vehicleDTO.Contact.Phone ?? updatedVehicle.ContactPhone;
+            updatedVehicle.Features = vehicleDTO.Features == null ? updatedVehicle.Features : vehicleDTO.Features.Select(featureId => new VehicleFeature {
+                    FeatureId = featureId
+                }).ToList();
+
+            return updatedVehicle;
+        }
     }
 }

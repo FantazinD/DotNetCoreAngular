@@ -29,17 +29,18 @@ namespace api.Controllers
             return Ok(vehicle);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("/api/vehicles/{id}")]
         public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDTO vehicleDTO){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var vehicle = await context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+            var updatedVehicle = vehicle.UpdateVehicle(vehicleDTO);
             vehicle.LastUpdate = DateTime.Now;
 
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(vehicleDTO.ToVehicle());
         }
     }
 }
