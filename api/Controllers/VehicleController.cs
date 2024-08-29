@@ -40,11 +40,11 @@ namespace api.Controllers
                 return BadRequest("Vehicle not found.");
 
             var updatedVehicle = vehicle.UpdateVehicle(vehicleDTO);
-            vehicle.LastUpdate = DateTime.Now;
+            updatedVehicle.LastUpdate = DateTime.Now;
 
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
-            return Ok(vehicleDTO.ToVehicle());
+            return Ok(updatedVehicle);
         }
     }
 }
