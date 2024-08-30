@@ -1,13 +1,11 @@
 using api.Data;
 using api.DTOs.Vehicle;
 using api.Mappers;
-using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
-    //delet dis - rename to VehicleController
     [Route("api/vehicle")]
     [ApiController]
     public class VehicleController(ApplicationDBContext context): ControllerBase
