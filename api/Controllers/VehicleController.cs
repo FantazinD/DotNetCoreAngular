@@ -42,7 +42,7 @@ namespace api.Controllers
             var updatedVehicle = vehicle.UpdateVehicle(vehicleDTO);
             updatedVehicle.LastUpdate = DateTime.Now;
 
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return Ok(updatedVehicle);
         }
