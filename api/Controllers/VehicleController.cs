@@ -60,5 +60,15 @@ namespace api.Controllers
 
             return Ok(id);
         }
+
+        [HttpGet("/api/vehicles/{id}")]
+        public async Task<IActionResult> GetVehicle(int id){
+            var vehicle = await context.Vehicles.FindAsync(id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            return Ok(vehicle.ToVehicleDTO());
+        }
     }
 }
