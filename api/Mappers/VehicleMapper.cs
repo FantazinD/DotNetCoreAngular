@@ -31,9 +31,14 @@ namespace api.Mappers
             updatedVehicle.ContactName = vehicleDTO.Contact.Name ?? vehicle.ContactName;
             updatedVehicle.ContactEmail = vehicleDTO.Contact.Email ?? vehicle.ContactEmail;
             updatedVehicle.ContactPhone = vehicleDTO.Contact.Phone ?? vehicle.ContactPhone;
-            updatedVehicle.Features = vehicleDTO.Features.IsNullOrEmpty() ? vehicle.Features : vehicleDTO.Features.SequenceEqual(updatedVehicle.Features.Select(feature => feature.FeatureId).ToList()) ? vehicle.Features : vehicleDTO.Features.Select(featureId => new VehicleFeature {
-                    FeatureId = featureId
-                }).ToList();
+            updatedVehicle.Features = vehicleDTO.Features.IsNullOrEmpty() ? 
+                vehicle.Features : 
+                vehicleDTO.Features.SequenceEqual(updatedVehicle.Features.Select(feature => feature.FeatureId).ToList()) ? 
+                    vehicle.Features : 
+                    vehicleDTO.Features.Select(featureId => new VehicleFeature 
+                    {
+                        FeatureId = featureId
+                    }).ToList();
 
             return updatedVehicle;
         }
