@@ -35,7 +35,7 @@ namespace api.Controllers
             var vehicle = await context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
 
             if (vehicle == null)
-                return BadRequest("Vehicle not found.");
+                return NotFound();
 
             var updatedVehicle = vehicle.UpdateVehicle(vehicleDTO);
             updatedVehicle.LastUpdate = DateTime.Now;
@@ -53,7 +53,7 @@ namespace api.Controllers
             var vehicle = await context.Vehicles.FindAsync(id);
 
             if (vehicle == null)
-                return BadRequest("Vehicle not found.");
+                return NotFound();
 
             _context.Remove(vehicle);
             _context.SaveChangesAsync();
