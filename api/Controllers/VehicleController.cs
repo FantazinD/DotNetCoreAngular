@@ -63,7 +63,7 @@ namespace api.Controllers
 
         [HttpGet("/api/vehicles/{id}")]
         public async Task<IActionResult> GetVehicle(int id){
-            var vehicle = await context.Vehicles.FindAsync(id);
+            var vehicle = await context.Vehicles.Include(vehicle => vehicle.Features).FirstOrDefaultAsync(vehicle => vehicle.Id == id);
 
             if (vehicle == null)
                 return NotFound();

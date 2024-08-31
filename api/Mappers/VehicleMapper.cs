@@ -1,3 +1,4 @@
+using api.DTOs.Contact;
 using api.DTOs.Vehicle;
 using api.Models;
 using Microsoft.IdentityModel.Tokens;
@@ -20,8 +21,17 @@ namespace api.Mappers
         }
 
         public static VehicleDTO ToVehicleDTO (this Vehicle vehicle){
+            var fer = vehicle.Features.Select(feature => feature.FeatureId).ToList();
             return new VehicleDTO {
-                
+                Id = vehicle.Id,
+                ModelId = vehicle.ModelId,
+                IsRegistered = vehicle.IsRegistered,
+                Contact = new ContactDTO {
+                    Name = vehicle.ContactName,
+                    Email = vehicle.ContactEmail,
+                    Phone = vehicle.ContactPhone
+                },
+                Features = vehicle.Features.Select(feature => feature.FeatureId).ToArray()
             };
         }
 
