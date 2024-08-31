@@ -44,5 +44,21 @@ namespace api.Controllers
 
             return Ok(updatedVehicle);
         }
+
+        [HttpDelete("/api/vehicles/{id}")]
+        public async Task<IActionResult> DeleteVehicle(int id){
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var vehicle = await context.Vehicles.FindAsync(id);
+
+            if (vehicle == null)
+                return BadRequest("Vehicle not found.");
+
+            _context.Remove(vehicle);
+            _context.SaveChangesAsync();
+
+            return Ok(id);
+        }
     }
 }
