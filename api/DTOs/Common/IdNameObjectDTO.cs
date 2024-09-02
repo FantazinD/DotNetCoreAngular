@@ -1,6 +1,6 @@
-namespace api.DTOs.Model
+namespace api.DTOs.Common
 {
-    public class ModelDTOx
+    public class IdNameObjectDTO
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

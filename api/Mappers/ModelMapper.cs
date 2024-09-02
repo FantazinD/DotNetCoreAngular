@@ -1,13 +1,13 @@
-using api.DTOs.Model;
+using api.DTOs.Common;
 using api.Models;
 
 namespace api.Mappers
 {
     public static class ModelMapper
     {
-        public static ModelDTO ToModelDTO(this Model model)
+        public static IdNameObjectDTO ToIdNameObjectDTO(this Model model)
         {
-            return new ModelDTO
+            return new IdNameObjectDTO
             {
                 Id = model.Id,
                 Name = model.Name

@@ -17,7 +17,7 @@ namespace api.Controllers
         {
             var features = await _context.Features.ToListAsync();
         
-            return Ok(features.Select(feature => feature.ToFeatureDTO()).ToList());
+            return Ok(features.Select(feature => feature.ToIdNameObjectDTO()).ToList());
         }
     }
 }

@@ -1,12 +1,13 @@
 using System.Collections.ObjectModel;
-using api.DTOs.Model;
+using api.DTOs.Common;
 
 namespace api.DTOs.Make
 {
-    public class MakeDTO
+    public class MakeDTO : IdNameObjectDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public ICollection<ModelDTO> Models { get; set; } = new Collection<ModelDTO>();
+        public ICollection<IdNameObjectDTO> Models { get; set; }
+        public MakeDTO(){
+            Models = new Collection<IdNameObjectDTO>();
+        }
     }
 }

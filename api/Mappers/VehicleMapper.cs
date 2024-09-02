@@ -24,15 +24,15 @@ namespace api.Mappers
             var fer = vehicle.Features.Select(feature => feature.FeatureId).ToList();
             return new VehicleDTO {
                 Id = vehicle.Id,
-                Model = vehicle.Model?.ToModelDTO(),
-                Make = vehicle.Model?.Make?.ToMakeDTO(),
+                Model = vehicle.Model?.ToIdNameObjectDTO(),
+                Make = vehicle.Model?.Make?.ToIdNameObjectDTO(),
                 IsRegistered = vehicle.IsRegistered,
                 Contact = new ContactDTO {
                     Name = vehicle.ContactName,
                     Email = vehicle.ContactEmail,
                     Phone = vehicle.ContactPhone
                 },
-                Features = vehicle.Features.Select(feature => feature.Feature.ToFeatureDTO()).ToArray()
+                Features = vehicle.Features.Select(feature => feature.Feature.ToIdNameObjectDTO()).ToArray()
             };
         }
 

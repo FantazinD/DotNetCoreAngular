@@ -1,13 +1,13 @@
-using api.DTOs.Feature;
+using api.DTOs.Common;
 using api.Models;
 
 namespace api.Mappers
 {
     public static class FeatureMapper
     {
-        public static FeatureDTO ToFeatureDTO(this Feature feature)
+        public static IdNameObjectDTO ToIdNameObjectDTO(this Feature feature)
         {
-            return new FeatureDTO
+            return new IdNameObjectDTO
             {
                 Id = feature.Id,
                 Name = feature.Name
