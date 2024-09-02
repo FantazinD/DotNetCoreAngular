@@ -7,7 +7,7 @@ namespace api.Mappers
 {
     public static class VehicleMapper
     {
-        public static Vehicle ToVehicle (this VehicleDTO vehicleDTO){
+        public static Vehicle ToVehicle (this SaveVehicleDTO vehicleDTO){
             return new Vehicle {
                 ModelId = vehicleDTO.ModelId,
                 IsRegistered = vehicleDTO.IsRegistered,
@@ -20,9 +20,9 @@ namespace api.Mappers
             };
         }
 
-        public static VehicleDTO ToVehicleDTO (this Vehicle vehicle){
+        public static SaveVehicleDTO ToVehicleDTO (this Vehicle vehicle){
             var fer = vehicle.Features.Select(feature => feature.FeatureId).ToList();
-            return new VehicleDTO {
+            return new SaveVehicleDTO {
                 Id = vehicle.Id,
                 ModelId = vehicle.ModelId,
                 IsRegistered = vehicle.IsRegistered,
@@ -35,7 +35,7 @@ namespace api.Mappers
             };
         }
 
-        public static Vehicle UpdateVehicle (this Vehicle vehicle, VehicleDTO vehicleDTO){
+        public static Vehicle UpdateVehicle (this Vehicle vehicle, SaveVehicleDTO vehicleDTO){
             var updatedVehicle = vehicle;
             updatedVehicle.IsRegistered = vehicleDTO.IsRegistered == null ? vehicle.IsRegistered : vehicleDTO.IsRegistered;
             updatedVehicle.ContactName = vehicleDTO.Contact.Name ?? vehicle.ContactName;

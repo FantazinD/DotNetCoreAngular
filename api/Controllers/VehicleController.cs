@@ -13,7 +13,7 @@ namespace api.Controllers
         private readonly ApplicationDBContext _context = context;
 
         [HttpPost("/api/vehicles")]
-        public async Task<IActionResult> CreateVehicle([FromBody] VehicleDTO vehicleDTO)
+        public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleDTO vehicleDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -28,7 +28,7 @@ namespace api.Controllers
         }
 
         [HttpPut("/api/vehicles/{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDTO vehicleDTO){
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleDTO vehicleDTO){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
