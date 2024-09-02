@@ -18,13 +18,20 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = vehicleDTO.ToVehicle();
-            vehicle.LastUpdate = DateTime.UtcNow;
+            var newVehicle = vehicleDTO.ToVehicle();
+            newVehicle.LastUpdate = DateTime.UtcNow;
 
-            _context.Vehicles.Add(vehicle); 
+            _context.Vehicles.Add(newVehicle); 
             await _context.SaveChangesAsync();
 
-            return Ok(vehicle);
+            newVehicle = await context.Vehicles
+                .Include(vehicle => vehicle.Features)
+                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
+                .Include(vehicle => vehicle.Model)
+                .ThenInclude(vehicleModel => vehicleModel.Make)
+                .SingleOrDefaultAsync(vehicle => vehicle.Id == newVehicle.Id);
+
+            return Ok(newVehicle.ToVehicleDTO());
         }
 
         [HttpPut("/api/vehicles/{id}")]
