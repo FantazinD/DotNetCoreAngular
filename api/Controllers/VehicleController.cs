@@ -37,7 +37,7 @@ namespace api.Controllers
             if (vehicle == null)
                 return NotFound();
 
-            var updatedVehicle = vehicle.UpdateVehicle(vehicleDTO);
+            var updatedVehicle = vehicle.ToUpdatedVehicle(vehicleDTO);
             updatedVehicle.LastUpdate = DateTime.Now;
 
             await _context.SaveChangesAsync();
@@ -63,7 +63,12 @@ namespace api.Controllers
 
         [HttpGet("/api/vehicles/{id}")]
         public async Task<IActionResult> GetVehicle(int id){
-            var vehicle = await context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+            var vehicle = await context.Vehicles
+                .Include(vehicle => vehicle.Features)
+                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
+                .Include(vehicle => vehicle.Model)
+                .ThenInclude(vehicleModel => vehicleModel.Make)
+                .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
 
             if (vehicle == null)
                 return NotFound();

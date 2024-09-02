@@ -20,22 +20,23 @@ namespace api.Mappers
             };
         }
 
-        public static SaveVehicleDTO ToVehicleDTO (this Vehicle vehicle){
+        public static VehicleDTO ToVehicleDTO (this Vehicle vehicle){
             var fer = vehicle.Features.Select(feature => feature.FeatureId).ToList();
-            return new SaveVehicleDTO {
+            return new VehicleDTO {
                 Id = vehicle.Id,
-                ModelId = vehicle.ModelId,
+                Model = vehicle.Model?.ToModelDTO(),
+                Make = vehicle.Model?.Make?.ToMakeDTO(),
                 IsRegistered = vehicle.IsRegistered,
                 Contact = new ContactDTO {
                     Name = vehicle.ContactName,
                     Email = vehicle.ContactEmail,
                     Phone = vehicle.ContactPhone
                 },
-                Features = vehicle.Features.Select(feature => feature.FeatureId).ToArray()
+                Features = vehicle.Features.Select(feature => feature.Feature.ToFeatureDTO()).ToArray()
             };
         }
 
-        public static Vehicle UpdateVehicle (this Vehicle vehicle, SaveVehicleDTO vehicleDTO){
+        public static Vehicle ToUpdatedVehicle (this Vehicle vehicle, SaveVehicleDTO vehicleDTO){
             var updatedVehicle = vehicle;
             updatedVehicle.IsRegistered = vehicleDTO.IsRegistered == null ? vehicle.IsRegistered : vehicleDTO.IsRegistered;
             updatedVehicle.ContactName = vehicleDTO.Contact.Name ?? vehicle.ContactName;
