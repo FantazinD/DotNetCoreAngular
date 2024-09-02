@@ -44,12 +44,19 @@ namespace api.Controllers
             if (vehicle == null)
                 return NotFound();
 
-            var updatedVehicle = vehicle.ToUpdatedVehicle(vehicleDTO);
-            updatedVehicle.LastUpdate = DateTime.Now;
+            vehicle = vehicle.ToUpdatedVehicle(vehicleDTO);
+            vehicle.LastUpdate = DateTime.Now;
 
             await _context.SaveChangesAsync();
 
-            return Ok(updatedVehicle);
+            vehicle = await context.Vehicles
+                .Include(vehicle => vehicle.Features)
+                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
+                .Include(vehicle => vehicle.Model)
+                .ThenInclude(vehicleModel => vehicleModel.Make)
+                .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+
+            return Ok(vehicle!.ToVehicleDTO());
         }
 
         [HttpDelete("/api/vehicles/{id}")]
