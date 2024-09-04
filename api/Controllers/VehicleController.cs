@@ -24,7 +24,7 @@ namespace api.Controllers
             _context.Vehicles.Add(newVehicle); 
             await _context.SaveChangesAsync();
 
-            newVehicle = await context.Vehicles
+            newVehicle = await _context.Vehicles
                 .Include(vehicle => vehicle.Features)
                 .ThenInclude(vehicleFeature => vehicleFeature.Feature)
                 .Include(vehicle => vehicle.Model)
@@ -39,7 +39,7 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = await context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+            var vehicle = await _context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
 
             if (vehicle == null)
                 return NotFound();
@@ -49,7 +49,7 @@ namespace api.Controllers
 
             await _context.SaveChangesAsync();
 
-            vehicle = await context.Vehicles
+            vehicle = await _context.Vehicles
                 .Include(vehicle => vehicle.Features)
                 .ThenInclude(vehicleFeature => vehicleFeature.Feature)
                 .Include(vehicle => vehicle.Model)
@@ -64,7 +64,7 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = await context.Vehicles.FindAsync(id);
+            var vehicle = await _context.Vehicles.FindAsync(id);
 
             if (vehicle == null)
                 return NotFound();
@@ -77,7 +77,7 @@ namespace api.Controllers
 
         [HttpGet("/api/vehicles/{id}")]
         public async Task<IActionResult> GetVehicle(int id){
-            var vehicle = await context.Vehicles
+            var vehicle = await _context.Vehicles
                 .Include(vehicle => vehicle.Features)
                 .ThenInclude(vehicleFeature => vehicleFeature.Feature)
                 .Include(vehicle => vehicle.Model)
