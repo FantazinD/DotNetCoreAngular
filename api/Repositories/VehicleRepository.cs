@@ -22,5 +22,10 @@ namespace api.Repositories
                 .ThenInclude(vehicleModel => vehicleModel.Make)
                 .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
         }
+
+        // public async Task<Vehicle?> GetVehicleWithMake(id)
+        // {
+
+        // }
     }
 }

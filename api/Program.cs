@@ -21,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 });
 
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
 
 var app = builder.Build();
 
