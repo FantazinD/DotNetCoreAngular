@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
 using api.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories
@@ -13,7 +8,7 @@ namespace api.Repositories
     public class VehicleRepository(ApplicationDBContext context) : IVehicleRepository
     {
         private readonly ApplicationDBContext _context = context;
-        public async Task<Vehicle?> GetVehicle(int id, bool includeRelated = false)
+        public async Task<Vehicle?> GetVehicle(int id, bool includeRelated = true)
         {
             if (!includeRelated)
                 return await _context.Vehicles
