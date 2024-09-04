@@ -9,9 +9,8 @@ namespace api.Controllers
 {
     [Route("api/vehicle")]
     [ApiController]
-    public class VehicleController(ApplicationDBContext context, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository): ControllerBase
+    public class VehicleController(IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository): ControllerBase
     {
-        private readonly ApplicationDBContext _context = context;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
         private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
 
@@ -24,7 +23,7 @@ namespace api.Controllers
             var newVehicle = vehicleDTO.ToVehicle();
             newVehicle.LastUpdate = DateTime.UtcNow;
 
-            _context.Vehicles.Add(newVehicle); 
+            _vehicleRepository.Add(newVehicle);
             await _unitOfWorkRepository.CompleteAsync();
 
             newVehicle = await _vehicleRepository.GetVehicle(newVehicle.Id);
@@ -37,8 +36,8 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = await _context.Vehicles.Include(vehicle => vehicle.Features).SingleOrDefaultAsync(vehicle => vehicle.Id == id);
-
+            var vehicle = await _vehicleRepository.GetVehicle(id, includeRelated: false);
+            
             if (vehicle == null)
                 return NotFound();
 
@@ -62,7 +61,7 @@ namespace api.Controllers
             if (vehicle == null)
                 return NotFound();
 
-            _context.Remove(vehicle);
+            _vehicleRepository.Remove(vehicle);
             await _unitOfWorkRepository.CompleteAsync();
 
             return Ok(id);

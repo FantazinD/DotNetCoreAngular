@@ -15,6 +15,11 @@ namespace api.Repositories
         private readonly ApplicationDBContext _context = context;
         public async Task<Vehicle?> GetVehicle(int id, bool includeRelated = false)
         {
+            if (!includeRelated)
+                return await _context.Vehicles
+                    .Include(vehicle => vehicle.Features)
+                    .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+
             return await _context.Vehicles
                 .Include(vehicle => vehicle.Features)
                 .ThenInclude(vehicleFeature => vehicleFeature.Feature)
@@ -23,9 +28,14 @@ namespace api.Repositories
                 .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
         }
 
-        // public async Task<Vehicle?> GetVehicleWithMake(id)
-        // {
+        public void Add(Vehicle vehicle) 
+        {
+            _context.Vehicles.Add(vehicle);
+        }
 
-        // }
+        public void Remove(Vehicle vehicle)
+        {
+            _context.Remove(vehicle);
+        }
     }
 }
