@@ -1,5 +1,6 @@
 using api.Data;
 using api.DTOs.Vehicle;
+using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,10 @@ namespace api.Controllers
 {
     [Route("api/vehicle")]
     [ApiController]
-    public class VehicleController(ApplicationDBContext context): ControllerBase
+    public class VehicleController(ApplicationDBContext context, IVehicleRepository vehicleRepository): ControllerBase
     {
         private readonly ApplicationDBContext _context = context;
+        private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
 
         [HttpPost("/api/vehicles")]
         public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleDTO vehicleDTO)
@@ -24,14 +26,9 @@ namespace api.Controllers
             _context.Vehicles.Add(newVehicle); 
             await _context.SaveChangesAsync();
 
-            newVehicle = await _context.Vehicles
-                .Include(vehicle => vehicle.Features)
-                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
-                .Include(vehicle => vehicle.Model)
-                .ThenInclude(vehicleModel => vehicleModel.Make)
-                .SingleOrDefaultAsync(vehicle => vehicle.Id == newVehicle.Id);
+            newVehicle = await _vehicleRepository.GetVehicle(newVehicle.Id);
 
-            return Ok(newVehicle.ToVehicleDTO());
+            return Ok(newVehicle!.ToVehicleDTO());
         }
 
         [HttpPut("/api/vehicles/{id}")]
@@ -49,12 +46,7 @@ namespace api.Controllers
 
             await _context.SaveChangesAsync();
 
-            vehicle = await _context.Vehicles
-                .Include(vehicle => vehicle.Features)
-                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
-                .Include(vehicle => vehicle.Model)
-                .ThenInclude(vehicleModel => vehicleModel.Make)
-                .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+            vehicle = await _vehicleRepository.GetVehicle(id);
 
             return Ok(vehicle!.ToVehicleDTO());
         }
@@ -64,7 +56,7 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            var vehicle = await _vehicleRepository.GetVehicle(id, includeRelated: false);
 
             if (vehicle == null)
                 return NotFound();
@@ -77,12 +69,7 @@ namespace api.Controllers
 
         [HttpGet("/api/vehicles/{id}")]
         public async Task<IActionResult> GetVehicle(int id){
-            var vehicle = await _context.Vehicles
-                .Include(vehicle => vehicle.Features)
-                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
-                .Include(vehicle => vehicle.Model)
-                .ThenInclude(vehicleModel => vehicleModel.Make)
-                .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
+            var vehicle = await _vehicleRepository.GetVehicle(id);
 
             if (vehicle == null)
                 return NotFound();
