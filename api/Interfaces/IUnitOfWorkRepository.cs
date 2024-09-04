@@ -7,6 +7,6 @@ namespace api.Interfaces
 {
     public interface IUnitOfWorkRepository
     {
-        Task Complete();
+        Task CompleteAsync();
     }
 }

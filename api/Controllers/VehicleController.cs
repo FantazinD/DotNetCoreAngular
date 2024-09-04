@@ -9,10 +9,11 @@ namespace api.Controllers
 {
     [Route("api/vehicle")]
     [ApiController]
-    public class VehicleController(ApplicationDBContext context, IVehicleRepository vehicleRepository): ControllerBase
+    public class VehicleController(ApplicationDBContext context, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository): ControllerBase
     {
         private readonly ApplicationDBContext _context = context;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
+        private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
 
         [HttpPost("/api/vehicles")]
         public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleDTO vehicleDTO)
@@ -24,7 +25,7 @@ namespace api.Controllers
             newVehicle.LastUpdate = DateTime.UtcNow;
 
             _context.Vehicles.Add(newVehicle); 
-            await _context.SaveChangesAsync();
+            await _unitOfWorkRepository.CompleteAsync();
 
             newVehicle = await _vehicleRepository.GetVehicle(newVehicle.Id);
 
@@ -44,7 +45,7 @@ namespace api.Controllers
             vehicle = vehicle.ToUpdatedVehicle(vehicleDTO);
             vehicle.LastUpdate = DateTime.Now;
 
-            await _context.SaveChangesAsync();
+            await _unitOfWorkRepository.CompleteAsync();
 
             vehicle = await _vehicleRepository.GetVehicle(id);
 
@@ -62,7 +63,7 @@ namespace api.Controllers
                 return NotFound();
 
             _context.Remove(vehicle);
-            _context.SaveChangesAsync();
+            await _unitOfWorkRepository.CompleteAsync();
 
             return Ok(id);
         }
