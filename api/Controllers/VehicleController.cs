@@ -1,9 +1,7 @@
-using api.Data;
 using api.DTOs.Vehicle;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
