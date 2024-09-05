@@ -8,7 +8,7 @@ namespace api.Repositories
     public class VehicleRepository(ApplicationDBContext context) : IVehicleRepository
     {
         private readonly ApplicationDBContext _context = context;
-        public async Task<Vehicle?> GetVehicle(int id, bool includeRelated = true)
+        public async Task<Vehicle?> GetVehicleAsync(int id, bool includeRelated = true)
         {
             if (!includeRelated)
                 return await _context.Vehicles

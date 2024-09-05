@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
 using api.Models;
@@ -13,7 +9,7 @@ namespace api.Repositories
     {
         private readonly ApplicationDBContext _context = context;
 
-        public async Task<List<Make>?> GetMakes(bool includeRelated = true)
+        public async Task<List<Make>?> GetMakesAsync(bool includeRelated = true)
         {
             if(!includeRelated)
                 return await _context.Makes.ToListAsync();

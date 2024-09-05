@@ -24,7 +24,7 @@ namespace api.Controllers
             _vehicleRepository.Add(newVehicle);
             await _unitOfWorkRepository.CompleteAsync();
 
-            newVehicle = await _vehicleRepository.GetVehicle(newVehicle.Id);
+            newVehicle = await _vehicleRepository.GetVehicleAsync(newVehicle.Id);
 
             return Ok(newVehicle!.ToVehicleDTO());
         }
@@ -34,7 +34,7 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = await _vehicleRepository.GetVehicle(id, includeRelated: false);
+            var vehicle = await _vehicleRepository.GetVehicleAsync(id, includeRelated: false);
             
             if (vehicle == null)
                 return NotFound();
@@ -44,7 +44,7 @@ namespace api.Controllers
 
             await _unitOfWorkRepository.CompleteAsync();
 
-            vehicle = await _vehicleRepository.GetVehicle(id);
+            vehicle = await _vehicleRepository.GetVehicleAsync(id);
 
             return Ok(vehicle!.ToVehicleDTO());
         }
@@ -54,7 +54,7 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = await _vehicleRepository.GetVehicle(id, includeRelated: false);
+            var vehicle = await _vehicleRepository.GetVehicleAsync(id, includeRelated: false);
 
             if (vehicle == null)
                 return NotFound();
@@ -67,7 +67,7 @@ namespace api.Controllers
 
         [HttpGet("/api/vehicles/{id}")]
         public async Task<IActionResult> GetVehicle(int id){
-            var vehicle = await _vehicleRepository.GetVehicle(id);
+            var vehicle = await _vehicleRepository.GetVehicleAsync(id);
 
             if (vehicle == null)
                 return NotFound();

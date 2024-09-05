@@ -1,22 +1,21 @@
-using api.Data;
+using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
     [Route("api/make")]
     [ApiController]
-    public class MakeController(ApplicationDBContext context) : ControllerBase
+    public class MakeController(IMakeRepository makeRepository) : ControllerBase
     {
-        private readonly ApplicationDBContext _context = context;
+        private readonly IMakeRepository _makeRepository = makeRepository;
 
         [HttpGet("/api/makes")]
         public async Task<IActionResult> GetMakes()
         {
-            var makes = await _context.Makes.Include(make => make.Models).ToListAsync();
+            var makes = await _makeRepository.GetMakesAsync();
 
-            return Ok(makes.Select(make => make.ToMakeDTO()).ToList());
+            return Ok(makes?.Select(make => make.ToMakeDTO()).ToList());
         }
     }
 }
