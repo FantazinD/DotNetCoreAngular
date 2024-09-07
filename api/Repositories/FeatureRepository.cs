@@ -10,7 +10,7 @@ namespace api.Repositories
         private readonly ApplicationDBContext _context = context;
         public async Task<List<Feature>?> GetFeaturesAsync()
         {
-            return await  _context.Features.ToListAsync();
+            return await _context.Features.ToListAsync();
         }
     }
 }
