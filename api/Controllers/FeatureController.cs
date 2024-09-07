@@ -9,10 +9,9 @@ namespace api.Controllers
 {
     [Route("api/feature")]
     [ApiController]
-    public class FeatureController(ApplicationDBContext context, IFeatureRepository featureRepository) : ControllerBase
+    public class FeatureController(IFeatureRepository featureRepository) : ControllerBase
     {
         private readonly IFeatureRepository _featureRepository = featureRepository;
-        private readonly ApplicationDBContext _context = context;
 
         [HttpGet("/api/features")]
         public async Task<IActionResult> GetFeatures()
