@@ -1,18 +1,17 @@
 import { FormsModule } from '@angular/forms';
 import { VehicleService } from '../../../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vehicle-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './vehicle-form.component.html',
   styleUrl: './vehicle-form.component.css',
 })
 export class VehicleFormComponent implements OnInit {
-  vehicle: any = {
-    make: '',
-  };
+  vehicle: any = {};
 
   makes: any[] = [];
   models: any[] = [];
