@@ -1,4 +1,7 @@
 <h1>New Vehicle</h1>
+<p>
+  {{ vehicle | json }}
+</p>
 <form>
   <div class="form-group">
     <label for="make">Make</label
@@ -6,8 +9,8 @@
       id="make"
       class="form-control"
       (change)="onMakeChange()"
-      [(ngModel)]="vehicle.make"
-      name="make"
+      [(ngModel)]="vehicle.makeId"
+      name="makeId"
     >
       <option value=""></option>
       @for(make of makes; track make){
@@ -17,7 +20,13 @@
   </div>
   <div class="form-group">
     <label for="model">Model</label
-    ><select name="" id="model" class="form-control">
+    ><select
+      name=""
+      id="model"
+      class="form-control"
+      [(ngModel)]="vehicle.modelId"
+      name="modelId"
+    >
       <option value=""></option>
       @for(model of models; track model){
       <option value="{{ model.id }}">{{ model.name }}</option>
@@ -26,11 +35,23 @@
   </div>
   <p>Is this vehicle resgistered?</p>
   <label for="registered" class="radio-inline"
-    ><input type="radio" name="isRegistered" id="registered" value="true" />
+    ><input
+      type="radio"
+      name="isRegistered"
+      id="registered"
+      value="true"
+      [(ngModel)]="vehicle.isRegistered"
+    />
     Yes
   </label>
   <label for="notRegistered" class="radio-inline"
-    ><input type="radio" name="isRegistered" id="notRegistered" value="false" />
+    ><input
+      type="radio"
+      name="isRegistered"
+      id="notRegistered"
+      value="false"
+      [(ngModel)]="vehicle.isRegistered"
+    />
     No
   </label>
   <h2>Features</h2>
