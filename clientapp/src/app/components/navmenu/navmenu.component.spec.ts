@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NavmenuComponent } from './navmenu.component';
 
 describe('NavmenuComponent', () => {
@@ -8,9 +7,8 @@ describe('NavmenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavmenuComponent]
-    })
-    .compileComponents();
+      imports: [NavmenuComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NavmenuComponent);
     component = fixture.componentInstance;
