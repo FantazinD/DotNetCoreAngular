@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class VehicleFormComponent implements OnInit {
   vehicle: any = {
     features: [],
+    contact: {},
   };
 
   makes: any[] = [];
