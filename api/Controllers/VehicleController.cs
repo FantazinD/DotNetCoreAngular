@@ -29,8 +29,8 @@ namespace api.Controllers
             return Ok(newVehicle!.ToVehicleDTO());
         }
 
-        [HttpPut("/api/vehicles/{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleDTO vehicleDTO){
+        [HttpPut("/api/vehicles/{id:int}")]
+        public async Task<IActionResult> UpdateVehicle([FromRoute] int id, [FromBody] SaveVehicleDTO vehicleDTO){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -49,8 +49,8 @@ namespace api.Controllers
             return Ok(vehicle!.ToVehicleDTO());
         }
 
-        [HttpDelete("/api/vehicles/{id}")]
-        public async Task<IActionResult> DeleteVehicle(int id){
+        [HttpDelete("/api/vehicles/{id:int}")]
+        public async Task<IActionResult> DeleteVehicle([FromRoute] int id){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -65,8 +65,8 @@ namespace api.Controllers
             return Ok(id);
         }
 
-        [HttpGet("/api/vehicles/{id}")]
-        public async Task<IActionResult> GetVehicle(int id){
+        [HttpGet("/api/vehicles/{id:int}")]
+        public async Task<IActionResult> GetVehicle([FromRoute] int id){
             var vehicle = await _vehicleRepository.GetVehicleAsync(id);
 
             if (vehicle == null)
