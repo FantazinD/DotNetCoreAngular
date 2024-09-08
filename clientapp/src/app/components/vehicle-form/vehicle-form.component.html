@@ -58,7 +58,11 @@
   @for(feature of features; track feature){
   <div class="checkbox">
     <label for="feature{{ feature.id }}"
-      ><input type="checkbox" id="feature{{ feature.id }}" />
+      ><input
+        type="checkbox"
+        id="feature{{ feature.id }}"
+        (change)="onFeatureToggle(feature.id, $event)"
+      />
       {{ feature.name }}</label
     >
   </div>

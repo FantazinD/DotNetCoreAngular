@@ -11,7 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './vehicle-form.component.css',
 })
 export class VehicleFormComponent implements OnInit {
-  vehicle: any = {};
+  vehicle: any = {
+    features: [],
+  };
 
   makes: any[] = [];
   models: any[] = [];
@@ -29,6 +31,14 @@ export class VehicleFormComponent implements OnInit {
     //this.makes = this.vehicleService.getMakes();
     //this.features = this.vehicleService.getFeatures();
   }
+
+  onFeatureToggle = (featureId: any, $event: any): void => {
+    if ($event.target.checked) this.vehicle.features.push(featureId);
+    else {
+      let index = this.vehicle.features.indexOf(featureId);
+      this.vehicle.features.splice(index, 1);
+    }
+  };
 
   onMakeChange = (): void => {
     let selectedMake = this.makes.find(
