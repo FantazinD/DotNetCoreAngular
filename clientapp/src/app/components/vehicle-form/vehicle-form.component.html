@@ -2,7 +2,7 @@
 <p>
   {{ vehicle | json }}
 </p>
-<form>
+<form (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="make">Make</label
     ><select

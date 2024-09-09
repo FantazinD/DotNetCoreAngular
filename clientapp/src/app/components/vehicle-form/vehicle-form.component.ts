@@ -29,8 +29,6 @@ export class VehicleFormComponent implements OnInit {
     this.vehicleService
       .getFeatures()
       .subscribe((features: any) => (this.features = features));
-    //this.makes = this.vehicleService.getMakes();
-    //this.features = this.vehicleService.getFeatures();
   }
 
   onFeatureToggle = (featureId: any, $event: any): void => {
@@ -47,5 +45,11 @@ export class VehicleFormComponent implements OnInit {
     );
     this.models = selectedMake ? selectedMake.models : [];
     delete this.vehicle.modelId;
+  };
+
+  onSubmit = (): void => {
+    this.vehicleService
+      .createVehicle(this.vehicle)
+      .subscribe((x) => console.log(x));
   };
 }
