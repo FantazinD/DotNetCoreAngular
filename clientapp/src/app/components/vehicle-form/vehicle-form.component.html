@@ -2,7 +2,7 @@
 <p>
   {{ vehicle | json }}
 </p>
-<form (ngSubmit)="onSubmit()">
+<form #f="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="make">Make</label
     ><select
@@ -11,12 +11,17 @@
       (change)="onMakeChange()"
       [(ngModel)]="vehicle.makeId"
       name="makeId"
+      required
+      #make="ngModel"
     >
       <option value=""></option>
       @for(make of makes; track make){
       <option value="{{ make.id }}">{{ make.name }}</option>
       }
     </select>
+    @if(make.touched && !make.valid){
+    <div class="alert alert-danger">Please specify the make.</div>
+    }
   </div>
   <div class="form-group">
     <label for="model">Model</label
@@ -25,12 +30,17 @@
       class="form-control"
       [(ngModel)]="vehicle.modelId"
       name="modelId"
+      required
+      #model="ngModel"
     >
       <option value=""></option>
       @for(model of models; track model){
       <option value="{{ model.id }}">{{ model.name }}</option>
       }
     </select>
+    @if(model.touched && !model.valid){
+    <div class="alert alert-danger">Please specify the model.</div>
+    }
   </div>
   <p>Is this vehicle resgistered?</p>
   <label for="registered" class="radio-inline"
@@ -75,7 +85,12 @@
       class="form-control"
       [(ngModel)]="vehicle.contact.name"
       name="contactName"
+      required
+      #contactName="ngModel"
     />
+    @if(contactName.touched && !contactName.valid){
+    <div class="alert alert-danger">Please specify the Name.</div>
+    }
   </div>
   <div class="form-group">
     <label for="contactPhone">Phone</label
@@ -85,7 +100,12 @@
       class="form-control"
       [(ngModel)]="vehicle.contact.phone"
       name="contactPhone"
+      required
+      #contactPhone="ngModel"
     />
+    @if(contactPhone.touched && !contactPhone.valid){
+    <div class="alert alert-danger">Please specify the Phone.</div>
+    }
   </div>
   <div class="form-group">
     <label for="contactEmail">Email</label
@@ -95,7 +115,12 @@
       class="form-control"
       [(ngModel)]="vehicle.contact.email"
       name="contactEmail"
+      required
+      #contactEmail="ngModel"
     />
+    @if(contactEmail.touched && !contactEmail.valid){
+    <div class="alert alert-danger">Please specify the Email.</div>
+    }
   </div>
-  <button class="btn btn-primary">Save</button>
+  <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
 </form>
