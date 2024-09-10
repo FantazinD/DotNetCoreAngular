@@ -3,6 +3,7 @@ import { VehicleService } from '../../../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { title } from 'process';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -57,14 +58,16 @@ export class VehicleFormComponent implements OnInit {
 
   onSubmit = (): void => {
     this.showSuccess();
-    // this.vehicleService.createVehicle(this.vehicle).subscribe({
-    //   next: (x) => {
-    //     this.showSuccess();
-    //   },
-    //   error: (err) => {
-    //     if (err.status == 400) {
-    //     }
-    //   },
-    // });
+    this.vehicleService.createVehicle(this.vehicle).subscribe({
+      next: (x) => {
+        this.showSuccess();
+      },
+      error: (err) => {
+        this.toastrService.error('An unexpected error happened.', 'Error', {
+          timeOut: 5000,
+          closeButton: true,
+        });
+      },
+    });
   };
 }

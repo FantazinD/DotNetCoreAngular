@@ -2,7 +2,7 @@
 <p>
   {{ vehicle | json }}
 </p>
-<form #f="ngForm" (ngSubmit)="onSubmit()">
+<form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="form-group">
     <label for="make">Make</label
     ><select
