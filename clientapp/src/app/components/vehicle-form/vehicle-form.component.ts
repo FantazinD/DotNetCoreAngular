@@ -2,6 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { VehicleService } from '../../../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -20,7 +21,10 @@ export class VehicleFormComponent implements OnInit {
   models: any[] = [];
   features: any[] = [];
 
-  constructor(private vehicleService: VehicleService) {}
+  constructor(
+    private vehicleService: VehicleService,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.vehicleService
@@ -29,6 +33,10 @@ export class VehicleFormComponent implements OnInit {
     this.vehicleService
       .getFeatures()
       .subscribe((features: any) => (this.features = features));
+  }
+
+  showSuccess() {
+    this.toastrService.success('Hello world!', 'Toastr fun!');
   }
 
   onFeatureToggle = (featureId: any, $event: any): void => {
@@ -48,8 +56,15 @@ export class VehicleFormComponent implements OnInit {
   };
 
   onSubmit = (): void => {
-    this.vehicleService
-      .createVehicle(this.vehicle)
-      .subscribe((x) => console.log(x));
+    this.showSuccess();
+    // this.vehicleService.createVehicle(this.vehicle).subscribe({
+    //   next: (x) => {
+    //     this.showSuccess();
+    //   },
+    //   error: (err) => {
+    //     if (err.status == 400) {
+    //     }
+    //   },
+    // });
   };
 }
