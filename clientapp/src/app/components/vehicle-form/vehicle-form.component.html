@@ -48,7 +48,7 @@
       type="radio"
       name="isRegistered"
       id="registered"
-      value="true"
+      [value]="true"
       [(ngModel)]="vehicle.isRegistered"
     />
     Yes
@@ -58,7 +58,7 @@
       type="radio"
       name="isRegistered"
       id="notRegistered"
-      value="false"
+      [value]="false"
       [(ngModel)]="vehicle.isRegistered"
     />
     No
@@ -71,6 +71,7 @@
         type="checkbox"
         id="feature{{ feature.id }}"
         (change)="onFeatureToggle(feature.id, $event)"
+        [checked]="vehicle.features.includes(feature.id)"
       />
       {{ feature.name }}</label
     >
@@ -123,4 +124,9 @@
     }
   </div>
   <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
+  @if(vehicle.id){
+  <button class="btn btn-danger" type="button" (click)="onClickDelete()">
+    Delete
+  </button>
+  }
 </form>

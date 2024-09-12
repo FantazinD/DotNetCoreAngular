@@ -90,6 +90,16 @@ export class VehicleFormComponent implements OnInit {
     }
   };
 
+  onClickDelete = () => {
+    if (confirm('Are you sure?')) {
+      this.vehicleService.deleteVehicle(this.vehicle.id).subscribe({
+        next: (res) => {
+          this.router.navigate(['/home']);
+        },
+      });
+    }
+  };
+
   onMakeChange = (): void => {
     this.populateModels();
     delete this.vehicle.modelId;
@@ -103,10 +113,21 @@ export class VehicleFormComponent implements OnInit {
   };
 
   onSubmit = (): void => {
-    this.vehicleService.createVehicle(this.vehicle).subscribe({
-      next: (x) => {
-        this.showSuccess();
-      },
-    });
+    if (this.vehicle.id) {
+      this.vehicleService.updateVehicle(this.vehicle).subscribe((res) => {
+        this.toastrService.error(
+          'Vehicle was sucessfully updated.',
+          'Success',
+          {
+            timeOut: 3000,
+            closeButton: true,
+          }
+        );
+      });
+    } else {
+      this.vehicleService
+        .createVehicle(this.vehicle)
+        .subscribe((res) => console.log(res));
+    }
   };
 }
