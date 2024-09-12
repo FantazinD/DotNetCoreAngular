@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -34,19 +35,25 @@ export class VehicleFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var sources = [
+      this.vehicleService.getMakes(),
+      this.vehicleService.getFeatures(),
+    ];
+
     if (this.vehicle.id)
-      this.vehicleService.getVehicle(this.vehicle.id).subscribe({
-        next: (vehicle: any) => (this.vehicle = vehicle),
-        error: (err) => {
-          if (err.status == 404) this.router.navigate(['/home']);
-        },
-      });
-    this.vehicleService
-      .getMakes()
-      .subscribe((makes: any) => (this.makes = makes));
-    this.vehicleService
-      .getFeatures()
-      .subscribe((features: any) => (this.features = features));
+      sources.push(this.vehicleService.getVehicle(this.vehicle.id));
+
+    forkJoin(sources).subscribe({
+      next: (data: any[]) => {
+        this.makes = data[0];
+        this.features = data[1];
+
+        if (this.vehicle.id) this.vehicle = data[2];
+      },
+      error: (err) => {
+        if (err.status == 404) this.router.navigate(['/home']);
+      },
+    });
   }
 
   showSuccess() {
