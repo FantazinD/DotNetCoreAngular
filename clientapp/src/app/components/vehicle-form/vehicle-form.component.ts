@@ -3,7 +3,8 @@ import { VehicleService } from '../../../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { title } from 'process';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from 'express';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -23,11 +24,22 @@ export class VehicleFormComponent implements OnInit {
   features: any[] = [];
 
   constructor(
+    private route: ActivatedRoute,
+    // private router: Router,
     private vehicleService: VehicleService,
     private toastrService: ToastrService
-  ) {}
+  ) {
+    this.route.params.subscribe({
+      next: (p) => {
+        this.vehicle.id = +p['id'];
+      },
+    });
+  }
 
   ngOnInit(): void {
+    this.vehicleService
+      .getVehicle(this.vehicle.id)
+      .subscribe((vehicle: any) => (this.vehicle = vehicle));
     this.vehicleService
       .getMakes()
       .subscribe((makes: any) => (this.makes = makes));

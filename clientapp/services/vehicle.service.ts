@@ -26,4 +26,10 @@ export class VehicleService {
       .post('http://localhost:5166/api/vehicles', vehicle)
       .pipe(map((res) => res));
   };
+
+  getVehicle = (id: any) => {
+    return this.http
+      .get(`http://localhost:5166/api/vehicles/${id}`)
+      .pipe(map((res) => res));
+  };
 }

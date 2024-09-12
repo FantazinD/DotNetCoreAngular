@@ -5,5 +5,6 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'vehicles/new', component: VehicleFormComponent },
+  { path: 'vehicles/:id', component: VehicleFormComponent },
   { path: 'home', component: HomeComponent },
 ];

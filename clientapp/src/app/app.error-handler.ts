@@ -1,4 +1,4 @@
-import { ErrorHandler, Inject, Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class AppErrorHandler implements ErrorHandler {
 
   handleError(error: any): void {
     this.toastrService.error('An unexpected error happened.', 'Error', {
-      timeOut: 5000,
+      timeOut: 3000,
       closeButton: true,
     });
   }
