@@ -35,7 +35,7 @@ export class VehicleFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var sources = [
+    let sources = [
       this.vehicleService.getMakes(),
       this.vehicleService.getFeatures(),
     ];
@@ -48,13 +48,19 @@ export class VehicleFormComponent implements OnInit {
         this.makes = data[0];
         this.features = data[1];
 
-        if (this.vehicle.id) this.vehicle = data[2];
+        if (this.vehicle.id) this.setVehicle(data[2]);
       },
       error: (err) => {
         if (err.status == 404) this.router.navigate(['/home']);
       },
     });
   }
+
+  private setVehicle = (vehicle: any) => {
+    this.vehicle.id = vehicle.id;
+    this.vehicle.makeId = vehicle.make.id;
+    this.vehicle.modelId = vehicle.model.id;
+  };
 
   showSuccess() {
     this.toastrService.success('Hello world!', 'Toastr fun!');
