@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ErrorHandler } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { NavmenuComponent } from './components/navmenu/navmenu.component';
 import { VehicleService } from '../../services/vehicle.service';
+import { AppErrorHandler } from './app.error-handler';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,10 @@ import { VehicleService } from '../../services/vehicle.service';
   imports: [RouterOutlet, HomeComponent, NavmenuComponent, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [VehicleService],
+  providers: [
+    VehicleService,
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+  ],
 })
 export class AppComponent {
   title: string = 'Vega';
