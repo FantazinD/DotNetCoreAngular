@@ -21,6 +21,7 @@ export class VehicleService {
   };
 
   createVehicle = (vehicle: any) => {
+    throw new Error();
     return this.http
       .post('http://localhost:5166/api/vehicles', vehicle)
       .pipe(map((res) => res));

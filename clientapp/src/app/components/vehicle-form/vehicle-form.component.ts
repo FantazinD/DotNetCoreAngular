@@ -57,16 +57,9 @@ export class VehicleFormComponent implements OnInit {
   };
 
   onSubmit = (): void => {
-    this.showSuccess();
     this.vehicleService.createVehicle(this.vehicle).subscribe({
       next: (x) => {
         this.showSuccess();
-      },
-      error: (err) => {
-        this.toastrService.error('An unexpected error happened.', 'Error', {
-          timeOut: 5000,
-          closeButton: true,
-        });
       },
     });
   };
