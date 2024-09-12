@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
+import { ISaveVehicle } from '../../interfaces/ISaveVehicle';
+import { IVehicle } from '../../interfaces/IVehicle';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -14,9 +16,17 @@ import { forkJoin, Observable } from 'rxjs';
   styleUrl: './vehicle-form.component.css',
 })
 export class VehicleFormComponent implements OnInit {
-  vehicle: any = {
+  vehicle: ISaveVehicle = {
+    id: 0,
+    makeId: 0,
+    modelId: 0,
+    isRegistered: false,
     features: [],
-    contact: {},
+    contact: {
+      name: '',
+      phone: '',
+      email: '',
+    },
   };
 
   makes: any[] = [];
@@ -48,7 +58,10 @@ export class VehicleFormComponent implements OnInit {
         this.makes = data[0];
         this.features = data[1];
 
-        if (this.vehicle.id) this.setVehicle(data[2]);
+        if (this.vehicle.id) {
+          this.setVehicle(data[2]);
+          this.populateModels();
+        }
       },
       error: (err) => {
         if (err.status == 404) this.router.navigate(['/home']);
@@ -56,10 +69,13 @@ export class VehicleFormComponent implements OnInit {
     });
   }
 
-  private setVehicle = (vehicle: any) => {
+  private setVehicle = (vehicle: IVehicle) => {
     this.vehicle.id = vehicle.id;
     this.vehicle.makeId = vehicle.make.id;
     this.vehicle.modelId = vehicle.model.id;
+    this.vehicle.isRegistered = vehicle.isRegistered;
+    this.vehicle.contact = vehicle.contact;
+    this.vehicle.features = vehicle.features.map((feature) => feature.id);
   };
 
   showSuccess() {
@@ -75,11 +91,15 @@ export class VehicleFormComponent implements OnInit {
   };
 
   onMakeChange = (): void => {
+    this.populateModels();
+    delete this.vehicle.modelId;
+  };
+
+  private populateModels = () => {
     let selectedMake = this.makes.find(
       (make) => make.id == this.vehicle.makeId
     );
     this.models = selectedMake ? selectedMake.models : [];
-    delete this.vehicle.modelId;
   };
 
   onSubmit = (): void => {
