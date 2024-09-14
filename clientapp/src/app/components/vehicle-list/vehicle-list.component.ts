@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class VehicleListComponent implements OnInit {
   vehicles: IVehicle[] = [];
-  allVehicles: IVehicle[] = [];
   makes: IKeyValuePair[] = [];
   filter: any = {};
 
@@ -25,22 +24,17 @@ export class VehicleListComponent implements OnInit {
       .getMakes()
       .subscribe((makes: any) => (this.makes = makes));
 
-    this.vehicleService
-      .getVehicles()
-      .subscribe(
-        (vehicles: any) => (this.vehicles = this.allVehicles = vehicles)
-      );
+    this.populateVehicles();
   }
 
+  private populateVehicles = () => {
+    this.vehicleService
+      .getVehicles(this.filter)
+      .subscribe((vehicles: any) => (this.vehicles = vehicles));
+  };
+
   onFilterChange = () => {
-    var vehicles = this.allVehicles;
-
-    if (this.filter.makeId)
-      vehicles = vehicles.filter(
-        (vehicles) => vehicles.make.id == this.filter.makeId
-      );
-
-    this.vehicles = vehicles;
+    this.populateVehicles();
   };
 
   onResetFilter = () => {

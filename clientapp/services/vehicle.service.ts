@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { ISaveVehicle } from '../src/app/interfaces/ISaveVehicle';
 
 @Injectable({
@@ -35,8 +35,22 @@ export class VehicleService {
       .pipe(map((res) => res));
   };
 
-  getVehicles() {
-    return this.http.get(this.vehiclesEndpoint).pipe(map((res) => res));
+  getVehicles(filter: any) {
+    return this.http
+      .get(`${this.vehiclesEndpoint}?${this.toQueryString(filter)}`)
+      .pipe(map((res) => res));
+  }
+
+  toQueryString(filterObj: any) {
+    let queryParts = [];
+
+    for (let property in filterObj) {
+      let value = filterObj[property];
+      if (value != null && value != undefined)
+        queryParts.push(`${encodeURIComponent(property)}=${value}`);
+    }
+
+    return queryParts.join('&');
   }
 
   updateVehicle = (vehicle: ISaveVehicle) => {
