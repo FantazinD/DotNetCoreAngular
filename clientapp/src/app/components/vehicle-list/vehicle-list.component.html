@@ -1,1 +1,28 @@
-<p>vehicle-list works!</p>
+<h2>Vehicles</h2>
+<p>
+  <a [routerLink]="['/vehicles/new']" class="btn btn-primary">New Vehicle</a>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Contact Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(vehicle of vehicles; track vehicle){
+    <tr>
+      <td>{{ vehicle.id }}</td>
+      <td>{{ vehicle.make.name }}</td>
+      <td>{{ vehicle.model.name }}</td>
+      <td>{{ vehicle.contact.name }}</td>
+      <td>
+        <a [routerLink]="['/vehicles/', vehicle.id]">View</a>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

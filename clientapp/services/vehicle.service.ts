@@ -7,6 +7,8 @@ import { ISaveVehicle } from '../src/app/interfaces/ISaveVehicle';
   providedIn: 'root',
 })
 export class VehicleService {
+  private readonly vehiclesEndpoint = `http://localhost:5166/api/vehicles`;
+
   constructor(private http: HttpClient) {}
 
   getMakes = () => {
@@ -23,25 +25,29 @@ export class VehicleService {
 
   createVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .post('http://localhost:5166/api/vehicles', vehicle)
+      .post(this.vehiclesEndpoint, vehicle)
       .pipe(map((res) => res));
   };
 
   getVehicle = (id: number) => {
     return this.http
-      .get(`http://localhost:5166/api/vehicles/${id}`)
+      .get(`${this.vehiclesEndpoint}/${id}`)
       .pipe(map((res) => res));
   };
 
+  getVehicles() {
+    return this.http.get(this.vehiclesEndpoint).pipe(map((res) => res));
+  }
+
   updateVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .put(`http://localhost:5166/api/vehicles/${vehicle.id}`, vehicle)
+      .put(`${this.vehiclesEndpoint}/${vehicle.id}`, vehicle)
       .pipe(map((res) => res));
   };
 
   deleteVehicle = (id: number) => {
     return this.http
-      .delete(`http://localhost:5166/api/vehicles/${id}`)
+      .delete(`${this.vehiclesEndpoint}/${id}`)
       .pipe(map((res) => res));
   };
 }

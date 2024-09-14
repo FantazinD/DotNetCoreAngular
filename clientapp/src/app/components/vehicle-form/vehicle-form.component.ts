@@ -94,7 +94,15 @@ export class VehicleFormComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.vehicleService.deleteVehicle(this.vehicle.id).subscribe({
         next: (res) => {
-          this.router.navigate(['/home']);
+          this.toastrService.success(
+            'Vehicle was sucessfully deleted.',
+            'Success',
+            {
+              timeOut: 3000,
+              closeButton: true,
+            }
+          );
+          this.router.navigate(['/vehicles']);
         },
       });
     }
@@ -115,7 +123,7 @@ export class VehicleFormComponent implements OnInit {
   onSubmit = (): void => {
     if (this.vehicle.id) {
       this.vehicleService.updateVehicle(this.vehicle).subscribe((res) => {
-        this.toastrService.error(
+        this.toastrService.success(
           'Vehicle was sucessfully updated.',
           'Success',
           {
@@ -123,6 +131,7 @@ export class VehicleFormComponent implements OnInit {
             closeButton: true,
           }
         );
+        this.router.navigate(['/vehicles']);
       });
     } else {
       this.vehicleService
