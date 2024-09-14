@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { ISaveVehicle } from '../../interfaces/ISaveVehicle';
 import { IVehicle } from '../../interfaces/IVehicle';
 
@@ -77,10 +77,6 @@ export class VehicleFormComponent implements OnInit {
     this.vehicle.contact = vehicle.contact;
     this.vehicle.features = vehicle.features.map((feature) => feature.id);
   };
-
-  showSuccess() {
-    this.toastrService.success('Hello world!', 'Toastr fun!');
-  }
 
   onFeatureToggle = (featureId: any, $event: any): void => {
     if ($event.target.checked) this.vehicle.features.push(featureId);
