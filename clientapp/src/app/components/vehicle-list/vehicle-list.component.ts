@@ -42,4 +42,9 @@ export class VehicleListComponent implements OnInit {
 
     this.vehicles = vehicles;
   };
+
+  onResetFilter = () => {
+    this.filter = {};
+    this.onFilterChange();
+  };
 }

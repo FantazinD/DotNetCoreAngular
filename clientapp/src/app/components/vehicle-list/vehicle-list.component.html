@@ -2,20 +2,28 @@
 <p>
   <a [routerLink]="['/vehicles/new']" class="btn btn-primary">New Vehicle</a>
 </p>
-<div class="form-group well">
-  <label for="make">Make</label
-  ><select
-    name=""
-    id="make"
-    class="form-control"
-    [(ngModel)]="filter.makeId"
-    (change)="onFilterChange()"
-  >
-    <option value=""></option>
-    @for(make of makes; track make){
-    <option value="{{ make.id }}">{{ make.name }}</option>
-    }
-  </select>
+<div class="card bg-light card-body">
+  <div class="form-group">
+    <label for="make">Make</label
+    ><select
+      name=""
+      id="make"
+      class="form-control"
+      [(ngModel)]="filter.makeId"
+      (change)="onFilterChange()"
+    >
+      <option value=""></option>
+      @for(make of makes; track make){
+      <option value="{{ make.id }}">{{ make.name }}</option>
+      }
+    </select>
+    <button
+      class="btn btn-light btn-outline-secondary"
+      (click)="onResetFilter()"
+    >
+      Reset
+    </button>
+  </div>
 </div>
 <table class="table">
   <thead>
