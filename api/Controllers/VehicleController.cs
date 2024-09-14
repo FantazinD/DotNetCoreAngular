@@ -74,5 +74,13 @@ namespace api.Controllers
 
             return Ok(vehicle.ToVehicleDTO());
         }
+
+        [HttpGet("/api/vehicles")]
+        public async Task<IActionResult> GetVehicles()
+        {
+            var vehicles = await _vehicleRepository.GetVehiclesAsync();
+
+            return Ok(vehicles.Select(vehicle => vehicle.ToVehicleDTO()));
+        }
     }
 }

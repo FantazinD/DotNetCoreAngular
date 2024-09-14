@@ -32,5 +32,15 @@ namespace api.Repositories
         {
             _context.Remove(vehicle);
         }
+
+        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync()
+        {
+            return await _context.Vehicles
+                .Include(vehicle => vehicle.Model)
+                .ThenInclude(vehicleModel => vehicleModel.Make)
+                .Include(vehicle => vehicle.Features)
+                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
+                .ToListAsync();
+        }
     }
 }
