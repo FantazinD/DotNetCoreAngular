@@ -33,14 +33,20 @@ namespace api.Repositories
             _context.Remove(vehicle);
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync()
+        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(Filter filter)
         {
-            return await _context.Vehicles
+            var query = _context.Vehicles
                 .Include(vehicle => vehicle.Model)
                 .ThenInclude(vehicleModel => vehicleModel.Make)
                 .Include(vehicle => vehicle.Features)
                 .ThenInclude(vehicleFeature => vehicleFeature.Feature)
-                .ToListAsync();
+                .AsQueryable();
+
+            if(filter.MakeId.HasValue){
+                query = query.Where(vehicle => vehicle.Model.MakeId == filter.MakeId);
+            };
+
+            return await query.ToListAsync();
         }
     }
 }

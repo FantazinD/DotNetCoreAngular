@@ -7,7 +7,7 @@ namespace api.Mappers
     {
         public static Filter ToFilter(this FilterDTO filterDTO){
             return new Filter{
-                MakeId = 0
+                MakeId = filterDTO.MakeId
             };
         }
     }
