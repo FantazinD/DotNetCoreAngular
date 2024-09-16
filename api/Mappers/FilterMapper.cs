@@ -7,7 +7,10 @@ namespace api.Mappers
     {
         public static Filter ToFilter(this FilterDTO filterDTO){
             return new Filter{
-                MakeId = filterDTO.MakeId
+                MakeId = filterDTO.MakeId,
+                ModelId = filterDTO.ModelId,
+                SortBy = filterDTO.SortBy,
+                IsSortAscending = filterDTO.IsSortAscending
             };
         }
     }
