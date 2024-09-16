@@ -46,6 +46,10 @@ namespace api.Repositories
                 query = query.Where(vehicle => vehicle.Model.MakeId == filter.MakeId);
             };
 
+            if(filter.ModelId.HasValue){
+                query = query.Where(vehicle => vehicle.Model.Id == filter.ModelId);
+            };
+
             return await query.ToListAsync();
         }
     }
