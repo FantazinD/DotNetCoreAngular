@@ -51,10 +51,7 @@ namespace api.Repositories
                 ["id"] = vehicle => vehicle.Id,
             };
 
-            if(vehicleQuery.IsSortAscending)
-                query = query.OrderBy(columnsMap[vehicleQuery.SortBy]);
-            else
-                query = query.OrderByDescending(columnsMap[vehicleQuery.SortBy]);
+            query = ApplyOrdering(vehicleQuery, query, columnsMap);
 
             if(vehicleQuery.MakeId.HasValue){
                 query = query.Where(vehicle => vehicle.Model.MakeId == vehicleQuery.MakeId);
@@ -65,6 +62,13 @@ namespace api.Repositories
             };
 
             return await query.ToListAsync();
+        }
+
+        private IQueryable<Vehicle> ApplyOrdering(VehicleQuery vehicleQuery, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, object>>> columnsMap){
+            return vehicleQuery.IsSortAscending ? 
+                query.OrderBy(columnsMap[vehicleQuery.SortBy]) 
+                : 
+                query.OrderByDescending(columnsMap[vehicleQuery.SortBy]);
         }
     }
 }
