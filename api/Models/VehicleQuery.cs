@@ -1,6 +1,6 @@
 namespace api.Models
 {
-    public class Filter
+    public class VehicleQuery
     {
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }

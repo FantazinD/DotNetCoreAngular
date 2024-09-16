@@ -1,6 +1,6 @@
-namespace api.DTOs.Filter
+namespace api.DTOs.Vehicle
 {
-    public class FilterDTO
+    public class VehicleQueryDTO
     {
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }

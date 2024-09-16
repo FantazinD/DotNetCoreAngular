@@ -1,7 +1,6 @@
 using api.DTOs.Contact;
 using api.DTOs.Vehicle;
 using api.Models;
-using Microsoft.IdentityModel.Tokens;
 
 namespace api.Mappers
 {
@@ -52,6 +51,15 @@ namespace api.Mappers
                     }).ToList();
 
             return updatedVehicle;
+        }
+
+        public static VehicleQuery ToVehicleQuery(this VehicleQueryDTO filterDTO){
+            return new VehicleQuery{
+                MakeId = filterDTO.MakeId,
+                ModelId = filterDTO.ModelId,
+                SortBy = filterDTO.SortBy,
+                IsSortAscending = filterDTO.IsSortAscending
+            };
         }
     }
 }

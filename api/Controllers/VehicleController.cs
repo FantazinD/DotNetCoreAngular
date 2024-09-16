@@ -1,4 +1,3 @@
-using api.DTOs.Filter;
 using api.DTOs.Vehicle;
 using api.Interfaces;
 using api.Mappers;
@@ -77,10 +76,10 @@ namespace api.Controllers
         }
 
         [HttpGet("/api/vehicles")]
-        public async Task<IActionResult> GetVehicles([FromQuery] FilterDTO filterDTO)
+        public async Task<IActionResult> GetVehicles([FromQuery] VehicleQueryDTO vehicleQueryDTO)
         {
-            var filter = filterDTO.ToFilter();
-            var vehicles = await _vehicleRepository.GetVehiclesAsync(filter);
+            var vehicleQuery = vehicleQueryDTO.ToVehicleQuery();
+            var vehicles = await _vehicleRepository.GetVehiclesAsync(vehicleQuery);
 
             return Ok(vehicles.Select(vehicle => vehicle.ToVehicleDTO()));
         }

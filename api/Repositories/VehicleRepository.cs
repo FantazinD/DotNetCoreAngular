@@ -33,7 +33,7 @@ namespace api.Repositories
             _context.Remove(vehicle);
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(Filter filter)
+        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(VehicleQuery vehicleQuery)
         {
             var query = _context.Vehicles
                 .Include(vehicle => vehicle.Model)
@@ -42,12 +42,12 @@ namespace api.Repositories
                 .ThenInclude(vehicleFeature => vehicleFeature.Feature)
                 .AsQueryable();
 
-            if(filter.MakeId.HasValue){
-                query = query.Where(vehicle => vehicle.Model.MakeId == filter.MakeId);
+            if(vehicleQuery.MakeId.HasValue){
+                query = query.Where(vehicle => vehicle.Model.MakeId == vehicleQuery.MakeId);
             };
 
-            if(filter.ModelId.HasValue){
-                query = query.Where(vehicle => vehicle.Model.Id == filter.ModelId);
+            if(vehicleQuery.ModelId.HasValue){
+                query = query.Where(vehicle => vehicle.Model.Id == vehicleQuery.ModelId);
             };
 
             return await query.ToListAsync();
