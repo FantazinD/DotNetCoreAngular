@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using api.Data;
 using api.Interfaces;
 using api.Models;
@@ -41,6 +42,19 @@ namespace api.Repositories
                 .Include(vehicle => vehicle.Features)
                 .ThenInclude(vehicleFeature => vehicleFeature.Feature)
                 .AsQueryable();
+
+            Expression<Func<Vehicle, object>> exp;
+            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>(){
+                ["make"] = vehicle => vehicle.Model.Make.Name,
+                ["model"] = vehicle => vehicle.Model.Name,
+                ["contactName"] = vehicle => vehicle.ContactName,
+                ["id"] = vehicle => vehicle.Id,
+            };
+
+            if(vehicleQuery.IsSortAscending)
+                query = query.OrderBy(columnsMap[vehicleQuery.SortBy]);
+            else
+                query = query.OrderByDescending(columnsMap[vehicleQuery.SortBy]);
 
             if(vehicleQuery.MakeId.HasValue){
                 query = query.Where(vehicle => vehicle.Model.MakeId == vehicleQuery.MakeId);
