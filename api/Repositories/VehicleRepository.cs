@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using api.Data;
+using api.Extensions.IQueryableExtensions;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +52,7 @@ namespace api.Repositories
                 ["id"] = vehicle => vehicle.Id,
             };
 
-            query = ApplyOrdering(vehicleQuery, query, columnsMap);
+            query = query.ApplyOrdering(vehicleQuery, columnsMap);
 
             if(vehicleQuery.MakeId.HasValue){
                 query = query.Where(vehicle => vehicle.Model.MakeId == vehicleQuery.MakeId);
@@ -64,11 +65,6 @@ namespace api.Repositories
             return await query.ToListAsync();
         }
 
-        private IQueryable<Vehicle> ApplyOrdering(VehicleQuery vehicleQuery, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, object>>> columnsMap){
-            return vehicleQuery.IsSortAscending ? 
-                query.OrderBy(columnsMap[vehicleQuery.SortBy]) 
-                : 
-                query.OrderByDescending(columnsMap[vehicleQuery.SortBy]);
-        }
+        
     }
 }
