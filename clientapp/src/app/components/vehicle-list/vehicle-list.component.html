@@ -28,31 +28,22 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Id</th>
-      <th (click)="sortBy('make')">
-        Make @if(query.sortBy === 'make'){<i
-          class="fa"
-          [class.fa-sort-asc]="query.isSortAscending"
-          [class.fa-sort-desc]="!query.isSortAscending"
-        ></i
-        >}
+      @for(column of columns; track column){
+      <th>
+        @if(column.isSortable){
+        <div (click)="sortBy(column.key)">
+          {{ column.title }} @if(query.sortBy === column.key){<i
+            class="fa"
+            [class.fa-sort-asc]="query.isSortAscending"
+            [class.fa-sort-desc]="!query.isSortAscending"
+          ></i
+          >}
+        </div>
+        }@else{
+        <div>{{ column.title }}</div>
+        }
       </th>
-      <th (click)="sortBy('model')">
-        Model @if(query.sortBy === 'model'){<i
-          class="fa"
-          [class.fa-sort-asc]="query.isSortAscending"
-          [class.fa-sort-desc]="!query.isSortAscending"
-        ></i
-        >}
-      </th>
-      <th (click)="sortBy('contactName')">
-        Contact Name @if(query.sortBy === 'contactName'){<i
-          class="fa"
-          [class.fa-sort-asc]="query.isSortAscending"
-          [class.fa-sort-desc]="!query.isSortAscending"
-        ></i
-        >}
-      </th>
+      }
       <th></th>
     </tr>
   </thead>
