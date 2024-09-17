@@ -39,20 +39,10 @@ namespace api.Repositories
         {
             var query = _context.Vehicles
                 .Include(vehicle => vehicle.Model)
-                .ThenInclude(vehicleModel => vehicleModel.Make)
+                    .ThenInclude(vehicleModel => vehicleModel.Make)
                 .Include(vehicle => vehicle.Features)
-                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
+                    .ThenInclude(vehicleFeature => vehicleFeature.Feature)
                 .AsQueryable();
-
-            Expression<Func<Vehicle, object>> exp;
-            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>(){
-                ["make"] = vehicle => vehicle.Model.Make.Name,
-                ["model"] = vehicle => vehicle.Model.Name,
-                ["contactName"] = vehicle => vehicle.ContactName,
-                ["id"] = vehicle => vehicle.Id,
-            };
-
-            query = query.ApplyOrdering(vehicleQuery, columnsMap);
 
             if(vehicleQuery.MakeId.HasValue){
                 query = query.Where(vehicle => vehicle.Model.MakeId == vehicleQuery.MakeId);
@@ -61,6 +51,15 @@ namespace api.Repositories
             if(vehicleQuery.ModelId.HasValue){
                 query = query.Where(vehicle => vehicle.Model.Id == vehicleQuery.ModelId);
             };
+
+            Expression<Func<Vehicle, object>> exp;
+            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>(){
+                ["make"] = vehicle => vehicle.Model.Make.Name,
+                ["model"] = vehicle => vehicle.Model.Name,
+                ["contactName"] = vehicle => vehicle.ContactName
+            };
+
+            query = query.ApplyOrdering(vehicleQuery, columnsMap);
 
             return await query.ToListAsync();
         }
