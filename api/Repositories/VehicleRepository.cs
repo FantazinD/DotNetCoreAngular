@@ -52,7 +52,6 @@ namespace api.Repositories
                 query = query.Where(vehicle => vehicle.Model.Id == vehicleQuery.ModelId);
             };
 
-            Expression<Func<Vehicle, object>> exp;
             var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>(){
                 ["make"] = vehicle => vehicle.Model.Make.Name,
                 ["model"] = vehicle => vehicle.Model.Name,

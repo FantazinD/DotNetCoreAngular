@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class VehicleListComponent implements OnInit {
   vehicles: IVehicle[] = [];
   makes: IKeyValuePair[] = [];
-  filter: any = {};
+  query: any = {};
 
   constructor(private vehicleService: VehicleService) {}
 
@@ -29,7 +29,7 @@ export class VehicleListComponent implements OnInit {
 
   private populateVehicles = () => {
     this.vehicleService
-      .getVehicles(this.filter)
+      .getVehicles(this.query)
       .subscribe((vehicles: any) => (this.vehicles = vehicles));
   };
 
@@ -38,7 +38,16 @@ export class VehicleListComponent implements OnInit {
   };
 
   onResetFilter = () => {
-    this.filter = {};
+    this.query = {};
     this.onFilterChange();
+  };
+
+  sortBy = (columnName: string) => {
+    if (this.query.sortBy === columnName) this.query.isSortAscending = false;
+    else {
+      this.query.sortBy = columnName;
+      this.query.isSortAscending = true;
+    }
+    this.populateVehicles();
   };
 }
