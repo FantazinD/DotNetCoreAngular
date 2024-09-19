@@ -1,6 +1,7 @@
 using api.DTOs.Vehicle;
 using api.Interfaces;
 using api.Mappers;
+using api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -79,9 +80,9 @@ namespace api.Controllers
         public async Task<IActionResult> GetVehicles([FromQuery] VehicleQueryDTO vehicleQueryDTO)
         {
             var vehicleQuery = vehicleQueryDTO.ToVehicleQuery();
-            var vehicles = await _vehicleRepository.GetVehiclesAsync(vehicleQuery);
+            var queryResult = await _vehicleRepository.GetVehiclesAsync(vehicleQuery);
 
-            return Ok(vehicles.Select(vehicle => vehicle.ToVehicleDTO()));
+            return Ok(queryResult.ToQueryResultDTO());
         }
     }
 }

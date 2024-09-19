@@ -35,8 +35,10 @@ namespace api.Repositories
             _context.Remove(vehicle);
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(VehicleQuery vehicleQuery)
+        public async Task<QueryResult<Vehicle>> GetVehiclesAsync(VehicleQuery vehicleQuery)
         {
+            var result = new QueryResult<Vehicle>();
+
             var query = _context.Vehicles
                 .Include(vehicle => vehicle.Model)
                     .ThenInclude(vehicleModel => vehicleModel.Make)
@@ -60,9 +62,13 @@ namespace api.Repositories
 
             query = query.ApplyOrdering(vehicleQuery, columnsMap);
 
+            result.TotalItems = await query.CountAsync();
+
             query = query.ApplyPaging(vehicleQuery);
 
-            return await query.ToListAsync();
+            result.Items = await query.ToListAsync();
+
+            return result;
         }
     }
 }
