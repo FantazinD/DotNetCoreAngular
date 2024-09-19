@@ -1,4 +1,8 @@
+@if(vehicle.id > 0){
+<h1>Update Vehicle</h1>
+}@else{
 <h1>New Vehicle</h1>
+}
 <p>
   {{ vehicle | json }}
 </p>

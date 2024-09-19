@@ -50,8 +50,9 @@ export class VehicleFormComponent implements OnInit {
       this.vehicleService.getFeatures(),
     ];
 
-    if (this.vehicle.id)
-      sources.push(this.vehicleService.getVehicle(this.vehicle.id));
+    this.vehicle.id
+      ? sources.push(this.vehicleService.getVehicle(this.vehicle.id))
+      : (this.vehicle.id = 0);
 
     forkJoin(sources).subscribe({
       next: (data: any[]) => {
@@ -130,9 +131,17 @@ export class VehicleFormComponent implements OnInit {
         this.router.navigate(['/vehicles']);
       });
     } else {
-      this.vehicleService
-        .createVehicle(this.vehicle)
-        .subscribe((res) => console.log(res));
+      this.vehicleService.createVehicle(this.vehicle).subscribe((res) => {
+        this.toastrService.success(
+          'Vehicle was sucessfully created.',
+          'Success',
+          {
+            timeOut: 3000,
+            closeButton: true,
+          }
+        );
+        this.router.navigate(['/vehicles']);
+      });
     }
   };
 }
