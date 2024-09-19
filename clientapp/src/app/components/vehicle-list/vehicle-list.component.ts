@@ -14,10 +14,12 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
   styleUrl: './vehicle-list.component.css',
 })
 export class VehicleListComponent implements OnInit {
+  private readonly _pageSize = 3;
+
   queryResult: any = {};
   makes: IKeyValuePair[] = [];
   query: any = {
-    pageSize: 2,
+    pageSize: this._pageSize,
   };
   columns: any[] = [
     { title: 'Id' },
@@ -52,12 +54,16 @@ export class VehicleListComponent implements OnInit {
   };
 
   onFilterChange = () => {
+    this.query.page = 1;
     this.populateVehicles();
   };
 
   onResetFilter = () => {
-    this.query = {};
-    this.onFilterChange();
+    this.query = {
+      page: 1,
+      pageSize: this._pageSize,
+    };
+    this.populateVehicles();
   };
 
   sortBy = (columnName: string) => {
