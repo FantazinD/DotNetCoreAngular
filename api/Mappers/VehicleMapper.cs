@@ -58,7 +58,9 @@ namespace api.Mappers
                 MakeId = filterDTO.MakeId,
                 ModelId = filterDTO.ModelId,
                 SortBy = filterDTO.SortBy,
-                IsSortAscending = filterDTO.IsSortAscending
+                IsSortAscending = filterDTO.IsSortAscending,
+                Page = filterDTO.Page,
+                PageSize = filterDTO.PageSize
             };
         }
     }
