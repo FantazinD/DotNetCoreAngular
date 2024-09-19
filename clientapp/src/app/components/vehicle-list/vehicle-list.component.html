@@ -48,7 +48,7 @@
     </tr>
   </thead>
   <tbody>
-    @for(vehicle of vehicles; track vehicle){
+    @for(vehicle of queryResult.items; track vehicle){
     <tr>
       <td>{{ vehicle.id }}</td>
       <td>{{ vehicle.make.name }}</td>
@@ -62,7 +62,7 @@
   </tbody>
 </table>
 <app-pagination
-  [total-items]="10"
+  [total-items]="queryResult.totalItems"
   [page-size]="query.pageSize"
   (page-changed)="onPageChange($event)"
 ></app-pagination>

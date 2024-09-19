@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using api.Data;
 using api.Extensions.IQueryableExtensions;
 using api.Interfaces;
+using api.Mappers;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 

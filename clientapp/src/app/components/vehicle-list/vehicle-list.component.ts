@@ -14,7 +14,7 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
   styleUrl: './vehicle-list.component.css',
 })
 export class VehicleListComponent implements OnInit {
-  vehicles: IVehicle[] = [];
+  queryResult: any = {};
   makes: IKeyValuePair[] = [];
   query: any = {
     pageSize: 2,
@@ -48,7 +48,7 @@ export class VehicleListComponent implements OnInit {
   private populateVehicles = () => {
     this.vehicleService
       .getVehicles(this.query)
-      .subscribe((vehicles: any) => (this.vehicles = vehicles));
+      .subscribe((res: any) => (this.queryResult = res));
   };
 
   onFilterChange = () => {

@@ -27,9 +27,6 @@ export class PaginationComponent implements OnChanges {
     let pagesCount = Math.ceil(this.totalItems / this.pageSize);
     this.pages = [];
     for (let i = 1; i <= pagesCount; i++) this.pages.push(i);
-
-    console.log('mada');
-    console.log(this);
   }
 
   onChangePage = (page: number) => {

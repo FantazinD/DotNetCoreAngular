@@ -82,7 +82,12 @@ namespace api.Controllers
             var vehicleQuery = vehicleQueryDTO.ToVehicleQuery();
             var queryResult = await _vehicleRepository.GetVehiclesAsync(vehicleQuery);
 
-            return Ok(queryResult.ToQueryResultDTO());
+            var data = new {
+                queryResult.TotalItems,
+                Items = queryResult.Items.Select(vehicle => vehicle.ToVehicleDTO())
+            };
+
+            return Ok(data);
         }
     }
 }
