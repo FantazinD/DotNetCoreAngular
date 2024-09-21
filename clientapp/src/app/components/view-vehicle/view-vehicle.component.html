@@ -1,1 +1,51 @@
-<p>view-vehicle works!</p>
+<h1>Vehicle</h1>
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <button ngbNavLink>Vehicle</button>
+    <ng-template ngbNavContent>
+      @if(vehicle){
+      <h2>Basics</h2>
+      <ul>
+        <li>Make: {{ vehicle.make.name }}</li>
+        <li>Model: {{ vehicle.model.name }}</li>
+        <li>Registered: {{ vehicle.isRegistered ? "Yes" : "No" }}</li>
+      </ul>
+
+      <h2>Features</h2>
+      <ul>
+        @for(vehicleFeature of vehicle.features; track vehicleFeature){
+        <li>{{ vehicleFeature.name }}</li>
+        }
+      </ul>
+      <h2>Contact</h2>
+      <ul>
+        <li>Contact Name: {{ vehicle.contact.name }}</li>
+        <li>Contact Phone: {{ vehicle.contact.phone }}</li>
+        <li>Contact Email: {{ vehicle.contact.email }}</li>
+      </ul>
+      <br />
+      <p>
+        <a
+          class="btn btn-primary"
+          [routerLink]="['/vehicles/edit/', vehicle.id]"
+          >Edit</a
+        >
+        <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+        <a class="btn btn-secondary" [routerLink]="['/vehicles']"
+          >View All Vehicles</a
+        >
+      </p>
+      }
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <button ngbNavLink>Photos</button>
+    <ng-template ngbNavContent>
+      @if(vehicle){
+      <h2>Photos</h2>
+      }
+    </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
