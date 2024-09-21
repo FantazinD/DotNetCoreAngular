@@ -40,7 +40,7 @@ export class VehicleFormComponent implements OnInit {
     private toastrService: ToastrService
   ) {
     this.route.params.subscribe((p) => {
-      this.vehicle.id = +p['id'];
+      this.vehicle.id = +p['id'] || 0;
     });
   }
 
@@ -50,9 +50,8 @@ export class VehicleFormComponent implements OnInit {
       this.vehicleService.getFeatures(),
     ];
 
-    this.vehicle.id
-      ? sources.push(this.vehicleService.getVehicle(this.vehicle.id))
-      : (this.vehicle.id = 0);
+    if (this.vehicle.id)
+      sources.push(this.vehicleService.getVehicle(this.vehicle.id));
 
     forkJoin(sources).subscribe({
       next: (data: any[]) => {
