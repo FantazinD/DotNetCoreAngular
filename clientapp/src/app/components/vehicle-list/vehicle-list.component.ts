@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IVehicle } from '../../interfaces/IVehicle';
 import { VehicleService } from '../../../../services/vehicle.service';
 import { RouterModule } from '@angular/router';
 import { IKeyValuePair } from '../../interfaces/IKeyValuePair';
