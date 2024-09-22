@@ -117,10 +117,13 @@ export class VehicleFormComponent implements OnInit {
   };
 
   onSubmit = (): void => {
-    if (this.vehicle.id) {
-      this.vehicleService.updateVehicle(this.vehicle).subscribe((res) => {
+    var result$ = this.vehicle.id
+      ? this.vehicleService.updateVehicle(this.vehicle)
+      : this.vehicleService.createVehicle(this.vehicle);
+    result$.subscribe({
+      next: () => {
         this.toastrService.success(
-          'Vehicle was sucessfully updated.',
+          `Vehicle was sucessfully ${this.vehicle.id ? 'updated' : 'created'}.`,
           'Success',
           {
             timeOut: 3000,
@@ -128,19 +131,8 @@ export class VehicleFormComponent implements OnInit {
           }
         );
         this.router.navigate(['/vehicles']);
-      });
-    } else {
-      this.vehicleService.createVehicle(this.vehicle).subscribe((res) => {
-        this.toastrService.success(
-          'Vehicle was sucessfully created.',
-          'Success',
-          {
-            timeOut: 3000,
-            closeButton: true,
-          }
-        );
-        this.router.navigate(['/vehicles']);
-      });
-    }
+      },
+      error: () => {},
+    });
   };
 }
