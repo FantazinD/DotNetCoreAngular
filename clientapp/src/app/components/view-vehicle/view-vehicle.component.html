@@ -43,6 +43,7 @@
     <ng-template ngbNavContent>
       @if(vehicle){
       <h2>Photos</h2>
+      <input type="file" (change)="onUploadPhoto()" #fileInput />
       }
     </ng-template>
   </li>
