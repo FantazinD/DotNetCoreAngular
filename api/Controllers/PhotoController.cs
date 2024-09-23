@@ -43,7 +43,7 @@ namespace api.Controllers
             vehicle.Photos.Add(photo);
             await _unitOfWorkRepository.CompleteAsync();
 
-            return Ok(filePath);
+            return Ok(photo.ToPhotoDTO());
         }
     }
 }

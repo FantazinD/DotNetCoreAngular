@@ -6,7 +6,7 @@ project.lock.json
 nupkg/
 
 #custom
-wwwroot/uploads
+wwwroot/uploads/
 
 # Visual Studio Code
 .vscode/
