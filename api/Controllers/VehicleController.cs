@@ -1,7 +1,6 @@
 using api.DTOs.Vehicle;
 using api.Interfaces;
 using api.Mappers;
-using api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers

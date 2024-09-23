@@ -19,4 +19,10 @@ export class PhotoService {
       .post(`${this.vehiclesEndpoint}/${vehicleId}/photos`, formData)
       .pipe(map((res) => res));
   };
+
+  getPhotos = (vehicleId: number) => {
+    return this.http
+      .get(`${this.vehiclesEndpoint}/${vehicleId}/photos`)
+      .pipe(map((res) => res));
+  };
 }

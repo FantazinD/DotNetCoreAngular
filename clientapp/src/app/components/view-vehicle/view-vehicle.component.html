@@ -44,7 +44,9 @@
       @if(vehicle){
       <h2>Photos</h2>
       <input type="file" (change)="onUploadPhoto()" #fileInput />
-      }
+      @for(photo of photos; track photo){
+      <img src="./uploads/{{ photo.fileName }}" class="img-thumbnail" />
+      } }
     </ng-template>
   </li>
 </ul>

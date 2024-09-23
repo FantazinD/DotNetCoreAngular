@@ -13,11 +13,12 @@ namespace api.Controllers
 {
     [Route("api/vehicles/{vehicleId}/photos")]
     [ApiController]
-    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository, IOptionsSnapshot<PhotoSetting> optionsSnapshot):ControllerBase
+    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository, IOptionsSnapshot<PhotoSetting> optionsSnapshot, IPhotoRepository photoRepository):ControllerBase
     {
         private readonly PhotoSetting _photoSettings = optionsSnapshot.Value;
         private readonly IWebHostEnvironment _host = host;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
+        private readonly IPhotoRepository _photoRepository = photoRepository;
         private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
 
         [HttpPost]
@@ -33,7 +34,8 @@ namespace api.Controllers
             if(file.Length > _photoSettings.MaxBytes) return BadRequest("Maximum file size exceeded.");
             if(!_photoSettings.IsSupported(file.FileName)) return BadRequest("Invalid file type.");
 
-            var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads");
+            var appPath = _host.ContentRootPath.Substring(0,_host.ContentRootPath.Length - string.Concat("/", _host.ApplicationName).Length);
+            var uploadsFolderPath = string.Concat(appPath, "/clientapp/public/uploads");
             
             if(!Directory.Exists(uploadsFolderPath))
                 Directory.CreateDirectory(uploadsFolderPath);
@@ -51,6 +53,14 @@ namespace api.Controllers
             await _unitOfWorkRepository.CompleteAsync();
 
             return Ok(photo.ToPhotoDTO());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPhotos(int vehicleId)
+        {   
+            var photos = await _photoRepository.GetPhotos(vehicleId);
+
+            return Ok(photos.Select(photo => photo.ToPhotoDTO()));
         }
     }
 }
