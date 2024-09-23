@@ -14,6 +14,8 @@ namespace api.Controllers
     [ApiController]
     public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository):ControllerBase
     {
+        private readonly int _maxFileSize = 10 * 1024 * 1024;
+        private readonly string[] _acceptedFileType = new[] {".jpg",".jpeg",".png"};
         private readonly IWebHostEnvironment _host = host;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
         private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
@@ -25,6 +27,11 @@ namespace api.Controllers
 
             if(vehicle == null)
                 return NotFound();
+
+            if(file == null) return BadRequest("Null File.");
+            if(file.Length == 0) return BadRequest("Empty File.");
+            if(file.Length > _maxFileSize) return BadRequest("Maximum file size exceeded.");
+            if(_acceptedFileType.Any(s => s == Path.GetExtension(file.FileName))) return BadRequest("Invalid file type.");
 
             var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads");
             
