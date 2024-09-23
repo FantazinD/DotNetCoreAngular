@@ -15,7 +15,7 @@ namespace api.Controllers
     [ApiController]
     public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository, IOptionsSnapshot<PhotoSetting> optionsSnapshot):ControllerBase
     {
-        private readonly PhotoSetting _optionsSnapshot = optionsSnapshot.Value;
+        private readonly PhotoSetting _photoSettings = optionsSnapshot.Value;
         private readonly IWebHostEnvironment _host = host;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
         private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
@@ -30,8 +30,8 @@ namespace api.Controllers
 
             if(file == null) return BadRequest("Null File.");
             if(file.Length == 0) return BadRequest("Empty File.");
-            if(file.Length > _optionsSnapshot.MaxBytes) return BadRequest("Maximum file size exceeded.");
-            if(_optionsSnapshot.AcceptedFileTypes.Any(s => s == Path.GetExtension(file.FileName).ToLower())) return BadRequest("Invalid file type.");
+            if(file.Length > _photoSettings.MaxBytes) return BadRequest("Maximum file size exceeded.");
+            if(!_photoSettings.IsSupported(file.FileName)) return BadRequest("Invalid file type.");
 
             var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads");
             
