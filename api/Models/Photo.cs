@@ -10,5 +10,6 @@ namespace api.Models
         [Required]
         [StringLength(255)]
         public string FileName { get; set; } = string.Empty;
+        public int VehicleId { get; set; }
     }
 }

@@ -33,6 +33,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 
 builder.Services.Configure<PhotoSetting>(builder.Configuration.GetSection("PhotoSettings"));
 
+builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IMakeRepository, MakeRepository>();
 builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
