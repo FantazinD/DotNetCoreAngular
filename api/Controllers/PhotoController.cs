@@ -7,15 +7,15 @@ using api.Interfaces;
 using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace api.Controllers
 {
     [Route("api/vehicles/{vehicleId}/photos")]
     [ApiController]
-    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository):ControllerBase
+    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository, IOptionsSnapshot<PhotoSetting> optionsSnapshot):ControllerBase
     {
-        private readonly int _maxFileSize = 10 * 1024 * 1024;
-        private readonly string[] _acceptedFileType = new[] {".jpg",".jpeg",".png"};
+        private readonly PhotoSetting _optionsSnapshot = optionsSnapshot.Value;
         private readonly IWebHostEnvironment _host = host;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
         private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
@@ -30,8 +30,8 @@ namespace api.Controllers
 
             if(file == null) return BadRequest("Null File.");
             if(file.Length == 0) return BadRequest("Empty File.");
-            if(file.Length > _maxFileSize) return BadRequest("Maximum file size exceeded.");
-            if(_acceptedFileType.Any(s => s == Path.GetExtension(file.FileName))) return BadRequest("Invalid file type.");
+            if(file.Length > _optionsSnapshot.MaxBytes) return BadRequest("Maximum file size exceeded.");
+            if(_optionsSnapshot.AcceptedFileTypes.Any(s => s == Path.GetExtension(file.FileName).ToLower())) return BadRequest("Invalid file type.");
 
             var uploadsFolderPath = Path.Combine(_host.WebRootPath, "uploads");
             

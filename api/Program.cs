@@ -1,5 +1,6 @@
 using api.Data;
 using api.Interfaces;
+using api.Models;
 using api.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -29,6 +30,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options => {
 builder.Services.AddDbContext<ApplicationDBContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.Configure<PhotoSetting>(builder.Configuration.GetSection("PhotoSettings"));
 
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IMakeRepository, MakeRepository>();
