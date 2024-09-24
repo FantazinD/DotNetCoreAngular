@@ -19,9 +19,9 @@ namespace api.Repositories
 
             return await _context.Vehicles
                 .Include(vehicle => vehicle.Features)
-                .ThenInclude(vehicleFeature => vehicleFeature.Feature)
+                    .ThenInclude(vehicleFeature => vehicleFeature.Feature)
                 .Include(vehicle => vehicle.Model)
-                .ThenInclude(vehicleModel => vehicleModel.Make)
+                    .ThenInclude(vehicleModel => vehicleModel.Make)
                 .SingleOrDefaultAsync(vehicle => vehicle.Id == id);
         }
 
