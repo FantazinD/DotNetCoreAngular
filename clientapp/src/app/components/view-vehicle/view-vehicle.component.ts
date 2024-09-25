@@ -92,7 +92,10 @@ export class ViewVehicleComponent implements OnInit {
           }
         },
         error: (err) => {
-          console.log(err);
+          this.toastrService.error(err.statusText, 'Error', {
+            timeOut: 3000,
+            closeButton: true,
+          });
         },
         complete: () => {
           this.progress = null;

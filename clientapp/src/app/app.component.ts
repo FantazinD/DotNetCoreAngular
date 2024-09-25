@@ -14,9 +14,9 @@ import { PhotoService } from '../../services/photo.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [
+    { provide: ErrorHandler, useClass: AppErrorHandler },
     VehicleService,
     PhotoService,
-    { provide: ErrorHandler, useClass: AppErrorHandler },
   ],
 })
 export class AppComponent {
