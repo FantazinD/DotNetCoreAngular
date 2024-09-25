@@ -44,7 +44,13 @@
       @if(vehicle){
       <h2>Photos</h2>
       <input type="file" (change)="onUploadPhoto()" #fileInput />
-      @for(photo of photos; track photo){
+      @if(progress && progress.percentage < 100){
+      <div class="progress">
+        <div class="progress-bar" [style.width]="progress.percentage + '%'">
+          <span class="sr-only">{{ progress.percentage }}% Complete</span>
+        </div>
+      </div>
+      } @for(photo of photos; track photo){
       <img src="./uploads/{{ photo.fileName }}" class="img-thumbnail" />
       } }
     </ng-template>

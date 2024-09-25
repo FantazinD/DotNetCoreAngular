@@ -11,13 +11,18 @@ export class PhotoService {
   constructor(private http: HttpClient) {}
 
   uploadPhoto = (vehicleId: number, photo: any) => {
-    let formData = new FormData();
+    const formData: FormData = new FormData();
 
     formData.append('file', photo);
 
-    return this.http
-      .post(`${this.vehiclesEndpoint}/${vehicleId}/photos`, formData)
-      .pipe(map((res) => res));
+    return this.http.post(
+      `${this.vehiclesEndpoint}/${vehicleId}/photos`,
+      formData,
+      {
+        reportProgress: true,
+        observe: 'events',
+      }
+    );
   };
 
   getPhotos = (vehicleId: number) => {

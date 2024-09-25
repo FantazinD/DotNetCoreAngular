@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VehicleService } from '../../../../services/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-vehicle',
@@ -18,6 +19,9 @@ export class ViewVehicleComponent implements OnInit {
   vehicle: any;
   vehicleId: number = 0;
   photos: any[] = [];
+  progress: any = {
+    percentage: 10,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +40,6 @@ export class ViewVehicleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('onInit');
     this.photoService.getPhotos(this.vehicleId).subscribe({
       next: (photos: any) => (this.photos = photos),
       error: (err) => {},
@@ -64,15 +67,35 @@ export class ViewVehicleComponent implements OnInit {
   };
 
   onUploadPhoto = () => {
-    console.log(this.fileInput);
     var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
 
     this.photoService
       .uploadPhoto(this.vehicleId, nativeElement.files![0])
       .subscribe({
-        next: (photo) => this.photos.push(photo),
+        next: (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress.percentage = Math.round(
+              (100 * event.loaded) / event.total
+            );
+          } else if (event.type === HttpEventType.Response) {
+            // Complete
+            this.toastrService.success(
+              `Photo sucessfully uploaded.`,
+              'Success',
+              {
+                timeOut: 3000,
+                closeButton: true,
+              }
+            );
+            this.progress.percentage = 100;
+            this.photos.push(event.body);
+          }
+        },
         error: (err) => {
           console.log(err);
+        },
+        complete: () => {
+          this.progress = null;
         },
       });
   };
