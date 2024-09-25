@@ -67,39 +67,35 @@ export class ViewVehicleComponent implements OnInit {
   };
 
   onUploadPhoto = () => {
-    var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+    const nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+    const file = nativeElement.files![0];
+    nativeElement.value = '';
 
-    this.photoService
-      .uploadPhoto(this.vehicleId, nativeElement.files![0])
-      .subscribe({
-        next: (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progress.percentage = Math.round(
-              (100 * event.loaded) / event.total
-            );
-          } else if (event.type === HttpEventType.Response) {
-            // Complete
-            this.toastrService.success(
-              `Photo sucessfully uploaded.`,
-              'Success',
-              {
-                timeOut: 3000,
-                closeButton: true,
-              }
-            );
-            this.progress.percentage = 100;
-            this.photos.push(event.body);
-          }
-        },
-        error: (err) => {
-          this.toastrService.error(err.statusText, 'Error', {
+    this.photoService.uploadPhoto(this.vehicleId, file).subscribe({
+      next: (event: any) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(
+            (100 * event.loaded) / event.total
+          );
+        } else if (event.type === HttpEventType.Response) {
+          // Complete
+          this.toastrService.success(`Photo sucessfully uploaded.`, 'Success', {
             timeOut: 3000,
             closeButton: true,
           });
-        },
-        complete: () => {
-          this.progress = null;
-        },
-      });
+          this.progress.percentage = 100;
+          this.photos.push(event.body);
+        }
+      },
+      error: (err) => {
+        this.toastrService.error(err.statusText, 'Error', {
+          timeOut: 3000,
+          closeButton: true,
+        });
+      },
+      complete: () => {
+        this.progress = null;
+      },
+    });
   };
 }
