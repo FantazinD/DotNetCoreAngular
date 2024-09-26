@@ -1,6 +1,7 @@
 using api.DTOs.Vehicle;
 using api.Interfaces;
 using api.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -13,6 +14,7 @@ namespace api.Controllers
         private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
 
         [HttpPost("/api/vehicles")]
+        [Authorize]
         public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleDTO vehicleDTO)
         {
             if (!ModelState.IsValid)
@@ -30,6 +32,7 @@ namespace api.Controllers
         }
 
         [HttpPut("/api/vehicles/{id:int}")]
+        [Authorize]
         public async Task<IActionResult> UpdateVehicle([FromRoute] int id, [FromBody] SaveVehicleDTO vehicleDTO){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -49,7 +52,8 @@ namespace api.Controllers
             return Ok(vehicle!.ToVehicleDTO());
         }
 
-        [HttpDelete("/api/vehicles/{id:int}")]
+        [HttpDelete("/api/vehicles/{id:int}")]        
+        [Authorize]
         public async Task<IActionResult> DeleteVehicle([FromRoute] int id){
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
