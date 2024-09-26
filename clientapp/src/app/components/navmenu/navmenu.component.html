@@ -16,8 +16,26 @@
     [(ngbCollapse)]="isCollapsed"
   >
     <ul class="navbar-nav">
+      @if(isAuthenticated){
       <li class="nav-item">
-        <a class="nav-link active" href="vehicles/">Vehicles</a>
+        <a
+          class="nav-link"
+          (click)="
+            auth.logout({
+              logoutParams: { returnTo: document.location.origin }
+            })
+          "
+          >Logout</a
+        >
+      </li>
+      }@else{
+      <li class="nav-item">
+        <a class="nav-link" (click)="auth.loginWithRedirect()">Login</a>
+      </li>
+      }
+
+      <li class="nav-item">
+        <a class="nav-link" href="vehicles/">Vehicles</a>
       </li>
     </ul>
   </div>

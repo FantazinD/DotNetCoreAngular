@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
       domain: 'dev-fantazindy-vega.jp.auth0.com',
       clientId: 'DHYESkSW0OMp7cBoRrpmn46Fc0712trk',
       authorizationParams: {
-        redirect_uri: 'http://localhost:4200', //window.location.origin,
+        redirect_uri: window.location.origin,
       },
     }),
     provideZoneChangeDetection({ eventCoalescing: true }),
