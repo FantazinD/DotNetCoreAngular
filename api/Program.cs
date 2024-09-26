@@ -4,21 +4,10 @@ using api.Models;
 using api.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
-// var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
-
-// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-// .AddJwtBearer(options =>
-// {
-//     options.Authority = domain;
-//     options.Audience = builder.Configuration["Auth0:Audience"];
-//     options.TokenValidationParameters = new TokenValidationParameters
-//     {
-//         NameClaimType = ClaimTypes.NameIdentifier
-//     };
-// });
 
 builder.WebHost.UseWebRoot("wwwroot");
 
@@ -27,6 +16,34 @@ builder.WebHost.UseWebRoot("wwwroot");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 // builder.Services.AddCors(options => {
 //     options.AddPolicy("AllowAngularOrigin", builder => {
