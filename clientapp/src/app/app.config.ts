@@ -5,9 +5,17 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAuth0 } from '@auth0/auth0-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAuth0({
+      domain: 'dev-fantazindy-vega.jp.auth0.com',
+      clientId: 'DHYESkSW0OMp7cBoRrpmn46Fc0712trk',
+      authorizationParams: {
+        redirect_uri: 'http://localhost:4200', //window.location.origin,
+      },
+    }),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
