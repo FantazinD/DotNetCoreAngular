@@ -1,29 +1,24 @@
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { RouterModule } from '@angular/router';
+import { AuthService, IdToken, User } from '@auth0/auth0-angular';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest, filter, mergeMap, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-navmenu',
   standalone: true,
-  imports: [NgbCollapseModule],
+  imports: [NgbCollapseModule, RouterModule, CommonModule],
   templateUrl: './navmenu.component.html',
   styleUrl: './navmenu.component.css',
 })
-export class NavmenuComponent implements OnInit {
+export class NavmenuComponent {
   isCollapsed = true;
-  isAuthenticated: boolean = false;
 
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService
   ) {}
-
-  ngOnInit(): void {
-    this.auth.isAuthenticated$.subscribe((authenticated) => {
-      this.isAuthenticated = authenticated;
-    });
-  }
 
   loginWithRedirect() {
     this.auth.loginWithRedirect();
