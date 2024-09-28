@@ -1,4 +1,9 @@
 <main class="container-fluid">
+  @if(auth.isLoading$ | async){
+  <div class="container">
+    <app-loading></app-loading>
+  </div>
+  }@else{
   <div class="row">
     <div class="col bg-dark">
       <app-navmenu></app-navmenu>
@@ -9,4 +14,5 @@
       <router-outlet></router-outlet>
     </div>
   </div>
+  }
 </main>
