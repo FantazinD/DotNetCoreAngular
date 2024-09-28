@@ -66,7 +66,7 @@ builder.Services.AddAuthentication(options => {
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options => {
     options.Authority = "https://dev-fantazindy-vega.jp.auth0.com/";
-    options.Audience = "https://api.vega-fanta.com";
+    options.Audience = "DHYESkSW0OMp7cBoRrpmn46Fc0712trk"; //"https://api.vega-fanta.com";
 });
 
 builder.Services.Configure<PhotoSetting>(builder.Configuration.GetSection("PhotoSettings"));
