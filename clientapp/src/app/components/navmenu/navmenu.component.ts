@@ -24,4 +24,14 @@ export class NavmenuComponent implements OnInit {
       this.isAuthenticated = authenticated;
     });
   }
+
+  loginWithRedirect() {
+    this.auth.loginWithRedirect();
+  }
+
+  logout() {
+    this.auth.logout({
+      logoutParams: { returnTo: this.document.location.origin },
+    });
+  }
 }

@@ -18,19 +18,11 @@
     <ul class="navbar-nav">
       @if(isAuthenticated){
       <li class="nav-item">
-        <a
-          class="nav-link"
-          (click)="
-            auth.logout({
-              logoutParams: { returnTo: document.location.origin }
-            })
-          "
-          >Logout</a
-        >
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
       }@else{
       <li class="nav-item">
-        <a class="nav-link" (click)="auth.loginWithRedirect()">Login</a>
+        <a class="nav-link" (click)="loginWithRedirect()">Login</a>
       </li>
       }
       <li class="nav-item">
