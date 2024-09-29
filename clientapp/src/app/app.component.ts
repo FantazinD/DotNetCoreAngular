@@ -9,6 +9,7 @@ import { PhotoService } from '../../services/photo.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { CustomAuthService } from '../../services/custom-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -27,12 +28,11 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     { provide: ErrorHandler, useClass: AppErrorHandler },
     VehicleService,
     PhotoService,
+    CustomAuthService,
   ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title: string = 'Vega';
 
   constructor(public auth: AuthService) {}
-
-  ngOnInit(): void {}
 }
