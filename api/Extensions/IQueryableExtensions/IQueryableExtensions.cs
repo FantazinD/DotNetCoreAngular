@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using api.Interfaces;
+using api.Models;
 
 namespace api.Extensions.IQueryableExtensions
 {
@@ -13,6 +14,18 @@ namespace api.Extensions.IQueryableExtensions
                 query.OrderBy(columnsMap[queryObject.SortBy]) 
                 : 
                 query.OrderByDescending(columnsMap[queryObject.SortBy]);
+        }
+
+        public static IQueryable<Vehicle> ApplyFiltering(this IQueryable<Vehicle> query, VehicleQuery vehicleQuery){
+            if(vehicleQuery.MakeId.HasValue){
+                query = query.Where(vehicle => vehicle.Model.MakeId == vehicleQuery.MakeId);
+            };
+
+            if(vehicleQuery.ModelId.HasValue){
+                query = query.Where(vehicle => vehicle.Model.Id == vehicleQuery.ModelId);
+            };
+
+            return query;
         }
 
         public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, IQueryObject queryObject){
