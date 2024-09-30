@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { IKeyValuePair } from '../../interfaces/IKeyValuePair';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { AuthService } from '@auth0/auth0-angular';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vehicle-list',
   standalone: true,
-  imports: [RouterModule, FormsModule, PaginationComponent],
+  imports: [RouterModule, FormsModule, PaginationComponent, CommonModule],
   templateUrl: './vehicle-list.component.html',
   styleUrl: './vehicle-list.component.css',
 })
@@ -36,7 +38,10 @@ export class VehicleListComponent implements OnInit {
     {},
   ];
 
-  constructor(private vehicleService: VehicleService) {}
+  constructor(
+    private vehicleService: VehicleService,
+    public auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.vehicleService

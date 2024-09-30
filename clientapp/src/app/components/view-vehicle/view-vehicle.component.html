@@ -25,12 +25,14 @@
       </ul>
       <br />
       <p>
+        @if(auth.isAuthenticated$ | async){
         <a
           class="btn btn-primary"
           [routerLink]="['/vehicles/edit/', vehicle.id]"
           >Edit</a
         >
         <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+        }
         <a class="btn btn-outline-secondary" [routerLink]="['/vehicles']"
           >View All Vehicles</a
         >
@@ -43,8 +45,9 @@
     <ng-template ngbNavContent>
       @if(vehicle){
       <h2>Photos</h2>
+      @if(auth.isAuthenticated$ | async){
       <input type="file" (change)="onUploadPhoto()" #fileInput />
-      @if(progress && progress.percentage < 100){
+      } @if(progress && progress.percentage < 100){
       <div class="progress">
         <div class="progress-bar" [style.width]="progress.percentage + '%'">
           <span class="sr-only">{{ progress.percentage }}% Complete</span>

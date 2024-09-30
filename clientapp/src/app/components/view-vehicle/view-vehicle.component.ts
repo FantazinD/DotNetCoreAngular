@@ -5,11 +5,13 @@ import { VehicleService } from '../../../../services/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpEventType } from '@angular/common/http';
+import { AuthService } from '@auth0/auth0-angular';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-vehicle',
   standalone: true,
-  imports: [RouterModule, NgbNavModule],
+  imports: [RouterModule, NgbNavModule, CommonModule],
   templateUrl: './view-vehicle.component.html',
   styleUrl: './view-vehicle.component.css',
 })
@@ -28,7 +30,8 @@ export class ViewVehicleComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     private vehicleService: VehicleService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    public auth: AuthService
   ) {
     route.params.subscribe((p) => {
       this.vehicleId = +p['id'];

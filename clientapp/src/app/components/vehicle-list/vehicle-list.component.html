@@ -1,7 +1,9 @@
 <h2>Vehicles</h2>
+@if(auth.isAuthenticated$ | async){
 <p>
   <a [routerLink]="['/vehicles/new']" class="btn btn-primary">New Vehicle</a>
 </p>
+}
 <div class="card bg-light card-body">
   <div class="form-group">
     <label for="make">Make</label
