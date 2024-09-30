@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { ISaveVehicle } from '../src/app/interfaces/ISaveVehicle';
@@ -8,6 +8,9 @@ import { ISaveVehicle } from '../src/app/interfaces/ISaveVehicle';
 })
 export class VehicleService {
   private readonly vehiclesEndpoint = `http://localhost:5166/api/vehicles`;
+  private readonly headers = new HttpHeaders({
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  });
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +28,9 @@ export class VehicleService {
 
   createVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .post(this.vehiclesEndpoint, vehicle)
+      .post(this.vehiclesEndpoint, vehicle, {
+        headers: this.headers,
+      })
       .pipe(map((res) => res));
   };
 
@@ -55,13 +60,17 @@ export class VehicleService {
 
   updateVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .put(`${this.vehiclesEndpoint}/${vehicle.id}`, vehicle)
+      .put(`${this.vehiclesEndpoint}/${vehicle.id}`, vehicle, {
+        headers: this.headers,
+      })
       .pipe(map((res) => res));
   };
 
   deleteVehicle = (id: number) => {
     return this.http
-      .delete(`${this.vehiclesEndpoint}/${id}`)
+      .delete(`${this.vehiclesEndpoint}/${id}`, {
+        headers: this.headers,
+      })
       .pipe(map((res) => res));
   };
 }
