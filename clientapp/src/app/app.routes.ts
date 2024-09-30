@@ -4,6 +4,7 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminAuthGuardService } from '../../services/admin-auth-guard.service';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -11,6 +12,10 @@ export const routes: Routes = [
   { path: 'vehicles/edit/:id', component: VehicleFormComponent },
   { path: 'vehicles/:id', component: ViewVehicleComponent },
   { path: 'vehicles', component: VehicleListComponent },
-  { path: 'admin', component: AdminComponent },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AdminAuthGuardService],
+  },
   { path: 'home', component: HomeComponent },
 ];

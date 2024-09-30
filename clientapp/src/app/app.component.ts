@@ -10,6 +10,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { CustomAuthService } from '../../services/custom-auth.service';
+import { AdminAuthGuardService } from '../../services/admin-auth-guard.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ import { CustomAuthService } from '../../services/custom-auth.service';
     VehicleService,
     PhotoService,
     CustomAuthService,
+    AdminAuthGuardService,
   ],
 })
 export class AppComponent {
