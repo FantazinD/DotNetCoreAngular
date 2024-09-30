@@ -45,13 +45,13 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-// builder.Services.AddCors(options => {
-//     options.AddPolicy("AllowAngularOrigin", builder => {
-//         builder.WithOrigins("http://localhost:4200") // Angular dev server URL
-//             .AllowAnyHeader()
-//             .AllowAnyMethod();
-//     });
-// });
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowAngularOrigin", builder => {
+        builder.WithOrigins("http://localhost:4200") // Angular dev server URL
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => {
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -69,6 +69,10 @@ builder.Services.AddAuthentication(options => {
     options.Audience = "DHYESkSW0OMp7cBoRrpmn46Fc0712trk"; //"https://api.vega-fanta.com";
 });
 
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireClaim("https://vegafanta.com/roles", "Admin"));
+});
+
 builder.Services.Configure<PhotoSetting>(builder.Configuration.GetSection("PhotoSettings"));
 
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
@@ -82,15 +86,7 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.UseCors("AllowAngularOrigin");
-
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials()
-    //.WithOrigins("https://localhost:44351")
-    .SetIsOriginAllowed(origin => true)
-);
+app.UseCors("AllowAngularOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
