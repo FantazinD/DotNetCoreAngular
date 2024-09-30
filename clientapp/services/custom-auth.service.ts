@@ -20,7 +20,8 @@ export class CustomAuthService {
       )
       .subscribe((idTokenClaims) => {
         localStorage.setItem('token', idTokenClaims!.__raw);
-        this.roles = idTokenClaims!['https://vegafanta.com/roles']['roles'];
+        this.roles =
+          idTokenClaims!['https://vegafanta.com/roles']['roles'] || [];
       });
   }
 
