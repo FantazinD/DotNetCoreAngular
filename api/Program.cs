@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//AddSwaggerGen Authorization Button
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
@@ -46,6 +47,8 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
+builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAngularOrigin", builder => {
