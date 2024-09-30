@@ -28,6 +28,11 @@
       <li class="nav-item" [routerLinkActive]="['link-active']">
         <a class="nav-link" [routerLink]="['/vehicles']">Vehicles</a>
       </li>
+      @if(customAuth.isInRole("Admin")){
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+      </li>
+      }
     </ul>
   </div>
 </nav>
