@@ -1,6 +1,7 @@
 using api.Data;
 using api.Interfaces;
 using api.Models;
+using api.Policies;
 using api.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -70,7 +71,7 @@ builder.Services.AddAuthentication(options => {
 });
 
 builder.Services.AddAuthorization(options => {
-    options.AddPolicy("RequireAdminRole", policy => policy.RequireClaim("https://vegafanta.com/roles", "Admin"));
+    options.AddPolicy(Policies.RequireAdminRole, policy => policy.RequireClaim("https://vegafanta.com/roles", "Admin"));
 });
 
 builder.Services.Configure<PhotoSetting>(builder.Configuration.GetSection("PhotoSettings"));
