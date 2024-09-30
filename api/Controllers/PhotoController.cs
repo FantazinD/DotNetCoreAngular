@@ -13,13 +13,13 @@ namespace api.Controllers
 {
     [Route("api/vehicles/{vehicleId}/photos")]
     [ApiController]
-    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IUnitOfWorkRepository unitOfWorkRepository, IOptionsSnapshot<PhotoSetting> optionsSnapshot, IPhotoRepository photoRepository):ControllerBase
+    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IOptionsSnapshot<PhotoSetting> optionsSnapshot, IPhotoRepository photoRepository, IPhotoService photoService):ControllerBase
     {
         private readonly PhotoSetting _photoSettings = optionsSnapshot.Value;
         private readonly IWebHostEnvironment _host = host;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
         private readonly IPhotoRepository _photoRepository = photoRepository;
-        private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
+        private readonly IPhotoService _photoService = photoService;
 
         [HttpPost]
         public async Task<IActionResult> Upload([FromRoute] int vehicleId, IFormFile file)
@@ -36,21 +36,7 @@ namespace api.Controllers
 
             var appPath = _host.ContentRootPath.Substring(0,_host.ContentRootPath.Length - string.Concat("/", _host.ApplicationName).Length);
             var uploadsFolderPath = string.Concat(appPath, "/clientapp/public/uploads");
-            
-            if(!Directory.Exists(uploadsFolderPath))
-                Directory.CreateDirectory(uploadsFolderPath);
-
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(uploadsFolderPath, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            var photo = new Photo { FileName = fileName };
-            vehicle.Photos.Add(photo);
-            await _unitOfWorkRepository.CompleteAsync();
+            var photo = await _photoService.UploadPhoto(vehicle, file, uploadsFolderPath);
 
             return Ok(photo.ToPhotoDTO());
         }
