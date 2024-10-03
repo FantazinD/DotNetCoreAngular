@@ -71,7 +71,7 @@ builder.Services.AddAuthentication(options => {
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options => {
     options.Authority = "https://dev-fantazindy-vega.jp.auth0.com/";
-    options.Audience = "DHYESkSW0OMp7cBoRrpmn46Fc0712trk"; //"https://api.vega-fanta.com";
+    options.Audience = "DHYESkSW0OMp7cBoRrpmn46Fc0712trk";
 });
 
 builder.Services.AddAuthorization(options => {
@@ -87,6 +87,7 @@ builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
 builder.Services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
 builder.Services.AddTransient<IPhotoService, PhotoService>();
 builder.Services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
+//builder.Services.AddTransient<IPhotoStorage, AzurePhotoStorage>();
 
 var app = builder.Build();
 
