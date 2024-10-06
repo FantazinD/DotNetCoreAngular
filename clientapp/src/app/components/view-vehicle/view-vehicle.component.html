@@ -53,8 +53,16 @@
           <span class="sr-only">{{ progress.percentage }}% Complete</span>
         </div>
       </div>
-      } @for(photo of photos; track photo){
-      <img src="./uploads/{{ photo.fileName }}" class="img-thumbnail" />
+      } @if(photos){
+      <ngb-carousel>
+        @for(photo of photos; track photo){
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img src="./uploads/{{ photo.fileName }}" alt="Random slide" />
+          </div>
+        </ng-template>
+        }
+      </ngb-carousel>
       } }
     </ng-template>
   </li>

@@ -3,7 +3,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VehicleService } from '../../../../services/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbCarouselConfig,
+  NgbCarouselModule,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { HttpEventType } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
@@ -11,9 +15,10 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-view-vehicle',
   standalone: true,
-  imports: [RouterModule, NgbNavModule, CommonModule],
+  imports: [RouterModule, NgbNavModule, CommonModule, NgbCarouselModule],
   templateUrl: './view-vehicle.component.html',
   styleUrl: './view-vehicle.component.css',
+  providers: [NgbCarouselConfig],
 })
 export class ViewVehicleComponent implements OnInit {
   @ViewChild('fileInput', { read: ElementRef }) fileInput!: ElementRef;
@@ -31,7 +36,8 @@ export class ViewVehicleComponent implements OnInit {
     private toastrService: ToastrService,
     private vehicleService: VehicleService,
     private photoService: PhotoService,
-    public auth: AuthService
+    public auth: AuthService,
+    private carouselConfig: NgbCarouselConfig
   ) {
     route.params.subscribe((p) => {
       this.vehicleId = +p['id'];
@@ -40,6 +46,9 @@ export class ViewVehicleComponent implements OnInit {
         return;
       }
     });
+
+    carouselConfig.showNavigationArrows = true;
+    carouselConfig.showNavigationIndicators = true;
   }
 
   ngOnInit(): void {

@@ -1,0 +1,14 @@
+.picsum-img-wrapper {
+  height: 350px; /* Set a fixed height for the image wrapper */
+  overflow: hidden; /* Hide overflow if image is larger than the wrapper */
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center image horizontally */
+  align-items: center; /* Center image vertically */
+  background-color: darkslategray; /* Light gray background */
+}
+
+.carousel-image {
+  width: 100%; /* Make the image take the full width of the wrapper */
+  height: 100%; /* Make the image take the full height of the wrapper */
+  object-fit: cover; /* Maintain aspect ratio while filling the space */
+}
