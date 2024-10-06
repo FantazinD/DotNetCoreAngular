@@ -46,9 +46,9 @@
       @if(vehicle){
       <h2>Photos</h2>
       @if(auth.isAuthenticated$ | async){
-      <input type="file" (change)="onUploadPhoto()" #fileInput />
+      <input type="file" (change)="onUploadPhoto()" #fileInput class="my-1" />
       } @if(progress && progress.percentage < 100){
-      <div class="progress">
+      <div class="progress my-2">
         <div class="progress-bar" [style.width]="progress.percentage + '%'">
           <span class="sr-only">{{ progress.percentage }}% Complete</span>
         </div>
