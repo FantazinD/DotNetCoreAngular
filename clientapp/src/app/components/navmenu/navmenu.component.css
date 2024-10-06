@@ -1,0 +1,7 @@
+.nav-link {
+  color: white !important; /* Ensure text color is visible */
+}
+
+.nav-link:hover {
+  color: lightgray !important; /* Change color on hover for visibility */
+}

@@ -26,15 +26,13 @@
         </li>
         }
       </ul>
-      @if(auth.isAuthenticated$ | async){
-      <div class="navbar-text">
+      <div class="d-flex ml-auto" role="button">
+        @if(auth.isAuthenticated$ | async){
         <a class="nav-link" (click)="customAuth.logout()">Logout</a>
-      </div>
-      }@else{
-      <div class="navbar-text">
+        }@else{
         <a class="nav-link" (click)="customAuth.login()">Login</a>
+        }
       </div>
-      }
     </div>
   </div>
 </nav>
