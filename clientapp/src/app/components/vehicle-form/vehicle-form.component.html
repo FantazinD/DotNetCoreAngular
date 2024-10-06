@@ -127,10 +127,12 @@
     <div class="alert alert-danger">Please specify the Email.</div>
     }
   </div>
-  <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
-  @if(vehicle.id){
-  <button class="btn btn-danger" type="button" (click)="onClickDelete()">
-    Delete
-  </button>
-  }
+  <div class="mt-2">
+    <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
+    @if(vehicle.id){
+    <button class="btn btn-danger ms-1" type="button" (click)="onClickDelete()">
+      Delete
+    </button>
+    }
+  </div>
 </form>
