@@ -21,7 +21,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "../api/wwwroot"
               }
             ],
             "styles": [
@@ -82,7 +82,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "../api/wwwroot"
               }
             ],
             "styles": [
