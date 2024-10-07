@@ -5,8 +5,13 @@ project.lock.json
 *.pyc
 nupkg/
 
-#custom
+# Custom
 wwwroot/uploads/
+
+# Ignore environment-specific configuration files
+appsettings.Development.json
+appsettings.Staging.json
+appsettings.Production.json
 
 # Visual Studio Code
 .vscode/
