@@ -8,6 +8,7 @@ namespace api.Mappers
         public static PhotoDTO ToPhotoDTO(this Photo photo){
             return new PhotoDTO {
                 FileName = photo.FileName,
+                URL = photo.URL,
                 Id = photo.Id
             };
         }
