@@ -58,7 +58,7 @@
         @for(photo of photos; track photo){
         <ng-template ngbSlide>
           <div class="picsum-img-wrapper">
-            <img src="./uploads/{{ photo.fileName }}" alt="Random slide" />
+            <img src="{{ photo.url }}" alt="Random slide" />
           </div>
         </ng-template>
         }

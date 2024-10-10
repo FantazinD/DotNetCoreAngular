@@ -26,9 +26,7 @@ export class ViewVehicleComponent implements OnInit {
   vehicle: any;
   vehicleId: number = 0;
   photos: any[] = [];
-  progress: any = {
-    percentage: 10,
-  };
+  progress: any = {};
 
   constructor(
     private route: ActivatedRoute,
