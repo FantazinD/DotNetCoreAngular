@@ -39,7 +39,7 @@ export class ViewVehicleComponent implements OnInit {
     public auth: AuthService,
     private carouselConfig: NgbCarouselConfig
   ) {
-    route.params.subscribe((p) => {
+    this.route.params.subscribe((p) => {
       this.vehicleId = +p['id'];
       if (isNaN(this.vehicleId) || this.vehicleId <= 0) {
         router.navigate(['/vehicles']);
@@ -47,8 +47,8 @@ export class ViewVehicleComponent implements OnInit {
       }
     });
 
-    carouselConfig.showNavigationArrows = true;
-    carouselConfig.showNavigationIndicators = true;
+    this.carouselConfig.showNavigationArrows = true;
+    this.carouselConfig.showNavigationIndicators = true;
   }
 
   ngOnInit(): void {
