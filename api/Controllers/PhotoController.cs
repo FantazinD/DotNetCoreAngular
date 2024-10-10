@@ -30,7 +30,7 @@ namespace api.Controllers
             if(!_photoSettings.IsSupported(file.FileName)) return BadRequest("Invalid file type.");
 
             var appPath = _host.ContentRootPath.Substring(0,_host.ContentRootPath.Length - string.Concat("/", _host.ApplicationName).Length);
-            var uploadsFolderPath = string.Concat(appPath, "/clientapp/public/uploads");
+            var uploadsFolderPath = string.Concat(appPath, "/api/wwwroot/uploads");
             var photo = await _photoService.UploadPhoto(vehicle, file, uploadsFolderPath);
 
             return Ok(photo.ToPhotoDTO());
