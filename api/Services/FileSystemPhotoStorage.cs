@@ -1,10 +1,11 @@
+using api.DTOs.Photo;
 using api.Interfaces;
 
 namespace api.Services
 {
     public class FileSystemPhotoStorage : IPhotoStorage
     {
-        public async Task<string> StorePhoto(string uploadsFolderPath, IFormFile file)
+        public async Task<PhotoDTO> StorePhoto(string uploadsFolderPath, IFormFile file)
         {
             if(!Directory.Exists(uploadsFolderPath))
                 Directory.CreateDirectory(uploadsFolderPath);
@@ -17,7 +18,10 @@ namespace api.Services
                 await file.CopyToAsync(stream);
             }
 
-            return fileName;
+            return new PhotoDTO {
+                FileName = fileName,
+                URL = string.Concat(".", uploadsFolderPath.Substring(uploadsFolderPath.LastIndexOf("/uploads")), "/", fileName)
+            };
         }
     }
 }
