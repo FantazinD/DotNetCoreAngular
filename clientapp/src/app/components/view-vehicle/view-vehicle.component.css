@@ -1,5 +1,5 @@
 .picsum-img-wrapper {
-  height: 350px; /* Set a fixed height for the image wrapper */
+  height: 600px; /* Set a fixed height for the image wrapper */
   overflow: hidden; /* Hide overflow if image is larger than the wrapper */
   display: flex; /* Use flexbox for centering */
   justify-content: center; /* Center image horizontally */
