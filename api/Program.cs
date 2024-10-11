@@ -68,8 +68,8 @@ builder.Services.AddAuthentication(options => {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options => {
-    options.Authority = "https://dev-fantazindy-vega.jp.auth0.com/";
-    options.Audience = "DHYESkSW0OMp7cBoRrpmn46Fc0712trk";
+    options.Authority = builder.Configuration["Auth0:Authority"];
+    options.Audience = builder.Configuration["Auth0:Audience"];
 });
 
 builder.Services.AddAuthorization(options => {
