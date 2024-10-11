@@ -1,14 +1,16 @@
+using api.DTOs.Photo;
 using api.Interfaces;
+using api.Models;
 using Azure;
 using Azure.Storage.Blobs;
+using Microsoft.Extensions.Options;
 
 namespace api.Services
 {
-    public class AzurePhotoStorage : IPhotoStorage
+    public class AzurePhotoStorage(IOptionsSnapshot<AppSettings> optionsSnapshot) : IPhotoStorage
     {
-        private readonly string _connectionString = "<Connection_String>";
-        private readonly string _containerName = "<Container_Name>";
-        public async Task<string> StorePhoto(string uploadsFolderPath, IFormFile file)
+        private readonly AppSettings _appSettings = optionsSnapshot.Value;
+        public async Task<PhotoDTO> StorePhoto(string uploadsFolderPath, IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -17,8 +19,8 @@ namespace api.Services
 
             try
             {
-                var blobServiceClient = new BlobServiceClient(_connectionString);
-                var containerClient = blobServiceClient.GetBlobContainerClient(_containerName);
+                var blobServiceClient = new BlobServiceClient(_appSettings.PhotoStorageConnectionString);
+                var containerClient = blobServiceClient.GetBlobContainerClient(_appSettings.PhotoStorageName);
 
                 // Create the container if it doesn't already exist
                 await containerClient.CreateIfNotExistsAsync();
@@ -33,7 +35,10 @@ namespace api.Services
                     await blobClient.UploadAsync(stream, true);
                 }
 
-                return fileName;
+                return new PhotoDTO {
+                    FileName = fileName,
+                    URL = blobClient.Uri.ToString()
+                };
             }
             catch (RequestFailedException ex)
             {
