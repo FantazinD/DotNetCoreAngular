@@ -77,6 +77,7 @@ builder.Services.AddAuthorization(options => {
 });
 
 builder.Services.Configure<PhotoSetting>(builder.Configuration.GetSection("PhotoSettings"));
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppConfigurations"));
 
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
