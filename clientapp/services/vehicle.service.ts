@@ -7,7 +7,7 @@ import { ISaveVehicle } from '../src/app/interfaces/ISaveVehicle';
   providedIn: 'root',
 })
 export class VehicleService {
-  private readonly vehiclesEndpoint = `http://localhost:5166/api/vehicles`;
+  private readonly apiEndpoint = `http://localhost:5166/api`;
   private readonly headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   });
@@ -15,20 +15,18 @@ export class VehicleService {
   constructor(private http: HttpClient) {}
 
   getMakes = () => {
-    return this.http
-      .get('http://localhost:5166/api/makes')
-      .pipe(map((res) => res));
+    return this.http.get(`${this.apiEndpoint}/makes`).pipe(map((res) => res));
   };
 
   getFeatures = () => {
     return this.http
-      .get('http://localhost:5166/api/features')
+      .get(`${this.apiEndpoint}/features`)
       .pipe(map((res) => res));
   };
 
   createVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .post(this.vehiclesEndpoint, vehicle, {
+      .post(`${this.apiEndpoint}/vehicles`, vehicle, {
         headers: this.headers,
       })
       .pipe(map((res) => res));
@@ -36,13 +34,13 @@ export class VehicleService {
 
   getVehicle = (id: number) => {
     return this.http
-      .get(`${this.vehiclesEndpoint}/${id}`)
+      .get(`${this.apiEndpoint}/vehicles/${id}`)
       .pipe(map((res) => res));
   };
 
   getVehicles = (filter: any) => {
     return this.http
-      .get(`${this.vehiclesEndpoint}?${this.toQueryString(filter)}`)
+      .get(`${this.apiEndpoint}/vehicles?${this.toQueryString(filter)}`)
       .pipe(map((res) => res));
   };
 
@@ -60,7 +58,7 @@ export class VehicleService {
 
   updateVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .put(`${this.vehiclesEndpoint}/${vehicle.id}`, vehicle, {
+      .put(`${this.apiEndpoint}/vehicles/${vehicle.id}`, vehicle, {
         headers: this.headers,
       })
       .pipe(map((res) => res));
@@ -68,7 +66,7 @@ export class VehicleService {
 
   deleteVehicle = (id: number) => {
     return this.http
-      .delete(`${this.vehiclesEndpoint}/${id}`, {
+      .delete(`${this.apiEndpoint}/vehicles/${id}`, {
         headers: this.headers,
       })
       .pipe(map((res) => res));
