@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { ConfigService } from './config.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -6,9 +7,7 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class PhotoService {
-  private readonly vehiclesEndpoint = `http://localhost:5166/api/vehicles`;
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private configService: ConfigService) {}
 
   uploadPhoto = (vehicleId: number, photo: any) => {
     const formData: FormData = new FormData();
@@ -16,7 +15,7 @@ export class PhotoService {
     formData.append('file', photo);
 
     return this.http.post(
-      `${this.vehiclesEndpoint}/${vehicleId}/photos`,
+      `${this.configService.apiUrl}/vehicles/${vehicleId}/photos`,
       formData,
       {
         reportProgress: true,
@@ -27,7 +26,7 @@ export class PhotoService {
 
   getPhotos = (vehicleId: number) => {
     return this.http
-      .get(`${this.vehiclesEndpoint}/${vehicleId}/photos`)
+      .get(`${this.configService.apiUrl}/vehicles/${vehicleId}/photos`)
       .pipe(map((res) => res));
   };
 }

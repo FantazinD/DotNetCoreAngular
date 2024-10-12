@@ -2,31 +2,33 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { ISaveVehicle } from '../src/app/interfaces/ISaveVehicle';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VehicleService {
-  private readonly apiEndpoint = `http://localhost:5166/api`;
   private readonly headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private configService: ConfigService) {}
 
   getMakes = () => {
-    return this.http.get(`${this.apiEndpoint}/makes`).pipe(map((res) => res));
+    return this.http
+      .get(`${this.configService.apiUrl}/makes`)
+      .pipe(map((res) => res));
   };
 
   getFeatures = () => {
     return this.http
-      .get(`${this.apiEndpoint}/features`)
+      .get(`${this.configService.apiUrl}/features`)
       .pipe(map((res) => res));
   };
 
   createVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .post(`${this.apiEndpoint}/vehicles`, vehicle, {
+      .post(`${this.configService.apiUrl}/vehicles`, vehicle, {
         headers: this.headers,
       })
       .pipe(map((res) => res));
@@ -34,13 +36,15 @@ export class VehicleService {
 
   getVehicle = (id: number) => {
     return this.http
-      .get(`${this.apiEndpoint}/vehicles/${id}`)
+      .get(`${this.configService.apiUrl}/vehicles/${id}`)
       .pipe(map((res) => res));
   };
 
   getVehicles = (filter: any) => {
     return this.http
-      .get(`${this.apiEndpoint}/vehicles?${this.toQueryString(filter)}`)
+      .get(
+        `${this.configService.apiUrl}/vehicles?${this.toQueryString(filter)}`
+      )
       .pipe(map((res) => res));
   };
 
@@ -58,7 +62,7 @@ export class VehicleService {
 
   updateVehicle = (vehicle: ISaveVehicle) => {
     return this.http
-      .put(`${this.apiEndpoint}/vehicles/${vehicle.id}`, vehicle, {
+      .put(`${this.configService.apiUrl}/vehicles/${vehicle.id}`, vehicle, {
         headers: this.headers,
       })
       .pipe(map((res) => res));
@@ -66,7 +70,7 @@ export class VehicleService {
 
   deleteVehicle = (id: number) => {
     return this.http
-      .delete(`${this.apiEndpoint}/vehicles/${id}`, {
+      .delete(`${this.configService.apiUrl}/vehicles/${id}`, {
         headers: this.headers,
       })
       .pipe(map((res) => res));
