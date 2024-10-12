@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { CustomAuthService } from '../../services/custom-auth.service';
 import { AdminAuthGuardService } from '../../services/admin-auth-guard.service';
+import { ConfigService } from '../../services/config.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -37,4 +39,11 @@ export class AppComponent {
   title: string = 'Vega';
 
   constructor(public auth: AuthService) {}
+}
+
+export function initConfig(configService: ConfigService) {
+  return () =>
+    firstValueFrom(configService.loadConfig()).then((config) => {
+      configService.setConfig(config);
+    });
 }

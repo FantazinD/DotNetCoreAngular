@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -7,6 +11,8 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { ConfigService } from '../../services/config.service';
+import { initConfig } from './app.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +25,12 @@ export const appConfig: ApplicationConfig = {
       useRefreshTokens: true,
       cacheLocation: 'localstorage',
     }),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [ConfigService],
+      multi: true,
+    },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
