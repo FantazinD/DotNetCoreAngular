@@ -21,4 +21,8 @@ export class ConfigService {
   get apiUrl() {
     return this.config.apiUrl;
   }
+
+  get pageSizeNumber() {
+    return this.config.pageSize || 10;
+  }
 }
