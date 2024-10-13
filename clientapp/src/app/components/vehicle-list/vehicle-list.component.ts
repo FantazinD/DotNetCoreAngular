@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
+import { ConfigService } from '../../../../services/config.service';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -15,12 +16,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './vehicle-list.component.css',
 })
 export class VehicleListComponent implements OnInit {
-  private readonly _pageSize = 3;
-
   queryResult: any = {};
   makes: IKeyValuePair[] = [];
   query: any = {
-    pageSize: this._pageSize,
+    pageSize: 10,
   };
   columns: any[] = [
     { title: 'Id' },
@@ -40,8 +39,11 @@ export class VehicleListComponent implements OnInit {
 
   constructor(
     private vehicleService: VehicleService,
-    public auth: AuthService
-  ) {}
+    public auth: AuthService,
+    private configService: ConfigService
+  ) {
+    this.query.pageSize = configService.pageSize;
+  }
 
   ngOnInit(): void {
     this.vehicleService
@@ -65,7 +67,7 @@ export class VehicleListComponent implements OnInit {
   onResetFilter = () => {
     this.query = {
       page: 1,
-      pageSize: this._pageSize,
+      pageSize: this.configService.pageSize,
     };
     this.populateVehicles();
   };

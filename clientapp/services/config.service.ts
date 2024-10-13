@@ -22,7 +22,7 @@ export class ConfigService {
     return this.config.apiUrl;
   }
 
-  get pageSizeNumber() {
+  get pageSize() {
     return this.config.pageSize || 10;
   }
 }
