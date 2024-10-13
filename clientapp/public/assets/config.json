@@ -1,3 +1,4 @@
 {
-  "apiUrl": "<apiUrlStringHere>"
+  "apiUrl": "<apiUrlStringHere>",
+  "pageSize": 3
 }
