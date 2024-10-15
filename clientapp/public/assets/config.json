@@ -1,4 +1,4 @@
 {
-  "apiUrl": "<apiUrlStringHere>",
+  "apiUrl": "https://vegaapi-cshrasa7ebgfgpbt.southeastasia-01.azurewebsites.net/api",
   "pageSize": 3
 }
