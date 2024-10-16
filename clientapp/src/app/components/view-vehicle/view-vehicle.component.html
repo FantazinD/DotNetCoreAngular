@@ -53,7 +53,7 @@
           <span class="sr-only">{{ progress.percentage }}% Complete</span>
         </div>
       </div>
-      } @if(photos){
+      } @if(photos.length > 0){
       <ngb-carousel>
         @for(photo of photos; track photo){
         <ng-template ngbSlide>
