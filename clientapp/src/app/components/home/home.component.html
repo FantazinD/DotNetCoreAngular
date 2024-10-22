@@ -1,15 +1,18 @@
 <section id="hero">
   <div class="container-fluid">
-    <div class="d-flex flex-md-column flex-lg-row justify-content-center">
+    <div class="d-flex flex-column flex-lg-row justify-content-center">
       <header
-        class="d-flex flex-column justify-content-lg-center justify-content-md-start align-items-md-center align-items-lg-start"
+        class="d-flex flex-column justify-content-lg-center justify-content-start align-items-center align-items-lg-start"
         style="background-color: beige"
       >
         <h1>Vehicle Dealer App</h1>
         <p>Browse available vehicles and get yours now.</p>
-        <a href="" class="btn btn-primary">Browse</a>
+        <a [routerLink]="['/vehicles']" class="btn btn-primary">Browse</a>
       </header>
-      <picture class="" style="background-color: bisque">
+      <picture
+        class="d-flex flex-column justify-content-start justify-content-lg-center align-items-center align-items-lg-start"
+        style="background-color: bisque"
+      >
         <source
           type="image/webp"
           srcset="assets/banner.webp 1x, assets/banner@2x.webp 2x"
