@@ -64,17 +64,11 @@
     <tbody>
       @for(vehicle of queryResult.items; track vehicle) {
       <tr class="hover:bg-gray-100 transition-colors">
-        <td class="border border-gray-300 px-4 py-2">{{ vehicle.id }}</td>
-        <td class="border border-gray-300 px-4 py-2">
-          {{ vehicle.make.name }}
-        </td>
-        <td class="border border-gray-300 px-4 py-2">
-          {{ vehicle.model.name }}
-        </td>
-        <td class="border border-gray-300 px-4 py-2">
-          {{ vehicle.contact.name }}
-        </td>
-        <td class="border border-gray-300 px-4 py-2">
+        <td class="px-4 py-2">{{ vehicle.id }}</td>
+        <td class="px-4 py-2">{{ vehicle.make.name }}</td>
+        <td class="px-4 py-2">{{ vehicle.model.name }}</td>
+        <td class="px-4 py-2">{{ vehicle.contact.name }}</td>
+        <td class="px-4 py-2">
           <a
             [routerLink]="['/vehicles/', vehicle.id]"
             class="text-blue-500 hover:underline"
