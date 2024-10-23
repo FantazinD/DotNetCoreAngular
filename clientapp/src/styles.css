@@ -1,39 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+/* @import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; */
 @import "../node_modules/font-awesome/css/font-awesome.css";
 @import "../node_modules/typeface-inter/inter.css";
 /* regular style toast */
 @import "ngx-toastr/toastr";
 
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-}
-
-img {
-  width: 100%;
-}
-
-body {
-  font-family: Inter, Arial, Helvetica, sans-serif;
-  font-size: 2rem;
-  line-height: 1.5;
-  color: #918ca4;
-}
-
-h1,
-h2,
-h3 {
-  color: black;
-  margin-bottom: 1rem;
-  line-height: 1.1;
-}
-
-h1 {
-  font-size: 6rem;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
