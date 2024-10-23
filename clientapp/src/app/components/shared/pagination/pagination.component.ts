@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -10,7 +11,7 @@ import {
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
 })
