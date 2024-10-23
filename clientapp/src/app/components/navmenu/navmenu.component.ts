@@ -20,4 +20,12 @@ export class NavmenuComponent {
     public auth: AuthService,
     public customAuth: CustomAuthService
   ) {}
+
+  toggleMenu = () => {
+    this.isCollapsed = !this.isCollapsed;
+  };
+
+  clickNavItem = () => {
+    this.isCollapsed = true;
+  };
 }
