@@ -1,16 +1,16 @@
-<main class="container-fluid">
-  @if(auth.isLoading$ | async){
-  <div class="container">
+<main class="container mx-auto">
+  @if(auth.isLoading$ | async) {
+  <div class="flex justify-center">
     <app-loading></app-loading>
   </div>
-  }@else{
-  <div class="row">
-    <div class="col bg-dark">
+  } @else {
+  <div class="flex">
+    <div class="w-full">
       <app-navmenu></app-navmenu>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
+  <div class="flex">
+    <div class="w-full">
       <router-outlet></router-outlet>
     </div>
   </div>
