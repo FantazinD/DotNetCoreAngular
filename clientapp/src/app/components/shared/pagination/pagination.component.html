@@ -1,22 +1,38 @@
-@if(totalItems > pageSize){
-<nav>
-  <ul class="pagination">
+@if(totalItems > pageSize) {
+<nav class="mt-4">
+  <ul class="flex justify-center space-x-1">
     <li [class.disabled]="currentPage == 1" class="page-item">
-      <a (click)="onClickPrevious()" aria-label="Previous" class="page-link">
+      <a
+        (click)="onClickPrevious()"
+        aria-label="Previous"
+        class="cursor-pointer px-4 py-2 text-gray-600 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100"
+      >
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    @for(page of pages; track page){
+    @for(page of pages; track page) {
     <li
       class="page-item"
       [class.active]="currentPage == page"
       (click)="onChangePage(page)"
     >
-      <a class="page-link">{{ page }}</a>
+      <a
+        class="cursor-pointer px-4 py-2"
+        [ngClass]="{
+          'bg-teal-500 text-white': currentPage == page,
+          'text-gray-600 hover:bg-gray-100': currentPage != page
+        }"
+      >
+        {{ page }}
+      </a>
     </li>
     }
     <li class="page-item" [class.disabled]="currentPage == pages.length">
-      <a class="page-link" (click)="onClickNext()" aria-label="Next">
+      <a
+        (click)="onClickNext()"
+        aria-label="Next"
+        class="cursor-pointer px-4 py-2 text-gray-600 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100"
+      >
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
