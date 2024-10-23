@@ -1,18 +1,16 @@
 <section id="hero">
   <div class="container-fluid">
-    <div class="d-flex flex-column flex-lg-row justify-content-center">
-      <header
-        class="d-flex flex-column justify-content-lg-center justify-content-start align-items-center align-items-lg-start"
-        style="background-color: beige"
-      >
-        <h1>Vehicle Dealer App</h1>
-        <p>Browse available vehicles and get yours now.</p>
-        <a [routerLink]="['/vehicles']" class="btn btn-primary">Browse</a>
+    <div
+      class="d-flex flex-column flex-lg-row justify-content-center align-items-center"
+    >
+      <header class="hero-header">
+        <h1 class="hero__heading">Vehicle Dealer App</h1>
+        <p class="hero__tagline">
+          Browse available vehicles and get yours now.
+        </p>
+        <a [routerLink]="['/vehicles']" class="btn btn--accent">Browse</a>
       </header>
-      <picture
-        class="d-flex flex-column justify-content-start justify-content-lg-center align-items-center align-items-lg-start"
-        style="background-color: bisque"
-      >
+      <picture class="hero-picture">
         <source
           type="image/webp"
           srcset="assets/banner.webp 1x, assets/banner@2x.webp 2x"
@@ -21,7 +19,7 @@
           type="image/png"
           srcset="assets/banner.png 1x, assets/banner@2x.png 2x"
         />
-        <img src="assets/banner.png" alt="" />
+        <img class="hero__img" src="assets/banner.png" alt="Banner" />
       </picture>
     </div>
   </div>
