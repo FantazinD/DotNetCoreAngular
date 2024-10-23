@@ -1,16 +1,21 @@
 <section>
-  <div class="container-fluid">
-    <div
-      class="d-flex flex-column flex-lg-row justify-content-center align-items-center"
-    >
-      <header class="hero__header">
-        <h1 class="hero__heading">Vehicle Dealer App</h1>
-        <p class="hero__tagline">
+  <div class="container mx-auto">
+    <div class="flex flex-col lg:flex-row justify-center items-center">
+      <header class="text-center lg:text-left">
+        <h1 class="text-5xl lg:text-7xl font-medium mb-4 lg:mr-12">
+          Vehicle Dealer App
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
           Browse available vehicles and get yours now.
         </p>
-        <a [routerLink]="['/vehicles']" class="btn btn--accent">Browse</a>
+        <a
+          [routerLink]="['/vehicles']"
+          class="bg-bright-orange text-white px-6 py-3 rounded-full hover:bg-burnt-orange"
+        >
+          Browse
+        </a>
       </header>
-      <picture class="hero__picture">
+      <picture>
         <source
           type="image/webp"
           srcset="assets/banner.webp 1x, assets/banner@2x.webp 2x"
@@ -19,7 +24,7 @@
           type="image/png"
           srcset="assets/banner.png 1x, assets/banner@2x.png 2x"
         />
-        <img class="hero__img" src="assets/banner.png" alt="Banner" />
+        <img class="w-full h-auto" src="assets/banner.png" alt="Banner" />
       </picture>
     </div>
   </div>
