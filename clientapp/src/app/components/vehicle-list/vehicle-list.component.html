@@ -1,70 +1,94 @@
-<h2>Vehicles</h2>
-@if(auth.isAuthenticated$ | async){
-<p>
-  <a [routerLink]="['/vehicles/new']" class="btn btn-primary">New Vehicle</a>
-</p>
-}
-<div class="card bg-light card-body">
-  <div class="form-group">
-    <label for="make">Make</label
-    ><select
-      name=""
-      id="make"
-      class="form-control"
-      [(ngModel)]="query.makeId"
-      (change)="onFilterChange()"
+<div class="container mx-auto px-10 lg:px-14">
+  <h2 class="text-3xl font-medium mb-4 lg:mb-6 mt-4">Vehicles</h2>
+
+  @if(auth.isAuthenticated$ | async) {
+  <p class="mb-8 lg:mb-10">
+    <a
+      [routerLink]="['/vehicles/new']"
+      class="bg-bright-orange text-white px-6 py-2 rounded-full hover:bg-burnt-orange"
     >
-      <option value=""></option>
-      @for(make of makes; track make){
-      <option value="{{ make.id }}">{{ make.name }}</option>
-      }
-    </select>
-    <button
-      class="btn btn-light btn-outline-secondary mt-2"
-      (click)="onResetFilter()"
-    >
-      Reset
-    </button>
-  </div>
-</div>
-<table class="table">
-  <thead>
-    <tr>
-      @for(column of columns; track column){
-      <th>
-        @if(column.isSortable){
-        <div (click)="sortBy(column.key)">
-          {{ column.title }} @if(query.sortBy === column.key){<i
-            class="fa"
-            [class.fa-sort-asc]="query.isSortAscending"
-            [class.fa-sort-desc]="!query.isSortAscending"
-          ></i
-          >}
-        </div>
-        }@else{
-        <div>{{ column.title }}</div>
+      New Vehicle
+    </a>
+  </p>
+  }
+
+  <div class="bg-gray-100 p-4 rounded shadow">
+    <div class="mb-4">
+      <label for="make" class="block text-md font-medium text-gray-700"
+        >Make</label
+      >
+      <select
+        id="make"
+        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+        [(ngModel)]="query.makeId"
+        (change)="onFilterChange()"
+      >
+        <option value=""></option>
+        @for(make of makes; track make) {
+        <option value="{{ make.id }}">{{ make.name }}</option>
         }
-      </th>
+      </select>
+      <button
+        class="mt-4 bg-gray-300 text-gray-800 px-6 py-2 rounded-full hover:bg-gray-400"
+        (click)="onResetFilter()"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <table class="min-w-full mt-4 bg-white rounded-lg shadow-md">
+    <thead class="bg-gray-200">
+      <tr>
+        @for(column of columns; track column) {
+        <th class="px-4 py-2 text-left text-gray-600 font-medium">
+          @if(column.isSortable) {
+          <div class="cursor-pointer" (click)="sortBy(column.key)">
+            {{ column.title }}
+            @if(query.sortBy === column.key) {
+            <i
+              class="fa"
+              [class.fa-sort-asc]="query.isSortAscending"
+              [class.fa-sort-desc]="!query.isSortAscending"
+            ></i>
+            }
+          </div>
+          } @else {
+          <div>{{ column.title }}</div>
+          }
+        </th>
+        }
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(vehicle of queryResult.items; track vehicle) {
+      <tr class="hover:bg-gray-100 transition-colors">
+        <td class="border border-gray-300 px-4 py-2">{{ vehicle.id }}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ vehicle.make.name }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ vehicle.model.name }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ vehicle.contact.name }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <a
+            [routerLink]="['/vehicles/', vehicle.id]"
+            class="text-blue-500 hover:underline"
+            >View</a
+          >
+        </td>
+      </tr>
       }
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    @for(vehicle of queryResult.items; track vehicle){
-    <tr>
-      <td>{{ vehicle.id }}</td>
-      <td>{{ vehicle.make.name }}</td>
-      <td>{{ vehicle.model.name }}</td>
-      <td>{{ vehicle.contact.name }}</td>
-      <td>
-        <a [routerLink]="['/vehicles/', vehicle.id]">View</a>
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
-<app-pagination
-  [total-items]="queryResult.totalItems"
-  [page-size]="query.pageSize"
-  (page-changed)="onPageChange($event)"
-></app-pagination>
+    </tbody>
+  </table>
+
+  <app-pagination
+    [total-items]="queryResult.totalItems"
+    [page-size]="query.pageSize"
+    (page-changed)="onPageChange($event)"
+  ></app-pagination>
+</div>
