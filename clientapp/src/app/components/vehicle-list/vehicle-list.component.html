@@ -37,48 +37,49 @@
     </div>
   </div>
 
-  <table class="min-w-full mt-4 bg-white rounded-lg shadow-md">
-    <thead class="bg-gray-200">
-      <tr>
-        @for(column of columns; track column) {
-        <th class="px-4 py-2 text-left text-gray-600 font-medium">
-          @if(column.isSortable) {
-          <div class="cursor-pointer" (click)="sortBy(column.key)">
-            {{ column.title }}
-            @if(query.sortBy === column.key) {
-            <i
-              class="fa"
-              [class.fa-sort-asc]="query.isSortAscending"
-              [class.fa-sort-desc]="!query.isSortAscending"
-            ></i>
+  <div class="overflow-x-auto">
+    <table class="min-w-full mt-4 bg-white rounded-lg shadow-md">
+      <thead class="bg-bright-orange">
+        <tr>
+          @for(column of columns; track column) {
+          <th class="px-4 py-2 text-left text-white font-medium">
+            @if(column.isSortable) {
+            <div class="cursor-pointer" (click)="sortBy(column.key)">
+              {{ column.title }}
+              @if(query.sortBy === column.key) {
+              <i
+                class="fa"
+                [class.fa-sort-asc]="query.isSortAscending"
+                [class.fa-sort-desc]="!query.isSortAscending"
+              ></i>
+              }
+            </div>
+            } @else {
+            <div>{{ column.title }}</div>
             }
-          </div>
-          } @else {
-          <div>{{ column.title }}</div>
+          </th>
           }
-        </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(vehicle of queryResult.items; track vehicle) {
+        <tr class="hover:bg-gray-100 transition-colors">
+          <td class="px-4 py-2">{{ vehicle.id }}</td>
+          <td class="px-4 py-2">{{ vehicle.make.name }}</td>
+          <td class="px-4 py-2">{{ vehicle.model.name }}</td>
+          <td class="px-4 py-2">{{ vehicle.contact.name }}</td>
+          <td class="px-4 py-2">
+            <a
+              [routerLink]="['/vehicles/', vehicle.id]"
+              class="text-blue-500 hover:underline"
+              >View</a
+            >
+          </td>
+        </tr>
         }
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for(vehicle of queryResult.items; track vehicle) {
-      <tr class="hover:bg-gray-100 transition-colors">
-        <td class="px-4 py-2">{{ vehicle.id }}</td>
-        <td class="px-4 py-2">{{ vehicle.make.name }}</td>
-        <td class="px-4 py-2">{{ vehicle.model.name }}</td>
-        <td class="px-4 py-2">{{ vehicle.contact.name }}</td>
-        <td class="px-4 py-2">
-          <a
-            [routerLink]="['/vehicles/', vehicle.id]"
-            class="text-blue-500 hover:underline"
-            >View</a
-          >
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 
   <app-pagination
     [total-items]="queryResult.totalItems"

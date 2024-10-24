@@ -34,7 +34,7 @@ export class VehicleListComponent implements OnInit {
       key: 'contactName',
       isSortable: true,
     },
-    {},
+    { title: '', key: 'action' },
   ];
 
   constructor(
