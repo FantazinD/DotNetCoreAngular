@@ -7,15 +7,23 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { ConfigService } from '../../../../services/config.service';
+import { LoadingComponent } from '../shared/loading/loading.component';
 
 @Component({
   selector: 'app-vehicle-list',
   standalone: true,
-  imports: [RouterModule, FormsModule, PaginationComponent, CommonModule],
+  imports: [
+    RouterModule,
+    FormsModule,
+    PaginationComponent,
+    CommonModule,
+    LoadingComponent,
+  ],
   templateUrl: './vehicle-list.component.html',
   styleUrl: './vehicle-list.component.css',
 })
 export class VehicleListComponent implements OnInit {
+  isLoading: boolean = false;
   queryResult: any = {};
   makes: IKeyValuePair[] = [];
   query: any = {
@@ -54,9 +62,11 @@ export class VehicleListComponent implements OnInit {
   }
 
   private populateVehicles = () => {
-    this.vehicleService
-      .getVehicles(this.query)
-      .subscribe((res: any) => (this.queryResult = res));
+    this.isLoading = true;
+    this.vehicleService.getVehicles(this.query).subscribe((res: any) => {
+      this.queryResult = res;
+      this.isLoading = false;
+    });
   };
 
   onFilterChange = () => {
