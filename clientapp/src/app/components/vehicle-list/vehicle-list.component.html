@@ -86,10 +86,15 @@
     <app-loading></app-loading>
   </div>
   }
-  <app-pagination
-    [is-disabled]="isLoading"
-    [total-items]="queryResult.totalItems"
-    [page-size]="query.pageSize"
-    (page-changed)="onPageChange($event)"
-  ></app-pagination>
+  <div
+    [ngClass]="{
+      'cursor-default pointer-events-none opacity-50 p-4 rounded': isLoading
+    }"
+  >
+    <app-pagination
+      [total-items]="queryResult.totalItems"
+      [page-size]="query.pageSize"
+      (page-changed)="onPageChange($event)"
+    ></app-pagination>
+  </div>
 </div>
