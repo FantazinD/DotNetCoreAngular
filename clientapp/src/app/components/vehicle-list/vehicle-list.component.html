@@ -37,8 +37,8 @@
     </div>
   </div>
 
+  @if(!isLoading){
   <div class="overflow-x-auto">
-    @if(!isLoading){
     <table class="min-w-full mt-4 bg-white rounded-lg shadow-md">
       <thead class="bg-bright-orange">
         <tr>
@@ -80,11 +80,6 @@
         }
       </tbody>
     </table>
-    } @else {
-    <div class="min-w-full mt-4 bg-white">
-      <app-loading></app-loading>
-    </div>
-    }
   </div>
 
   <app-pagination
@@ -92,4 +87,9 @@
     [page-size]="query.pageSize"
     (page-changed)="onPageChange($event)"
   ></app-pagination>
+  } @else {
+  <div class="min-w-full mt-10 p-10 bg-white">
+    <app-loading></app-loading>
+  </div>
+  }
 </div>
