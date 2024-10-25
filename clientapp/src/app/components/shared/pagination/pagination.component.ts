@@ -17,6 +17,7 @@ import {
 })
 export class PaginationComponent implements OnChanges {
   @Input('total-items') totalItems: any;
+  @Input('is-disabled') isDisabled: boolean = false;
   @Input('page-size') pageSize: number = 10;
   @Output('page-changed') pageChanged = new EventEmitter();
   pages: any[] = [];

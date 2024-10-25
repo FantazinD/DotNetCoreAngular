@@ -5,7 +5,11 @@
       <a
         (click)="onClickPrevious()"
         aria-label="Previous"
-        class="cursor-pointer px-4 py-2 text-gray-600 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100"
+        class="px-4 py-2 bg-white border border-gray-300 rounded-l-lg"
+        [ngClass]="{
+          'cursor-pointer text-gray-600 hover:bg-gray-100': !isLoading
+          'cursor-default pointer-events-none text-gray-400': isLoading
+        }"
       >
         <span aria-hidden="true">&laquo;</span>
       </a>
@@ -17,10 +21,12 @@
       (click)="onChangePage(page)"
     >
       <a
-        class="cursor-pointer px-4 py-2"
+        class="px-4 py-2"
         [ngClass]="{
-          'bg-bright-orange text-white': currentPage == page,
-          'text-gray-600 hover:bg-gray-100': currentPage != page
+          'cursor-default pointer-events-none bg-brighter-orange text-white' = currentPage == page && isLoading,
+          'cursor-default pointer-events-none text-gray-400': currentPage != page && isLoading,
+          'cursor-pointer bg-bright-orange hover:bg-burnt-orange' text-white': currentPage == page && !isLoading,
+          'cursor-pointer text-gray-600 hover:bg-gray-100': currentPage != page && !isLoading
         }"
       >
         {{ page }}
@@ -31,7 +37,11 @@
       <a
         (click)="onClickNext()"
         aria-label="Next"
-        class="cursor-pointer px-4 py-2 text-gray-600 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100"
+        class="px-4 py-2 bg-white border border-gray-300 rounded-r-lg"
+        [ngClass]="{
+          'cursor-pointer text-gray-600 hover:bg-gray-100': !isLoading
+          'cursor-default pointer-events-none text-gray-400': isLoading
+        }"
       >
         <span aria-hidden="true">&raquo;</span>
       </a>
