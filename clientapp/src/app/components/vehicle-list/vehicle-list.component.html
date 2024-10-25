@@ -81,15 +81,14 @@
       </tbody>
     </table>
   </div>
-
-  <app-pagination
-    [total-items]="queryResult.totalItems"
-    [page-size]="query.pageSize"
-    (page-changed)="onPageChange($event)"
-  ></app-pagination>
   } @else {
   <div class="min-w-full mt-10 p-10 bg-white">
     <app-loading></app-loading>
   </div>
   }
+  <app-pagination
+    [total-items]="queryResult.totalItems"
+    [page-size]="query.pageSize"
+    (page-changed)="onPageChange($event)"
+  ></app-pagination>
 </div>
