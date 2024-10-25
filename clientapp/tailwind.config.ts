@@ -6,6 +6,10 @@ module.exports = {
       colors: {
         'burnt-orange': '#e66000',
         'bright-orange': '#ff9500',
+        'brighter-orange': '#ffca80',
+      },
+      spacing: {
+        'carousel-height': '32rem',
       },
     },
     container: {
