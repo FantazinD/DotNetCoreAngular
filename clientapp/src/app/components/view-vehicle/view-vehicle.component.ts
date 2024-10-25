@@ -15,14 +15,15 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-view-vehicle',
   standalone: true,
-  imports: [RouterModule, NgbNavModule, CommonModule, NgbCarouselModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './view-vehicle.component.html',
   styleUrl: './view-vehicle.component.css',
-  providers: [NgbCarouselConfig],
+  providers: [],
 })
 export class ViewVehicleComponent implements OnInit {
   @ViewChild('fileInput', { read: ElementRef }) fileInput!: ElementRef;
-  active = 1;
+  activeTab: string = 'tabs-vehicle';
+  activeCarouselSlide: number = 0;
   vehicle: any;
   vehicleId: number = 0;
   photos: any[] = [];
@@ -34,8 +35,7 @@ export class ViewVehicleComponent implements OnInit {
     private toastrService: ToastrService,
     private vehicleService: VehicleService,
     private photoService: PhotoService,
-    public auth: AuthService,
-    private carouselConfig: NgbCarouselConfig
+    public auth: AuthService
   ) {
     this.route.params.subscribe((p) => {
       this.vehicleId = +p['id'];
@@ -44,9 +44,6 @@ export class ViewVehicleComponent implements OnInit {
         return;
       }
     });
-
-    this.carouselConfig.showNavigationArrows = true;
-    this.carouselConfig.showNavigationIndicators = true;
   }
 
   ngOnInit(): void {
@@ -67,6 +64,20 @@ export class ViewVehicleComponent implements OnInit {
       },
     });
   }
+
+  setActiveTab = (tabId: string) => {
+    this.activeTab = tabId;
+  };
+
+  setActiveSlide = (index: number) => {
+    if (index < 0) {
+      this.activeCarouselSlide = this.photos.length - 1;
+    } else if (index >= this.photos.length) {
+      this.activeCarouselSlide = 0;
+    } else {
+      this.activeCarouselSlide = index;
+    }
+  };
 
   onDelete = () => {
     if (confirm('Are you sure?')) {
