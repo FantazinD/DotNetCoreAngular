@@ -3,19 +3,15 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VehicleService } from '../../../../services/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import {
-  NgbCarouselConfig,
-  NgbCarouselModule,
-  NgbNavModule,
-} from '@ng-bootstrap/ng-bootstrap';
 import { HttpEventType } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
+import { LoadingComponent } from '../shared/loading/loading.component';
 
 @Component({
   selector: 'app-view-vehicle',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, LoadingComponent],
   templateUrl: './view-vehicle.component.html',
   styleUrl: './view-vehicle.component.css',
   providers: [],
