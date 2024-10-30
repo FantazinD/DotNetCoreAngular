@@ -7,11 +7,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { ISaveVehicle } from '../../interfaces/ISaveVehicle';
 import { IVehicle } from '../../interfaces/IVehicle';
+import { LoadingComponent } from '../shared/loading/loading.component';
 
 @Component({
   selector: 'app-vehicle-form',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LoadingComponent],
   templateUrl: './vehicle-form.component.html',
   styleUrl: './vehicle-form.component.css',
 })
@@ -28,7 +29,7 @@ export class VehicleFormComponent implements OnInit {
       email: '',
     },
   };
-
+  isLoading: boolean = false;
   makes: any[] = [];
   models: any[] = [];
   features: any[] = [];
@@ -45,6 +46,7 @@ export class VehicleFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     let sources = [
       this.vehicleService.getMakes(),
       this.vehicleService.getFeatures(),
@@ -61,6 +63,8 @@ export class VehicleFormComponent implements OnInit {
         if (this.vehicle.id) {
           this.setVehicle(data[2]);
           this.populateModels();
+        } else {
+          this.isLoading = false;
         }
       },
       error: (err) => {
@@ -118,6 +122,7 @@ export class VehicleFormComponent implements OnInit {
       (make) => make.id == this.vehicle.makeId
     );
     this.models = selectedMake ? selectedMake.models : [];
+    this.isLoading = false;
   };
 
   onSubmit = (): void => {

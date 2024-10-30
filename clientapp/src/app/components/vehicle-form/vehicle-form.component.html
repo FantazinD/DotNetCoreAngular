@@ -15,6 +15,7 @@
       {{ vehicle.id > 0 ? "Update Vehicle" : "New Vehicle" }}
     </h1>
   </div>
+  @if(!isLoading){
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <!-- Make Selection -->
     <div class="mb-4">
@@ -182,4 +183,9 @@
       </ng-container>
     </div>
   </form>
+  }@else{
+  <div class="min-w-full mt-10 p-10 bg-white">
+    <app-loading></app-loading>
+  </div>
+  }
 </div>
