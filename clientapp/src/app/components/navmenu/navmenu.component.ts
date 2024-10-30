@@ -1,14 +1,13 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomAuthService } from '../../../../services/custom-auth.service';
 
 @Component({
   selector: 'app-navmenu',
   standalone: true,
-  imports: [NgbCollapseModule, RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './navmenu.component.html',
   styleUrl: './navmenu.component.css',
 })
