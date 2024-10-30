@@ -1,7 +1,20 @@
 <div class="container mx-auto p-10">
-  <h1 class="text-2xl font-medium mb-4">
-    {{ vehicle.id > 0 ? "Update Vehicle" : "New Vehicle" }}
-  </h1>
+  <div class="flex">
+    <svg
+      role="presentation"
+      aria-hidden="true"
+      class="cursor-pointer"
+      viewBox="0 0 24 24"
+      height="30"
+      width="30"
+      (click)="onClickBack()"
+    >
+      <path d="M16.41 5.41L15 4l-8 8 8 8 1.41-1.41L9.83 12"></path>
+    </svg>
+    <h1 class="text-2xl font-medium mb-4 ml-2">
+      {{ vehicle.id > 0 ? "Update Vehicle" : "New Vehicle" }}
+    </h1>
+  </div>
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <!-- Make Selection -->
     <div class="mb-4">

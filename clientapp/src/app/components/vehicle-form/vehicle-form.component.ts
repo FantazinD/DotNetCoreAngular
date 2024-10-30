@@ -86,6 +86,10 @@ export class VehicleFormComponent implements OnInit {
     }
   };
 
+  onClickBack = () => {
+    this.router.navigate(['/vehicles']);
+  };
+
   onClickDelete = () => {
     if (confirm('Are you sure?')) {
       this.vehicleService.deleteVehicle(this.vehicle.id).subscribe({
