@@ -96,6 +96,7 @@ export class VehicleFormComponent implements OnInit {
 
   onClickDelete = () => {
     if (confirm('Are you sure?')) {
+      this.isLoading = true;
       this.vehicleService.deleteVehicle(this.vehicle.id).subscribe({
         next: (res) => {
           this.toastrService.success(
@@ -108,7 +109,19 @@ export class VehicleFormComponent implements OnInit {
           );
           this.router.navigate(['/vehicles']);
         },
+        error: (err) => {
+          this.toastrService.error(
+            'Vehicle may have been already deleted.',
+            'Unexpected Error',
+            {
+              timeOut: 3000,
+              closeButton: true,
+            }
+          );
+          this.router.navigate(['/vehicles']);
+        },
       });
+      this.isLoading = false;
     }
   };
 
@@ -126,6 +139,7 @@ export class VehicleFormComponent implements OnInit {
   };
 
   onSubmit = (): void => {
+    this.isLoading = true;
     var result$ = this.vehicle.id
       ? this.vehicleService.updateVehicle(this.vehicle)
       : this.vehicleService.createVehicle(this.vehicle);
@@ -141,7 +155,18 @@ export class VehicleFormComponent implements OnInit {
         );
         this.router.navigate(['/vehicles']);
       },
-      error: () => {},
+      error: (err) => {
+        this.toastrService.error(
+          `If the issue persists, contact support.`,
+          'Unexpected Error.',
+          {
+            timeOut: 3000,
+            closeButton: true,
+          }
+        );
+        this.router.navigate(['/vehicles']);
+      },
     });
+    this.isLoading = false;
   };
 }
