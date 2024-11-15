@@ -85,7 +85,6 @@ builder.Services.AddScoped<IMakeRepository, MakeRepository>();
 builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
 builder.Services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
 builder.Services.AddTransient<IPhotoService, PhotoService>();
-//builder.Services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
 builder.Services.AddTransient<IPhotoStorage, AzurePhotoStorage>();
 
 var app = builder.Build();
