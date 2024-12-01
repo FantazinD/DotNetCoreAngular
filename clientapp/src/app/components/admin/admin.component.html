@@ -1,11 +1,13 @@
-<h2>admin works!</h2>
-<canvas
-  baseChart
-  [type]="'pie'"
-  [datasets]="pieChartDatasets"
-  [labels]="pieChartLabels"
-  [options]="pieChartOptions"
-  [plugins]="pieChartPlugins"
-  [legend]="pieChartLegend"
->
-</canvas>
+<div class="w-full bg-gray-100 flex items-center justify-center">
+  <canvas
+    class="w-1/2 p-6"
+    baseChart
+    [type]="'pie'"
+    [datasets]="pieChartDatasets"
+    [labels]="pieChartLabels"
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [legend]="pieChartLegend"
+  >
+  </canvas>
+</div>
