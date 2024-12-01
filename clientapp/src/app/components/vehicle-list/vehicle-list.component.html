@@ -14,12 +14,12 @@
 
   <div class="bg-gray-100 p-4 rounded shadow">
     <div class="mb-4">
-      <label for="make" class="block text-md font-medium text-gray-700"
+      <label for="make" class="block text-lg font-medium text-gray-700"
         >Make</label
       >
       <select
         id="make"
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+        class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 h-8"
         [(ngModel)]="query.makeId"
         (change)="onFilterChange()"
       >
