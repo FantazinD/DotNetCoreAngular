@@ -89,11 +89,6 @@ builder.Services.AddTransient<IPhotoStorage, AzurePhotoStorage>();
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseCors("AllowAngularOrigin");
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -102,6 +97,11 @@ if (app.Environment.IsDevelopment())
 } else {
     app.UseExceptionHandler("/Error");
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseCors("AllowAngularOrigin");
 
 app.UseHttpsRedirection();
 
