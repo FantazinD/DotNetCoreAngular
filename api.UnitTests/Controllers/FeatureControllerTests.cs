@@ -33,12 +33,11 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public void GetFeatures_WhenCalled_ReturnsTaskOfIActionResult()
+        public async Task GetFeatures_WhenCalled_ReturnsIActionResultInstance()
         {
-            var result = _featureController.GetFeatures();
-            result.Wait();
+            var result = await _featureController.GetFeatures();
 
-            Assert.That(result, Is.TypeOf<Task<IActionResult>>());
+            Assert.That(result, Is.InstanceOf<IActionResult>());
         }
     }
 }
