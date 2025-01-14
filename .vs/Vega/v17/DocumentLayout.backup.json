@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Fantazindy\\OneDrive\\Documents\\Fantazindy\\TrainingCourses\\DotNetCoreAngular\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{736CF0A0-0B7F-4181-B37C-77FA4040D87F}|api.UnitTests\\api.UnitTests.csproj|c:\\users\\fantazindy\\onedrive\\documents\\fantazindy\\trainingcourses\\dotnetcoreangular\\api.unittests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{736CF0A0-0B7F-4181-B37C-77FA4040D87F}|api.UnitTests\\api.UnitTests.csproj|solutionrelative:api.unittests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\Fantazindy\\OneDrive\\Documents\\Fantazindy\\TrainingCourses\\DotNetCoreAngular\\api.UnitTests\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "api.UnitTests\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\Fantazindy\\OneDrive\\Documents\\Fantazindy\\TrainingCourses\\DotNetCoreAngular\\api.UnitTests\\UnitTest1.cs",
+              "RelativeToolTip": "api.UnitTests\\UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T05:56:59.373Z",
+              "EditorCaption": ""
             }
           ]
         }
