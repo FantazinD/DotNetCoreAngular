@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using api.Controllers;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.UnitTests.Controllers
 {
@@ -29,6 +30,15 @@ namespace api.UnitTests.Controllers
             _featureController.GetFeatures().Wait();
 
             _featureRepository.Verify(fr => fr.GetFeaturesAsync());
+        }
+
+        [Test]
+        public void GetFeatures_WhenCalled_ReturnsTaskOfIActionResult()
+        {
+            var result = _featureController.GetFeatures();
+            result.Wait();
+
+            Assert.That(result, Is.TypeOf<Task<IActionResult>>());
         }
     }
 }
