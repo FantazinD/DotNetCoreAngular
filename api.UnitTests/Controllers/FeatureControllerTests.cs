@@ -25,7 +25,7 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public void GetFeatures_WhenCalled_GetsFeatures()
+        public void GetFeatures_WhenCalled_GetsFeaturesFromDatabase()
         {
             _featureController.GetFeatures().Wait();
 
