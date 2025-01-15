@@ -9,6 +9,7 @@ using api.Models;
 using api.Repositories;
 using api.Services;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -62,6 +63,15 @@ namespace api.UnitTests.Controllers
             var result = await _photoController.GetPhotos(new Vehicle() { Id = 1 }.Id);
 
             Assert.That(result, Is.InstanceOf<IActionResult>());
+        }
+
+        [Test]
+        public async Task Upload_VehicleIsNull_ReturnsNotFoundResult()
+        {
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(() => null);
+            var result = await _photoController.Upload(_vehicle.Id, It.IsAny<IFormFile>());
+
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
     }
 }
