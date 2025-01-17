@@ -73,5 +73,15 @@ namespace api.UnitTests.Controllers
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
+
+        [Test]
+        public async Task Upload_FileIsNull_ReturnsNotFoundResult()
+        {
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(new Vehicle());
+            var result = await _photoController.Upload(_vehicle.Id, It.IsAny<IFormFile>());
+
+            Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
+            Assert.That(((BadRequestObjectResult)result).Value, Is.EqualTo("Null File.").IgnoreCase);
+        }
     }
 }
