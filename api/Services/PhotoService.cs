@@ -7,9 +7,9 @@ namespace api.Services
     {
         private readonly IUnitOfWorkRepository _unitOfWorkRepository = unitOfWorkRepository;
         private readonly IPhotoStorage _photoStorage = photoStorage;
-        public async Task<Photo> UploadPhoto(Vehicle vehicle, IFormFile file, string uploadsFolderPath)
+        public async Task<Photo> UploadPhoto(Vehicle vehicle, IFormFile file)
         {
-            var photoDTO = await _photoStorage.StorePhoto(uploadsFolderPath, file);
+            var photoDTO = await _photoStorage.StorePhoto(file);
 
             var photo = new Photo { 
                 FileName = photoDTO.FileName!,

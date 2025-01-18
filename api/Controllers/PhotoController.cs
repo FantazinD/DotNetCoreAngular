@@ -8,10 +8,9 @@ namespace api.Controllers
 {
     [Route("api/vehicles/{vehicleId}/photos")]
     [ApiController]
-    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IConfiguration configuration, IPhotoRepository photoRepository, IPhotoService photoService):ControllerBase
+    public class PhotoController(IVehicleRepository vehicleRepository, IConfiguration configuration, IPhotoRepository photoRepository, IPhotoService photoService):ControllerBase
     {
         private readonly PhotoSetting _photoSettings = configuration.GetSection("PhotoSettings").Get<PhotoSetting>();
-        private readonly IWebHostEnvironment _host = host;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
         private readonly IPhotoRepository _photoRepository = photoRepository;
         private readonly IPhotoService _photoService = photoService;
@@ -29,9 +28,7 @@ namespace api.Controllers
             if(file.Length > _photoSettings.MaxBytes) return BadRequest("Maximum file size exceeded.");
             if(!_photoSettings.IsSupported(file.FileName)) return BadRequest("Invalid file type.");
 
-            var appPath = _host.ContentRootPath.Substring(0,_host.ContentRootPath.Length - string.Concat("/", _host.ApplicationName).Length);
-            var uploadsFolderPath = string.Concat(appPath, "/api/wwwroot/uploads");
-            var photo = await _photoService.UploadPhoto(vehicle, file, uploadsFolderPath);
+            var photo = await _photoService.UploadPhoto(vehicle, file);
 
             return Ok(photo.ToPhotoDTO());
         }
