@@ -8,9 +8,9 @@ namespace api.Controllers
 {
     [Route("api/vehicles/{vehicleId}/photos")]
     [ApiController]
-    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IOptionsSnapshot<PhotoSetting> optionsSnapshot, IPhotoRepository photoRepository, IPhotoService photoService):ControllerBase
+    public class PhotoController(IWebHostEnvironment host, IVehicleRepository vehicleRepository, IConfiguration configuration, IPhotoRepository photoRepository, IPhotoService photoService):ControllerBase
     {
-        private readonly PhotoSetting _photoSettings = optionsSnapshot.Value;
+        private readonly PhotoSetting _photoSettings = configuration.GetSection("PhotoSettings").Get<PhotoSetting>();
         private readonly IWebHostEnvironment _host = host;
         private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
         private readonly IPhotoRepository _photoRepository = photoRepository;
