@@ -132,5 +132,16 @@ namespace api.UnitTests.Controllers
             Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
             Assert.That(((BadRequestObjectResult)result).Value, Is.EqualTo("Maximum file size exceeded.").IgnoreCase);
         }
+
+        [Test]
+        public async Task Upload_FileTypeNotSupported_ReturnsBadRequestObjectResult()
+        {
+            _file.Setup(f => f.FileName).Returns("MockFile.txt");
+
+            var result = await _photoController.Upload(_vehicle.Id, _file.Object);
+
+            Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
+            Assert.That(((BadRequestObjectResult)result).Value, Is.EqualTo("Invalid file type.").IgnoreCase);
+        }
     }
 }
