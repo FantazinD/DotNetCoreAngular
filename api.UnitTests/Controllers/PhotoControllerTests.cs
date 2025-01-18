@@ -20,7 +20,6 @@ namespace api.UnitTests.Controllers
 {
     public class PhotoControllerTests
     {
-        private Mock<IWebHostEnvironment> _host;
         private Mock<IVehicleRepository> _vehicleRepository;
         private Mock<IPhotoRepository> _photoRepository;
         private Mock<IPhotoService> _photoService;
@@ -47,6 +46,7 @@ namespace api.UnitTests.Controllers
             _vehicle = new Vehicle()
             {
                 Id = 1,
+                Photos = []
             };
 
             byte[] jpgContent = new byte[] { 255, 216, 255, 224, 0, 16, 74, 70, 73, 70, 0, 1, 0, 1, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 };
@@ -61,16 +61,19 @@ namespace api.UnitTests.Controllers
             });
             
             _vehicleRepository = new Mock<IVehicleRepository>();
-            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(new Vehicle());
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(_vehicle);
 
-            _host = new Mock<IWebHostEnvironment>();
             _photoRepository = new Mock<IPhotoRepository>();
             _photoRepository.Setup(pr => pr.GetPhotos(_vehicle.Id)).ReturnsAsync(new List<Photo>());
 
             _photoService = new Mock<IPhotoService>();
+            _photoService.Setup(ps => ps.UploadPhoto(_vehicle, _file.Object)).ReturnsAsync(new Photo() { 
+                Id = 1, 
+                FileName = "",
+                URL = ""
+            });
 
             _photoController = new PhotoController(
-                _host.Object, 
                 _vehicleRepository.Object,
                 _configuration, 
                 _photoRepository.Object, 
@@ -142,6 +145,14 @@ namespace api.UnitTests.Controllers
 
             Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
             Assert.That(((BadRequestObjectResult)result).Value, Is.EqualTo("Invalid file type.").IgnoreCase);
+        }
+
+        [Test]
+        public void Upload_ValidFile_ShouldUploadPhoto()
+        {
+            _photoController.Upload(_vehicle.Id, _file.Object).Wait();
+
+            _photoService.Verify(ps => ps.UploadPhoto(_vehicle, _file.Object));
         }
     }
 }
