@@ -11,6 +11,7 @@ using api.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
@@ -18,14 +19,23 @@ namespace api.UnitTests.Controllers
 {
     public class PhotoControllerTests
     {
-        private Mock<IOptionsSnapshot<PhotoSetting>> _photoSettings;
         private Mock<IWebHostEnvironment> _host;
         private Mock<IVehicleRepository> _vehicleRepository;
         private Mock<IPhotoRepository> _photoRepository;
         private Mock<IPhotoService> _photoService;
         private Mock<IFormFile> _file;
+        private IConfiguration _configuration;
         private Vehicle _vehicle;
         private PhotoController _photoController;
+        
+        public PhotoControllerTests()
+        {
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(Directory.GetCurrentDirectory())
+                           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            _configuration = configurationBuilder.Build();
+        }
 
         [SetUp]
         public void SetUp()
@@ -45,10 +55,11 @@ namespace api.UnitTests.Controllers
             {
                 stream.Write(jpgContent, 0, jpgContent.Length);
             });
+            
+            _vehicleRepository = new Mock<IVehicleRepository>();
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(new Vehicle());
 
             _host = new Mock<IWebHostEnvironment>();
-            _vehicleRepository = new Mock<IVehicleRepository>();
-            _photoSettings = new Mock<IOptionsSnapshot<PhotoSetting>>();
             _photoRepository = new Mock<IPhotoRepository>();
             _photoRepository.Setup(pr => pr.GetPhotos(_vehicle.Id)).ReturnsAsync(new List<Photo>());
 
@@ -56,8 +67,8 @@ namespace api.UnitTests.Controllers
 
             _photoController = new PhotoController(
                 _host.Object, 
-                _vehicleRepository.Object, 
-                _photoSettings.Object, 
+                _vehicleRepository.Object,
+                _configuration, 
                 _photoRepository.Object, 
                 _photoService.Object);
         }
@@ -88,27 +99,34 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public async Task Upload_FileIsNull_ReturnsBadRequestNullFileMessage()
+        public async Task Upload_FileIsNull_ReturnsBadRequestObjectResult()
         {
-            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(new Vehicle());
-            IFormFile file = null;
-
-            var result = await _photoController.Upload(_vehicle.Id, file);
+            var result = await _photoController.Upload(_vehicle.Id, file: null);
 
             Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
             Assert.That(((BadRequestObjectResult)result).Value, Is.EqualTo("Null File.").IgnoreCase);
         }
 
         [Test]
-        public async Task Upload_FileIsEmpty_ReturnsBadRequestEmptyFileMessage()
+        public async Task Upload_FileIsEmpty_ReturnsBadRequestObjectResult()
         {
-            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(new Vehicle());
             _file.Setup(f => f.Length).Returns(0);
 
             var result = await _photoController.Upload(_vehicle.Id, _file.Object);
 
             Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
             Assert.That(((BadRequestObjectResult)result).Value, Is.EqualTo("Empty File.").IgnoreCase);
+        }
+
+        [Test]
+        public async Task Upload_FileExceedsMaxBytes_ReturnsBadRequestObjectResult()
+        {
+            _file.Setup(f => f.Length).Returns(long.Parse(_configuration["PhotoSettings:MaxBytes"]) + (long)1);
+
+            var result = await _photoController.Upload(_vehicle.Id, _file.Object);
+
+            Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
+            Assert.That(((BadRequestObjectResult)result).Value, Is.EqualTo("Maximum file size exceeded.").IgnoreCase);
         }
     }
 }
