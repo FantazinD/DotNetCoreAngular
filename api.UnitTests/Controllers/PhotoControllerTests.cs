@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace api.UnitTests.Controllers
 {
@@ -25,6 +26,7 @@ namespace api.UnitTests.Controllers
         private Mock<IPhotoService> _photoService;
         private Mock<IFormFile> _file;
         private IConfiguration _configuration;
+        private PhotoSetting _photoSetting;
         private Vehicle _vehicle;
         private PhotoController _photoController;
         
@@ -40,6 +42,8 @@ namespace api.UnitTests.Controllers
         [SetUp]
         public void SetUp()
         {
+            _photoSetting = _configuration.GetSection("PhotoSettings").Get<PhotoSetting>();
+
             _vehicle = new Vehicle()
             {
                 Id = 1,
@@ -121,7 +125,7 @@ namespace api.UnitTests.Controllers
         [Test]
         public async Task Upload_FileExceedsMaxBytes_ReturnsBadRequestObjectResult()
         {
-            _file.Setup(f => f.Length).Returns(long.Parse(_configuration["PhotoSettings:MaxBytes"]) + (long)1);
+            _file.Setup(f => f.Length).Returns(_photoSetting.MaxBytes + 1);
 
             var result = await _photoController.Upload(_vehicle.Id, _file.Object);
 
