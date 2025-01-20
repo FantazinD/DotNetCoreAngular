@@ -6,15 +6,15 @@ namespace api.UnitTests;
 
 public class MakeControllerTests
 {
-    private Mock<IFeatureRepository> _featureRepository;
-    private FeatureController _featureController;
+    private Mock<IMakeRepository> _makeRepository;
+    private MakeController _makeController;
 
     [SetUp]
     public void Setup()
     {
-        _featureRepository = new Mock<IFeatureRepository>();
-        _featureRepository.Setup(fr => fr.GetFeaturesAsync()).ReturnsAsync(new List<Feature>());
+        _makeRepository = new Mock<IMakeRepository>();
+        _makeRepository.Setup(mr => mr.GetMakesAsync(true)).ReturnsAsync(new List<Make>());
 
-        _featureController = new FeatureController(_featureRepository.Object);
+        _makeController = new MakeController(_makeRepository.Object);
     }
 }
