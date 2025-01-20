@@ -1,6 +1,7 @@
 ﻿using api.Controllers;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.UnitTests.Controllers;
 
@@ -24,5 +25,13 @@ public class MakeControllerTests
         _makeController.GetMakes().Wait();
 
         _makeRepository.Verify(mr => mr.GetMakesAsync(true));
+    }
+
+    [Test]
+    public async Task GetMakes_WhenCalled_ReturnsOkObjectResult()
+    {
+        var result = await _makeController.GetMakes();
+
+        Assert.That(result, Is.TypeOf<OkObjectResult>());
     }
 }
