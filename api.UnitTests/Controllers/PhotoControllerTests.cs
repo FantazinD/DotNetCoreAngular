@@ -154,5 +154,13 @@ namespace api.UnitTests.Controllers
 
             _photoService.Verify(ps => ps.UploadPhoto(_vehicle, _file.Object));
         }
+
+        [Test]
+        public async Task Upload_FileUploadedToDb_ReturnsOkObjectResult()
+        {
+            var result = await _photoController.Upload(_vehicle.Id, _file.Object);
+
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+        }
     }
 }
