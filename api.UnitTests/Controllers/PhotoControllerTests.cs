@@ -89,11 +89,11 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public async Task GetPhotos_WhenCalled_ReturnsIActionResultInstance()
+        public async Task GetPhotos_WhenCalled_ReturnsOkObjectResult()
         {
             var result = await _photoController.GetPhotos(new Vehicle() { Id = 1 }.Id);
 
-            Assert.That(result, Is.InstanceOf<IActionResult>());
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
         }
 
         [Test]
