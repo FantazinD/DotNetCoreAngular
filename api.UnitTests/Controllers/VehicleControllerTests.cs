@@ -40,5 +40,18 @@ namespace api.UnitTests.Controllers
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
+
+        [Test]
+        public async Task GetVehicle_ExistingVehicle_ReturnOkObjectResult()
+        {
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, true)).ReturnsAsync(new Vehicle()
+            {
+                Id = 1,
+            });
+
+            var result = await _vehicleController.GetVehicle(_vehicle.Id);
+
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+        }
     }
 }
