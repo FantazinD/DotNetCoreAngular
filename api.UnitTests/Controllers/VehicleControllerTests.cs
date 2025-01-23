@@ -91,5 +91,15 @@ namespace api.UnitTests.Controllers
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
+
+        [Test]
+        public void DeleteVehicle_ExistingVehicle_DeletesVehicleFromDatabase()
+        {
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(_vehicle);
+
+            _vehicleController.DeleteVehicle(_vehicle.Id).Wait();
+
+            _vehicleRepository.Verify(vr => vr.Remove(_vehicle));
+        }
     }
 }
