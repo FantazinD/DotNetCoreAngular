@@ -42,7 +42,7 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public async Task GetVehicle_ExistingVehicle_ReturnOkObjectResult()
+        public async Task GetVehicle_ExistingVehicle_ReturnsVehicleObject()
         {
             _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, true)).ReturnsAsync(new Vehicle()
             {
@@ -50,8 +50,15 @@ namespace api.UnitTests.Controllers
             });
 
             var result = await _vehicleController.GetVehicle(_vehicle.Id);
+            var objResult = ((OkObjectResult)result).Value;
 
             Assert.That(result, Is.TypeOf<OkObjectResult>());
+            Assert.That(
+                objResult?
+                .GetType()
+                .GetProperty("Id")?
+                .GetValue(objResult), 
+                Is.EqualTo(1));
         }
     }
 }
