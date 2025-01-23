@@ -32,7 +32,7 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public async Task GetVehicle_VehicleIsNull_ReturnNotFoundResult()
+        public async Task GetVehicle_NonExistentVehicle_ReturnNotFoundResult()
         {
             _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, true)).ReturnsAsync(() => null);
 
@@ -42,7 +42,7 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public async Task GetVehicle_ExistingVehicle_ReturnsVehicleObject()
+        public async Task GetVehicle_ExistingVehicle_ReturnsVehicleObjectResult()
         {
             _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, true)).ReturnsAsync(new Vehicle()
             {
@@ -59,6 +59,16 @@ namespace api.UnitTests.Controllers
                 .GetProperty("Id")?
                 .GetValue(objResult), 
                 Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task DeleteVehicle_NonExistentVehicle_ReturnsNotFound()
+        {
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(() => null);
+
+            var result = await _vehicleController.GetVehicle(_vehicle.Id);
+
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
     }
 }
