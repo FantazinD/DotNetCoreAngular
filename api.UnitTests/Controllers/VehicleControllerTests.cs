@@ -7,6 +7,7 @@ using api.Controllers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace api.UnitTests.Controllers
 {
@@ -59,6 +60,18 @@ namespace api.UnitTests.Controllers
                 .GetProperty("Id")?
                 .GetValue(objResult), 
                 Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task DeleteVehicle_ModelStateIsNotValid_ReturnsBadRequest()
+        {
+            _vehicleController.ModelState.AddModelError("ContactName", "The ContactName field is required.");
+
+            var result = await _vehicleController.DeleteVehicle(_vehicle.Id);
+            var resultObj = result as BadRequestObjectResult;
+
+            Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
+            Assert.That(resultObj?.Value, Is.TypeOf<SerializableError>());
         }
 
         [Test]
