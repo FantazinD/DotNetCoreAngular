@@ -75,13 +75,21 @@ namespace api.UnitTests.Controllers
         }
 
         [Test]
-        public async Task DeleteVehicle_NonExistentVehicle_ReturnsNotFound()
+        public async Task DeleteVehicle_WhenCalled_GetsVehicleFromDatabase()
         {
             _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(() => null);
 
             var result = await _vehicleController.DeleteVehicle(_vehicle.Id);
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
+        }
+
+        [Test]
+        public void DeleteVehicle_NonExistentVehicle_ReturnsNotFound()
+        {
+            _vehicleController.DeleteVehicle(_vehicle.Id).Wait();
+
+            _vehicleRepository.Verify(vr => vr.GetVehicleAsync(_vehicle.Id, false));
         }
     }
 }
