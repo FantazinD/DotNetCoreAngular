@@ -66,7 +66,7 @@ namespace api.UnitTests.Controllers
         {
             _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(() => null);
 
-            var result = await _vehicleController.GetVehicle(_vehicle.Id);
+            var result = await _vehicleController.DeleteVehicle(_vehicle.Id);
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
