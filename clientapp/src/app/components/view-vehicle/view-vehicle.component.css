@@ -1,10 +1,10 @@
 .picsum-img-wrapper {
-  height: 600px; /* Set a fixed height for the image wrapper */
-  overflow: hidden; /* Hide overflow if image is larger than the wrapper */
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center image horizontally */
-  align-items: center; /* Center image vertically */
-  background-color: darkslategray; /* Light gray background */
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: darkslategray;
 }
 
 .carousel-image {
