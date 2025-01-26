@@ -10,7 +10,7 @@ namespace api.Services
     public class AzurePhotoStorage(IOptionsSnapshot<AppSettings> optionsSnapshot) : IPhotoStorage
     {
         private readonly AppSettings _appSettings = optionsSnapshot.Value;
-        public async Task<PhotoDTO> StorePhoto(string uploadsFolderPath, IFormFile file)
+        public async Task<PhotoDTO> StorePhoto(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {

@@ -4,6 +4,6 @@ namespace api.Interfaces
 {
     public interface IPhotoStorage
     {
-        Task<PhotoDTO> StorePhoto(string uploadsFolderPath, IFormFile file);
+        Task<PhotoDTO> StorePhoto(IFormFile file);
     }
 }
