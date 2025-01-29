@@ -135,7 +135,7 @@ namespace api.UnitTests.Controllers
         [Test]
         public void UpdateVehicle_WhenCalled_GetsVehicleFromDatabase()
         {
-            _vehicleController.DeleteVehicle(_vehicle.Id).Wait();
+            _vehicleController.UpdateVehicle(_vehicle.Id, _saveVehicleDTO).Wait();
 
             _vehicleRepository.Verify(vr => vr.GetVehicleAsync(_vehicle.Id, false));
         }
