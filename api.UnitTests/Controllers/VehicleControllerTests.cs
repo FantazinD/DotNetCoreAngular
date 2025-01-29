@@ -101,5 +101,16 @@ namespace api.UnitTests.Controllers
 
             _vehicleRepository.Verify(vr => vr.Remove(_vehicle));
         }
+
+        [Test]
+        public async Task DeleteVehicle_VehicleDeleted_ReturnsVehicleIdObjectResult()
+        {
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(_vehicle);
+
+            var result = await _vehicleController.DeleteVehicle(_vehicle.Id);
+            var resultObj = result as OkObjectResult;
+
+            Assert.That(resultObj.Value, Is.EqualTo(_vehicle.Id));
+        }
     }
 }
