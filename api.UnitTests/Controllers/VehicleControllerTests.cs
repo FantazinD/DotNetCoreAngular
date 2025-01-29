@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,11 +27,18 @@ namespace api.UnitTests.Controllers
             _vehicle = new Vehicle()
             {
                 Id = 1,
+                Features = [new VehicleFeature() { FeatureId = 1, VehicleId = 1}],
+                ContactEmail = "email",
+                ContactName = "name",
+                ContactPhone = "phone",
+                ModelId = 1,
+                LastUpdate = DateTime.Now,
+                IsRegistered = false,
             };
 
             _saveVehicleDTO = new SaveVehicleDTO()
             {
-                Id = 1,
+                Id = 1
             };
 
             _vehicleRepository = new Mock<IVehicleRepository>();
@@ -148,6 +156,18 @@ namespace api.UnitTests.Controllers
             var result = await _vehicleController.DeleteVehicle(_vehicle.Id);
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
+        }
+
+        [Test]
+        public async Task CreateVehicle_ModelStateIsNotValid_ReturnsBadRequest()
+        {
+            _vehicleController.ModelState.AddModelError("ContactName", "The ContactName field is required.");
+
+            var result = await _vehicleController.CreateVehicle(_saveVehicleDTO);
+            var resultObj = result as BadRequestObjectResult;
+
+            Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
+            Assert.That(resultObj?.Value, Is.TypeOf<SerializableError>());
         }
     }
 }
