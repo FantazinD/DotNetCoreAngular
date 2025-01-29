@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using api.Controllers;
+using api.DTOs.Vehicle;
 using api.Interfaces;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,17 @@ namespace api.UnitTests.Controllers
         private Mock<IUnitOfWorkRepository> _unitOfWorkRepository;
         private VehicleController _vehicleController;
         private Vehicle _vehicle;
+        private SaveVehicleDTO _saveVehicleDTO;
 
         [SetUp]
         public void SetUp()
         {
             _vehicle = new Vehicle()
+            {
+                Id = 1,
+            };
+
+            _saveVehicleDTO = new SaveVehicleDTO()
             {
                 Id = 1,
             };
@@ -111,6 +118,18 @@ namespace api.UnitTests.Controllers
             var resultObj = result as OkObjectResult;
 
             Assert.That(resultObj.Value, Is.EqualTo(_vehicle.Id));
+        }
+
+        [Test]
+        public async Task UpdateVehicle_ModelStateIsNotValid_ReturnsBadRequest()
+        {
+            _vehicleController.ModelState.AddModelError("ContactName", "The ContactName field is required.");
+
+            var result = await _vehicleController.UpdateVehicle(_vehicle.Id, _saveVehicleDTO);
+            var resultObj = result as BadRequestObjectResult;
+
+            Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
+            Assert.That(resultObj?.Value, Is.TypeOf<SerializableError>());
         }
     }
 }
