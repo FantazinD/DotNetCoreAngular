@@ -131,5 +131,13 @@ namespace api.UnitTests.Controllers
             Assert.That(result, Is.TypeOf<BadRequestObjectResult>());
             Assert.That(resultObj?.Value, Is.TypeOf<SerializableError>());
         }
+
+        [Test]
+        public void UpdateVehicle_WhenCalled_GetsVehicleFromDatabase()
+        {
+            _vehicleController.DeleteVehicle(_vehicle.Id).Wait();
+
+            _vehicleRepository.Verify(vr => vr.GetVehicleAsync(_vehicle.Id, false));
+        }
     }
 }
