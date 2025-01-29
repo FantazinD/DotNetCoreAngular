@@ -139,5 +139,15 @@ namespace api.UnitTests.Controllers
 
             _vehicleRepository.Verify(vr => vr.GetVehicleAsync(_vehicle.Id, false));
         }
+
+        [Test]
+        public async Task UpdateVehicle_NonExistentVehicle_ReturnsNotFound()
+        {
+            _vehicleRepository.Setup(vr => vr.GetVehicleAsync(_vehicle.Id, false)).ReturnsAsync(() => null);
+
+            var result = await _vehicleController.DeleteVehicle(_vehicle.Id);
+
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
+        }
     }
 }
