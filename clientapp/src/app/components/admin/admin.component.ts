@@ -1,6 +1,6 @@
+import { BaseChartDirective } from 'ng2-charts';
 import { Component } from '@angular/core';
 import { ChartOptions } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-admin',
