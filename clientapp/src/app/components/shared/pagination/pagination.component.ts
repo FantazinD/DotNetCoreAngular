@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
   SimpleChanges,
+  EventEmitter,
+  OnChanges,
+  Component,
+  Output,
+  Input,
 } from '@angular/core';
 
 @Component({
