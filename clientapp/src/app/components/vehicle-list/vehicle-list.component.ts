@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { VehicleService } from '../../../../services/vehicle.service';
-import { RouterModule } from '@angular/router';
-import { IKeyValuePair } from '../../interfaces/IKeyValuePair';
-import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { AuthService } from '@auth0/auth0-angular';
-import { CommonModule } from '@angular/common';
-import { ConfigService } from '../../../../services/config.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
+import { VehicleService } from '../../../../services/vehicle.service';
+import { ConfigService } from '../../../../services/config.service';
+import { IKeyValuePair } from '../../interfaces/IKeyValuePair';
+import { AuthService } from '@auth0/auth0-angular';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-vehicle-list',
