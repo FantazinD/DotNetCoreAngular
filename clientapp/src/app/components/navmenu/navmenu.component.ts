@@ -1,8 +1,8 @@
+import { CustomAuthService } from '../../../../services/custom-auth.service';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { AuthService } from '@auth0/auth0-angular';
 import { Component, Inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
-import { CustomAuthService } from '../../../../services/custom-auth.service';
 
 @Component({
   selector: 'app-navmenu',
