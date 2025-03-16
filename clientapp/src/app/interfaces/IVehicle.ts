@@ -1,5 +1,5 @@
-import { IContact } from './IContact';
 import { IKeyValuePair } from './IKeyValuePair';
+import { IContact } from './IContact';
 
 export interface IVehicle {
   id: number;
