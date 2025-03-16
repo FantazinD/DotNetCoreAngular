@@ -1,13 +1,13 @@
-import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from '../shared/loading/loading.component';
 import { VehicleService } from '../../../../services/vehicle.service';
+import { ISaveVehicle } from '../../interfaces/ISaveVehicle';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IVehicle } from '../../interfaces/IVehicle';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { ISaveVehicle } from '../../interfaces/ISaveVehicle';
-import { IVehicle } from '../../interfaces/IVehicle';
-import { LoadingComponent } from '../shared/loading/loading.component';
 
 @Component({
   selector: 'app-vehicle-form',
