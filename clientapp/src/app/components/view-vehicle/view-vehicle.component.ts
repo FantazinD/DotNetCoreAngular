@@ -1,12 +1,12 @@
-import { PhotoService } from './../../../../services/photo.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LoadingComponent } from '../shared/loading/loading.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { VehicleService } from '../../../../services/vehicle.service';
-import { ToastrService } from 'ngx-toastr';
+import { PhotoService } from './../../../../services/photo.service';
 import { HttpEventType } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from '../shared/loading/loading.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-vehicle',
