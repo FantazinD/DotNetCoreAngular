@@ -4,14 +4,14 @@ import { NavmenuComponent } from './components/navmenu/navmenu.component';
 import { CustomAuthService } from '../../services/custom-auth.service';
 import { HomeComponent } from './components/home/home.component';
 import { VehicleService } from '../../services/vehicle.service';
-import { Component, ErrorHandler } from '@angular/core';
+import { ConfigService } from '../../services/config.service';
 import { PhotoService } from '../../services/photo.service';
+import { Component, ErrorHandler } from '@angular/core';
 import { AppErrorHandler } from './app.error-handler';
 import { AuthService } from '@auth0/auth0-angular';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ConfigService } from '../../services/config.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
