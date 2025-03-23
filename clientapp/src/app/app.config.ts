@@ -3,16 +3,16 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideAuth0 } from '@auth0/auth0-angular';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideClientHydration } from '@angular/platform-browser';
 import { ConfigService } from '../../services/config.service';
+import { provideAuth0 } from '@auth0/auth0-angular';
+import { provideRouter } from '@angular/router';
 import { initConfig } from './app.component';
+import { provideToastr } from 'ngx-toastr';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
