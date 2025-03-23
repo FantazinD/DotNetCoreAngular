@@ -1,16 +1,16 @@
-import { Component, ErrorHandler, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from './components/shared/loading/loading.component';
+import { AdminAuthGuardService } from '../../services/admin-auth-guard.service';
 import { NavmenuComponent } from './components/navmenu/navmenu.component';
+import { CustomAuthService } from '../../services/custom-auth.service';
+import { HomeComponent } from './components/home/home.component';
 import { VehicleService } from '../../services/vehicle.service';
-import { AppErrorHandler } from './app.error-handler';
+import { Component, ErrorHandler } from '@angular/core';
 import { PhotoService } from '../../services/photo.service';
+import { AppErrorHandler } from './app.error-handler';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from './components/shared/loading/loading.component';
-import { CustomAuthService } from '../../services/custom-auth.service';
-import { AdminAuthGuardService } from '../../services/admin-auth-guard.service';
+import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { ConfigService } from '../../services/config.service';
 import { firstValueFrom } from 'rxjs';
 
